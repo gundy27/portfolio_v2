@@ -2,32 +2,103 @@ import fs from 'fs'
 import path from 'path'
 import matter from 'gray-matter'
 import type { Profile, Project, Resource, TimelineEvent } from './types'
+import { isProfile, isProject, isResource, isTimelineEvent } from './validate'
 
-const contentDirectory = path.join(process.cwd(), 'content')
+function resolveContentDirectory(): string {
+  // Allow deployments to override the content directory location.
+  const fromEnv = process.env.CONTENT_DIR
+  if (fromEnv && fromEnv.trim().length > 0) return fromEnv.trim()
+
+  // Default: repo root `content/` directory.
+  return path.join(process.cwd(), 'content')
+}
+
+const contentDirectory = resolveContentDirectory()
+
+function logContentError(context: string, error: unknown) {
+  // Avoid throwing during rendering; emit a helpful log for debugging.
+  console.error(`[content] ${context}`, error)
+}
+
+function safeReadFileUtf8(filePath: string): string | null {
+  try {
+    if (!fs.existsSync(filePath)) return null
+    return fs.readFileSync(filePath, 'utf8')
+  } catch (error) {
+    logContentError(`Failed to read file: ${filePath}`, error)
+    return null
+  }
+}
+
+function safeReadJson(filePath: string): unknown | null {
+  const raw = safeReadFileUtf8(filePath)
+  if (raw == null) return null
+
+  try {
+    return JSON.parse(raw) as unknown
+  } catch (error) {
+    logContentError(`Failed to parse JSON: ${filePath}`, error)
+    return null
+  }
+}
+
+function safeReadJsonValidated<T>(
+  filePath: string,
+  isValid: (value: unknown) => value is T,
+  label: string
+): T | null {
+  const parsed = safeReadJson(filePath)
+  if (parsed == null) return null
+
+  if (!isValid(parsed)) {
+    logContentError(`Invalid ${label} JSON schema: ${filePath}`, parsed)
+    return null
+  }
+
+  return parsed
+}
+
+function safeReadDir(dirPath: string): string[] {
+  try {
+    if (!fs.existsSync(dirPath)) return []
+    return fs.readdirSync(dirPath)
+  } catch (error) {
+    logContentError(`Failed to read directory: ${dirPath}`, error)
+    return []
+  }
+}
+
+function fallbackProfile(): Profile {
+  return {
+    name: '',
+    headline: '',
+    tagline: '',
+    bio: '',
+    email: '',
+    links: {},
+    rotatingText: [],
+  }
+}
 
 // Load profile data
 export function getProfile(): Profile {
   const filePath = path.join(contentDirectory, 'profile.json')
-  const fileContents = fs.readFileSync(filePath, 'utf8')
-  return JSON.parse(fileContents)
+  const profile = safeReadJsonValidated<Profile>(filePath, isProfile, 'profile')
+  return profile ?? fallbackProfile()
 }
 
 // Load all projects
 export function getProjects(): Project[] {
   const projectsDirectory = path.join(contentDirectory, 'projects')
-  if (!fs.existsSync(projectsDirectory)) {
-    return []
-  }
-  
-  const files = fs.readdirSync(projectsDirectory)
-  
+  const files = safeReadDir(projectsDirectory)
+
   const projects = files
     .filter((file) => file.endsWith('.json') && !file.includes('template'))
     .map((file) => {
       const filePath = path.join(projectsDirectory, file)
-      const fileContents = fs.readFileSync(filePath, 'utf8')
-      return JSON.parse(fileContents) as Project
+      return safeReadJsonValidated<Project>(filePath, isProject, 'project')
     })
+    .filter((p): p is Project => p != null)
   
   // Sort by year (newest first), then by featured
   return projects.sort((a, b) => {
@@ -40,13 +111,7 @@ export function getProjects(): Project[] {
 // Load single project by slug
 export function getProject(slug: string): Project | null {
   const filePath = path.join(contentDirectory, 'projects', `${slug}.json`)
-  
-  if (!fs.existsSync(filePath)) {
-    return null
-  }
-  
-  const fileContents = fs.readFileSync(filePath, 'utf8')
-  return JSON.parse(fileContents) as Project
+  return safeReadJsonValidated<Project>(filePath, isProject, 'project')
 }
 
 // Load project content (markdown) if available
@@ -57,32 +122,31 @@ export function getProjectContent(slug: string): string | null {
   }
   
   const filePath = path.join(contentDirectory, 'projects', project.contentFile)
-  
-  if (!fs.existsSync(filePath)) {
+
+  const fileContents = safeReadFileUtf8(filePath)
+  if (fileContents == null) return null
+
+  try {
+    const { content } = matter(fileContents)
+    return content
+  } catch (error) {
+    logContentError(`Failed to parse markdown frontmatter: ${filePath}`, error)
     return null
   }
-  
-  const fileContents = fs.readFileSync(filePath, 'utf8')
-  const { content } = matter(fileContents)
-  return content
 }
 
 // Load all resources
 export function getResources(): Resource[] {
   const resourcesDirectory = path.join(contentDirectory, 'resources')
-  if (!fs.existsSync(resourcesDirectory)) {
-    return []
-  }
-  
-  const files = fs.readdirSync(resourcesDirectory)
-  
+  const files = safeReadDir(resourcesDirectory)
+
   const resources = files
     .filter((file) => file.endsWith('.json') && !file.includes('template'))
     .map((file) => {
       const filePath = path.join(resourcesDirectory, file)
-      const fileContents = fs.readFileSync(filePath, 'utf8')
-      return JSON.parse(fileContents) as Resource
+      return safeReadJsonValidated<Resource>(filePath, isResource, 'resource')
     })
+    .filter((r): r is Resource => r != null)
   
   return resources.sort((a, b) => b.rating - a.rating)
 }
@@ -90,13 +154,8 @@ export function getResources(): Resource[] {
 // Load timeline events
 export function getTimelineEvents(): TimelineEvent[] {
   const filePath = path.join(contentDirectory, 'timeline', 'events.json')
-  
-  if (!fs.existsSync(filePath)) {
-    return []
-  }
-  
-  const fileContents = fs.readFileSync(filePath, 'utf8')
-  const events = JSON.parse(fileContents) as TimelineEvent[]
+  const parsed = safeReadJson(filePath)
+  const events = Array.isArray(parsed) ? parsed.filter(isTimelineEvent) : []
   
   // Sort by start date (newest first)
   return events.sort((a, b) => {

@@ -6,9 +6,16 @@ import type { Resource } from '@/lib/content/types'
 interface ResourcesTableProps {
   resources: Resource[]
   onRatingChange: (id: string, delta: number) => void
+  onRowSelect?: (id: string) => void
+  selectedId?: string | null
 }
 
-export function ResourcesTable({ resources, onRatingChange }: ResourcesTableProps) {
+export function ResourcesTable({
+  resources,
+  onRatingChange,
+  onRowSelect,
+  selectedId,
+}: ResourcesTableProps) {
   if (resources.length === 0) {
     return (
       <div className="text-center py-16 text-secondary">
@@ -25,6 +32,8 @@ export function ResourcesTable({ resources, onRatingChange }: ResourcesTableProp
             key={resource.id}
             resource={resource}
             onRatingChange={onRatingChange}
+            onSelect={onRowSelect}
+            isSelected={selectedId === resource.id}
           />
         ))}
       </div>
