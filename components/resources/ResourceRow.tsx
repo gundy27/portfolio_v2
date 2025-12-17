@@ -3,22 +3,34 @@
 import { useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import type { Resource } from '@/lib/content/types'
-import { Label } from '@/components/ui/Label'
 import { Button } from '@/components/ui/Button'
 
 interface ResourceRowProps {
   resource: Resource
   onRatingChange: (id: string, delta: number) => void
+  onSelect?: (id: string) => void
+  isSelected?: boolean
 }
 
-export function ResourceRow({ resource, onRatingChange }: ResourceRowProps) {
+export function ResourceRow({ resource, onRatingChange, onSelect, isSelected }: ResourceRowProps) {
   const [isExpanded, setIsExpanded] = useState(false)
   
   return (
     <motion.div
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
-      className="border-b border-gray-200 py-4"
+      className={[
+        'border-b border-gray-200 py-4 px-4 sm:px-6 transition-colors',
+        onSelect ? 'cursor-pointer hover:bg-gray-50' : '',
+        isSelected ? 'bg-gray-50' : '',
+      ].join(' ')}
+      onClick={() => onSelect?.(resource.id)}
+      role={onSelect ? 'button' : undefined}
+      tabIndex={onSelect ? 0 : undefined}
+      onKeyDown={(e) => {
+        if (!onSelect) return
+        if (e.key === 'Enter' || e.key === ' ') onSelect(resource.id)
+      }}
     >
       <div className="flex flex-col sm:flex-row items-start sm:items-start gap-4">
         <div className="flex-1 w-full min-w-0">
@@ -29,7 +41,10 @@ export function ResourceRow({ resource, onRatingChange }: ResourceRowProps) {
             <Button
               variant="outline"
               size="sm"
-              onClick={() => setIsExpanded(!isExpanded)}
+              onClick={(e) => {
+                e.stopPropagation()
+                setIsExpanded(!isExpanded)
+              }}
               className="self-start sm:self-auto"
             >
               {isExpanded ? 'COLLAPSE' : 'EXPAND'}
@@ -58,11 +73,16 @@ export function ResourceRow({ resource, onRatingChange }: ResourceRowProps) {
         <div className="flex items-center gap-2 sm:gap-4 w-full sm:w-auto justify-between sm:justify-start border-t sm:border-t-0 pt-4 sm:pt-0">
           <div className="flex items-center gap-2">
             <button
-              onClick={() => onRatingChange(resource.id, -1)}
+              type="button"
+              onClick={(e) => {
+                e.stopPropagation()
+                onRatingChange(resource.id, -1)
+              }}
               className="p-2 hover:bg-gray-100 rounded transition-colors"
               aria-label="Decrease rating"
             >
               <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <title>Decrease rating</title>
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
               </svg>
             </button>
@@ -70,11 +90,16 @@ export function ResourceRow({ resource, onRatingChange }: ResourceRowProps) {
               {resource.rating >= 0 ? '+' : ''}{resource.rating}
             </span>
             <button
-              onClick={() => onRatingChange(resource.id, 1)}
+              type="button"
+              onClick={(e) => {
+                e.stopPropagation()
+                onRatingChange(resource.id, 1)
+              }}
               className="p-2 hover:bg-gray-100 rounded transition-colors"
               aria-label="Increase rating"
             >
               <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <title>Increase rating</title>
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 15l7-7 7 7" />
               </svg>
             </button>

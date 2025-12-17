@@ -1,5 +1,4 @@
-import { Header } from '@/components/layout/Header'
-import { Footer } from '@/components/layout/Footer'
+import { PageLayout } from '@/components/layout/PageLayout'
 import { Hero } from '@/components/home/Hero'
 import { AboutMe } from '@/components/home/AboutMe'
 import { FeaturedProjects } from '@/components/home/FeaturedProjects'
@@ -10,16 +9,12 @@ export default async function HomePage() {
   const featuredProjects = getFeaturedProjects()
   
   return (
-    <div className="min-h-screen flex flex-col">
-      <Header />
-      
-      <main className="flex-1">
+    <PageLayout profile={profile}>
+      <div>
         <Hero name={profile.name} headline={profile.headline} />
         <AboutMe tagline={profile.tagline} rotatingText={profile.rotatingText} />
         <FeaturedProjects projects={featuredProjects} />
-      </main>
-      
-      <Footer profile={profile} />
-    </div>
+      </div>
+    </PageLayout>
   )
 }
