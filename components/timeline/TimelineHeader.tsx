@@ -1,44 +1,54 @@
 'use client'
 
-// Framer Motion for animations
+import Image from 'next/image'
 import { motion } from 'framer-motion'
+import { ChevronDown } from 'lucide-react'
+import { Button } from '@/components/ui/Button'
+import { SectionHeader } from '@/components/ui/SectionHeader'
 
 export function TimelineHeader() {
+  const scrollToBottom = () => {
+    const el = document.getElementById('timeline-bottom')
+    el?.scrollIntoView({ behavior: 'smooth', block: 'start' })
+  }
+
   return (
-    <motion.div
-      initial={{ opacity: 0, y: 20 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.6 }}
-      className="text-center"
-    >
-      <h1 className="text-4xl sm:text-5xl lg:text-6xl font-heading font-semibold text-primary mb-32">
-        Career Timeline
-      </h1>
-      
-      {/* Scroll indicator */}
-      <motion.div
-        animate={{ y: [0, 10, 0] }}
-        transition={{ duration: 1.5, repeat: Infinity, ease: 'easeInOut' }}
-        className="flex flex-col items-center text-secondary"
-      >
-        <span className="text-sm font-label uppercase tracking-wider mb-2">Scroll to explore</span>
-        <svg 
-          className="w-6 h-6" 
-          fill="none" 
-          stroke="currentColor" 
-          viewBox="0 0 24 24"
-          aria-label="Scroll down indicator"
-        >
-          <title>Scroll down</title>
-          <path 
-            strokeLinecap="round" 
-            strokeLinejoin="round" 
-            strokeWidth={2} 
-            d="M19 14l-7 7m0 0l-7-7m7 7V3" 
-          />
-        </svg>
-      </motion.div>
-    </motion.div>
+    <section className="section-spacing-large relative py-12 sm:py-16 lg:py-20">
+      <div className="container-wide">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-16 items-center">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6 }}
+            className="space-before-h1 max-w-2xl"
+          >
+            <SectionHeader label="CAREER" heading="Timeline" headingLevel="h1" />
+
+            <p className="mt-4 text-base sm:text-lg text-[var(--color-text-body)] max-w-xl">
+              Scroll through to see Dan&apos;s career arc highlighting key accomplishments and phases. Scroll down to
+              explore earlier years, or start from the bottom and work your way up.
+            </p>
+
+            <div className="mt-8">
+              <Button variant="outline" size="md" onClick={scrollToBottom}>
+                <ChevronDown className="mr-2 h-4 w-4" aria-hidden="true" />
+                Start at bottom
+              </Button>
+            </div>
+          </motion.div>
+
+          <div className="relative w-full aspect-[16/9] rounded-2xl overflow-hidden bg-gray-50 border border-gray-200 shadow-sm">
+            <Image
+              src="/assets/mountain-placeholder.svg"
+              alt="Mountain illustration"
+              fill
+              className="object-contain p-8 sm:p-10"
+              priority
+            />
+          </div>
+        </div>
+      </div>
+    </section>
   )
 }
 

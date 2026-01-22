@@ -8,7 +8,7 @@ interface HeroProps {
 }
 
 const defaultBio =
-  'Dan is a Senior Product Manager with 12+ years of experience who is exploring a pivot into Growth Engineering. He specializes in building scalable systems that consistently turn complexity into activation, retention, and revenue. Based out of Irvine, CA but open to remote work.'
+  'Dan is a Senior Product Manager with 12+ years of experience. He specializes in building scalable systems that turn complexity into activation, retention, and revenue. While open to product roles, he is hoping to pivot into Growth Engineering. Available for part-time or full-time opportunities.'
 
 export function Hero({ name }: HeroProps) {
   return (

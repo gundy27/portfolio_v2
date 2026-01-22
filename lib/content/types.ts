@@ -44,3 +44,20 @@ export interface TimelineEvent {
   projectLinks?: string[] // Array of project IDs
 }
 
+export type TimelineAnchorType = 'milestone' | 'achievement' | 'project' | 'position' | 'work' | 'other'
+
+export interface TimelineAnchor {
+  id: string
+  title: string
+  description?: string
+  imageUrl?: string
+  imageDescription?: string
+  projectLink?: string // project slug (optional)
+  type?: TimelineAnchorType
+}
+
+export interface TimelineYear {
+  year: number
+  anchors: TimelineAnchor[]
+}
+

@@ -1,7 +1,7 @@
 import fs from 'fs'
 import path from 'path'
 import matter from 'gray-matter'
-import type { Profile, Project, TimelineEvent } from './types'
+import type { Profile, Project, TimelineEvent, TimelineYear } from './types'
 
 const contentDirectory = path.join(process.cwd(), 'content')
 
@@ -147,7 +147,19 @@ export function getTimelineEvents(): TimelineEvent[] {
     }
 
     const fileContents = fs.readFileSync(filePath, 'utf8')
-    const events = JSON.parse(fileContents) as TimelineEvent[]
+    const parsed: unknown = JSON.parse(fileContents)
+
+    const looksLikeTimelineYear = (value: unknown): value is { year: unknown } =>
+      typeof value === 'object' && value !== null && 'year' in value
+
+    // Back-compat guard: if the file has been migrated to year-based structure,
+    // don't attempt to treat it as TimelineEvent[] (would crash on sort).
+    if (Array.isArray(parsed) && looksLikeTimelineYear(parsed[0])) {
+      console.warn('[content] timeline/events.json is year-based; getTimelineEvents() is deprecated')
+      return []
+    }
+
+    const events = parsed as TimelineEvent[]
 
     // Sort by start date (newest first)
     return events.sort((a, b) => {
@@ -155,6 +167,25 @@ export function getTimelineEvents(): TimelineEvent[] {
     })
   } catch (error) {
     console.error('[content] Error loading timeline events:', error)
+    return []
+  }
+}
+
+// Load timeline years (year-based anchors)
+export function getTimelineYears(): TimelineYear[] {
+  try {
+    const filePath = path.join(contentDirectory, 'timeline', 'events.json')
+    if (!fs.existsSync(filePath)) {
+      return []
+    }
+
+    const fileContents = fs.readFileSync(filePath, 'utf8')
+    const years = JSON.parse(fileContents) as TimelineYear[]
+
+    // Sort newest-first so 2026 renders at top and 2013 at bottom.
+    return years.sort((a, b) => b.year - a.year)
+  } catch (error) {
+    console.error('[content] Error loading timeline years:', error)
     return []
   }
 }

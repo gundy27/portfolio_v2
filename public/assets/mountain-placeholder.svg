@@ -1,0 +1,8 @@
+<svg width="800" height="500" viewBox="0 0 800 500" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Mountain placeholder illustration">
+  <rect width="800" height="500" fill="#EEF1F3"/>
+  <path d="M120 420L320 190L400 275L520 120L680 420H120Z" fill="#1F2A44" opacity="0.95"/>
+  <path d="M320 190L360 235L400 275L440 230L520 120L560 180L600 230L680 420H520L455 300L400 340L345 290L260 420H120L320 190Z" fill="#2D3A5E" opacity="0.9"/>
+  <path d="M520 120L555 168L535 182L520 160L505 180L482 170L520 120Z" fill="#FAFAFA" opacity="0.95"/>
+  <path d="M318 192L342 222L330 232L312 212L298 226L282 218L318 192Z" fill="#FAFAFA" opacity="0.9"/>
+  <path d="M0 420H800V500H0V420Z" fill="#FFFFFF"/>
+</svg>

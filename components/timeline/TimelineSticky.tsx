@@ -3,28 +3,34 @@
 import * as React from 'react'
 import Image from 'next/image'
 import { AnimatePresence, motion } from 'framer-motion'
-import { Label } from '@/components/ui/Label'
-import { cn } from '@/lib/utils/cn'
-
-export type TimelineEntry = {
-  dateRange: string
-  company: string
-  title: string
-  description: string
-  tags: readonly string[]
-  imageUrl?: string
-}
+import { Button } from '@/components/ui/Button'
+import type { TimelineAnchor, TimelineYear } from '@/lib/content/types'
 
 type TimelineStickyProps = {
-  entries: readonly TimelineEntry[]
+  years: readonly TimelineYear[]
 }
 
-export function TimelineSticky({ entries }: TimelineStickyProps) {
+type FlatAnchor = {
+  year: number
+  anchor: TimelineAnchor
+}
+
+export function TimelineSticky({ years }: TimelineStickyProps) {
   const [activeIndex, setActiveIndex] = React.useState(0)
-  const sectionRefs = React.useRef<Array<HTMLElement | null>>([])
+  const anchorRefs = React.useRef<Array<HTMLElement | null>>([])
+
+  const flatAnchors = React.useMemo<FlatAnchor[]>(() => {
+    const out: FlatAnchor[] = []
+    years.forEach((y) => {
+      y.anchors.forEach((a) => {
+        out.push({ year: y.year, anchor: a })
+      })
+    })
+    return out
+  }, [years])
 
   React.useEffect(() => {
-    const getNodes = () => sectionRefs.current.filter(Boolean) as HTMLElement[]
+    const getNodes = () => anchorRefs.current.filter(Boolean) as HTMLElement[]
 
     const pickClosestToCenter = () => {
       const nodes = getNodes()
@@ -118,10 +124,10 @@ export function TimelineSticky({ entries }: TimelineStickyProps) {
     }
   }, [])
 
-  const safeActiveIndex = Math.min(Math.max(activeIndex, 0), Math.max(entries.length - 1, 0))
-  const active = entries[safeActiveIndex]
+  const safeActiveIndex = Math.min(Math.max(activeIndex, 0), Math.max(flatAnchors.length - 1, 0))
+  const active = flatAnchors[safeActiveIndex]
 
-  if (!entries.length) return null
+  if (!years.length || !flatAnchors.length) return null
 
   return (
     <section className="mt-20">
@@ -129,57 +135,81 @@ export function TimelineSticky({ entries }: TimelineStickyProps) {
         {/* Left: timeline */}
         <div className="relative">
           {/* Single vertical timeline line */}
-          <div className="absolute left-4 sm:left-6 lg:left-8 top-0 bottom-0 w-px bg-gray-200" aria-hidden="true" />
+          <div
+            className="absolute left-4 sm:left-6 lg:left-8 -translate-x-1/2 top-0 bottom-0 w-px bg-gray-200"
+            aria-hidden="true"
+          />
 
-          <ul className="space-y-14 sm:space-y-20">
-            {entries.map((entry, i) => {
-              const isActive = i === safeActiveIndex
-              return (
-                <li
-                  key={`${entry.company}-${entry.dateRange}`}
-                  ref={(el) => {
-                    sectionRefs.current[i] = el
-                  }}
-                  data-index={i}
-                  className="relative pl-12 sm:pl-16 lg:pl-20 py-14 sm:py-16 lg:py-20 min-h-[82vh] scroll-mt-28"
-                >
-                  <motion.div
-                    initial={{ opacity: 0, y: 18 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ amount: 0.25, margin: '-10% 0px -55% 0px' }}
-                    transition={{ duration: 0.5, ease: 'easeOut' }}
-                  >
-                    {/* Timeline marker (aligned to the vertical line) */}
-                    <span
-                      className={cn(
-                        'absolute left-4 sm:left-6 lg:left-8 top-16 w-3.5 h-3.5 rounded-full border-2 bg-white transition-colors',
-                        'border-accent',
-                        isActive && 'bg-accent'
-                      )}
-                      aria-hidden="true"
-                    />
+          <ul className="space-y-0">
+            {(() => {
+              let runningIndex = -1
+              const lastYear = years[years.length - 1]?.year
 
-                    <div className="max-w-[48rem]">
-                      <div className="text-secondary text-xs sm:text-sm mb-3">{entry.dateRange}</div>
+              return years.map((yearBlock) => {
+                const isBottomYear = yearBlock.year === lastYear
 
-                      <h3 className="font-heading text-2xl sm:text-3xl lg:text-4xl font-semibold text-primary mb-3">
-                        {entry.company}
-                      </h3>
-
-                      <h4 className="font-heading text-lg sm:text-xl font-medium text-primary mb-5">{entry.title}</h4>
-
-                      <p className="text-body text-base sm:text-lg leading-relaxed mb-8">{entry.description}</p>
-
-                      <div className="flex flex-wrap gap-2">
-                        {entry.tags.map((tag) => (
-                          <Label key={tag}>{tag}</Label>
-                        ))}
+                return (
+                  <li key={yearBlock.year} className="relative">
+                    <div
+                      className="relative pl-10 sm:pl-12 lg:pl-14 pt-8 pb-2"
+                      id={isBottomYear ? 'timeline-bottom' : undefined}
+                    >
+                      <span
+                        className="absolute left-4 sm:left-6 lg:left-8 -translate-x-1/2 top-10 w-4 h-4 rounded-full border-2 bg-white border-gray-200"
+                        aria-hidden="true"
+                      />
+                      <div className="font-heading text-lg sm:text-xl font-semibold text-primary">
+                        {yearBlock.year}
                       </div>
                     </div>
-                  </motion.div>
-                </li>
-              )
-            })}
+
+                    {yearBlock.anchors.map((anchor) => {
+                      runningIndex += 1
+                      const flatIndex = runningIndex
+
+                      return (
+                        <article
+                          key={anchor.id}
+                          ref={(el) => {
+                            anchorRefs.current[flatIndex] = el
+                          }}
+                          data-index={flatIndex}
+                          className="relative pl-10 sm:pl-12 lg:pl-14 py-16 sm:py-20 lg:py-24 min-h-[60vh] scroll-mt-28"
+                        >
+                          <motion.div
+                            initial={{ opacity: 0, y: 18 }}
+                            whileInView={{ opacity: 1, y: 0 }}
+                            viewport={{ amount: 0.25, margin: '-10% 0px -55% 0px' }}
+                            transition={{ duration: 0.5, ease: 'easeOut' }}
+                            className="max-w-[48rem]"
+                          >
+                            {anchor.type ? (
+                              <div className="text-accent text-xs sm:text-sm mb-3 font-label uppercase tracking-wider">
+                                {anchor.type}
+                              </div>
+                            ) : null}
+
+                            <h3 className="font-heading text-2xl sm:text-3xl lg:text-4xl font-semibold text-primary mb-4">
+                              {anchor.title}
+                            </h3>
+
+                            {anchor.description ? (
+                              <p className="text-body text-base sm:text-lg leading-relaxed mb-8">{anchor.description}</p>
+                            ) : null}
+
+                            {anchor.projectLink ? (
+                              <Button asChild href={`/projects/${anchor.projectLink}`} variant="secondary" size="sm">
+                                View project
+                              </Button>
+                            ) : null}
+                          </motion.div>
+                        </article>
+                      )
+                    })}
+                  </li>
+                )
+              })
+            })()}
           </ul>
         </div>
 
@@ -189,15 +219,20 @@ export function TimelineSticky({ entries }: TimelineStickyProps) {
             <div className="relative aspect-[4/3] w-full bg-gray-50">
               <AnimatePresence mode="wait" initial={false}>
                 <motion.div
-                  key={`${active.company}-${active.dateRange}`}
+                  key={`${active.year}-${active.anchor.id}`}
                   className="absolute inset-0"
                   initial={{ opacity: 0 }}
                   animate={{ opacity: 1 }}
                   exit={{ opacity: 0 }}
                   transition={{ duration: 0.25 }}
                 >
-                  {active.imageUrl ? (
-                    <Image src={active.imageUrl} alt={`${active.company} image`} fill className="object-contain p-10" />
+                  {active.anchor.imageUrl ? (
+                    <Image
+                      src={active.anchor.imageUrl}
+                      alt={active.anchor.title}
+                      fill
+                      className="object-contain p-10"
+                    />
                   ) : (
                     <div className="absolute inset-0 flex items-center justify-center text-secondary text-sm">
                       Image placeholder
@@ -208,10 +243,11 @@ export function TimelineSticky({ entries }: TimelineStickyProps) {
             </div>
 
             <div className="space-y-1 p-5">
-              <p className="text-xs font-label uppercase tracking-wider text-secondary">{active.dateRange}</p>
-              <p className="text-base font-heading font-semibold text-primary">{active.company}</p>
-              <p className="text-sm text-secondary">{active.title}</p>
-              <p className="text-sm text-secondary mt-2">{active.description}</p>
+              <p className="text-xs font-label uppercase tracking-wider text-secondary">{active.year}</p>
+              <p className="text-base font-heading font-semibold text-primary">{active.anchor.title}</p>
+              {active.anchor.imageDescription ? (
+                <p className="text-sm text-secondary">{active.anchor.imageDescription}</p>
+              ) : null}
             </div>
           </div>
         </div>
