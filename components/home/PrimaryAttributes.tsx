@@ -1,7 +1,6 @@
 'use client'
 
 import { motion } from 'framer-motion'
-import { SectionHeader } from '@/components/ui/SectionHeader'
 import { Card } from '@/components/ui/Card'
 import { BarChart3, FlaskConical, Gauge, Layers } from 'lucide-react'
 
@@ -40,23 +39,6 @@ export function PrimaryAttributes() {
   return (
     <section className="section-spacing-large bg-gray-100 !mt-32 sm:!mt-48 lg:!mt-64">
       <div className="container-wide pt-16 sm:pt-20 lg:pt-24 pb-16 sm:pb-20 lg:pb-24">
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6 }}
-          className="space-before-h2 text-center"
-        >
-          <SectionHeader
-            label="PRODUCT LEADER"
-            heading="Core Attributes"
-            headingLevel="h2"
-            className="items-center"
-            labelClassName="text-center"
-            headingClassName="text-center"
-          />
-        </motion.div>
-        
         <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6 sm:gap-8 mt-8 sm:mt-12 lg:mt-16">
           {attributes.map((attribute, index) => (
             <motion.div
