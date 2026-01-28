@@ -4,6 +4,8 @@
 
 This document defines the design system for the portfolio website. **Always reference this file when making UI changes.**
 
+**reference ~/wireframes/home_wirefreame.pdf for the home page**
+
 ---
 
 ## Typography
@@ -99,6 +101,19 @@ Use the `SectionHeader` component for consistent section introductions:
 
 - **620–720px max** for best readability
 
+### Floating Section Pattern (Home + major pages)
+
+Use this pattern to make each major section read as a white “floating” card on the page background.
+
+- **Outer wrapper**: `.floating-section`
+  - White background
+  - Rounded corners
+  - Subtle shadow (feels elevated, not heavy)
+  - Responsive side margins (healthy whitespace off the page edges)
+  - Max width cap for large screens
+- **Inner content wrapper**: `.floating-section__content`
+  - Responsive padding for “healthy” interior margins
+
 ---
 
 ## Responsive Design & Grid System
@@ -120,13 +135,11 @@ The design system uses Tailwind CSS breakpoints:
 ### Grid System
 
 - **Container (Standard)**: `max-w-7xl` with responsive padding
-
   - Mobile: `px-4`
   - Tablet: `sm:px-6`
   - Desktop: `lg:px-8`
 
 - **Container (Wide)**: `.container-wide` with `max-w-[1600px]` and generous desktop padding
-
   - Mobile: `px-4`
   - Tablet: `sm:px-6` (px-6)
   - Desktop: `lg:px-12` (px-12)
@@ -192,6 +205,14 @@ All typography scales responsively:
 
 - **#FAFAFA** or **#FFFFFF** for clean layouts
 - Avoid heavy textures or dark backgrounds (too distracting for case studies)
+
+### Page Background Pattern
+
+- **Base**: `#FAFAFA` (page background)
+- **Pattern**: Subtle dot grid that fades in vertically:
+  - **Top of page**: 0% visible (no dots)
+  - **Bottom of page**: ~70% visible (dots remain subtle)
+- **Goal**: Add visual depth without competing with content.
 
 ### Accent Colors
 
@@ -309,7 +330,9 @@ Headers: #111111
 Body: #2C2C2C / #333333
 Secondary: #6A6A6A
 Background: #FAFAFA / #FFFFFF
-Accent: #598392 (use sparingly)
+Accent: #598392
+Dark Accent: #3c5862
+Light Accent: #84a7b4
 ```
 
 ### Responsive Design

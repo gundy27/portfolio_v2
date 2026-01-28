@@ -1,7 +1,8 @@
 import type { Metadata } from 'next'
 import { Label } from '@/components/ui/Label'
 import { Button } from '@/components/ui/Button'
-import { Card } from '@/components/ui/Card'
+import { FeaturedWorkCard } from '@/components/ui/FeaturedWorkCard'
+import { CounterCard } from '@/components/ui/CounterCard'
 import { Header } from '@/components/layout/Header'
 
 export const metadata: Metadata = {
@@ -111,7 +112,7 @@ export default function DesignSystemPage() {
     <div className="min-h-screen flex flex-col">
       <Header />
 
-      <main className="flex-1 bg-white">
+      <main className="flex-1">
         <div className="container-wide pt-24 pb-16">
           {/* Page Header */}
           <div className="mb-16 max-w-3xl">
@@ -340,31 +341,39 @@ export default function DesignSystemPage() {
               </div>
             </div>
           </section>
+        </div>
 
-          {/* Cards */}
-          <section className="lg:col-span-2">
-            <BlockHeader>CARDS</BlockHeader>
-            <div className="grid gap-6 sm:grid-cols-2">
-              <div className="space-y-3">
-                <Card
-                  label="ENTREPRENEURIAL"
-                  title="Mindset"
-                  description="Bootstrapping and developing solutions with the business in mind. Leading AI transformations from strategy through production deployment."
+        <section className="section-spacing-large">
+          <BlockHeader>CARDS</BlockHeader>
+          <div className="floating-section">
+            <div className="floating-section__content">
+              <div className="space-y-10">
+                <BlockHeader>WORK ITEM CARD</BlockHeader>
+                <FeaturedWorkCard
+                  label="GROWTH & ONBOARDING"
+                  title="Self Service Trial"
+                  description="Re-imagined self-service experience to drive 3X boost in product-led sales conversions."
+                  skills={[
+                    'Sign Up Flow UI/UX',
+                    'Authentication',
+                    'Provisioning',
+                    'Experimentation',
+                    'Feature Access',
+                  ]}
                 />
-                <p className="text-xs text-secondary">Hover enabled</p>
-              </div>
-              <div className="space-y-3">
-                <Card
-                  label="ENTREPRENEURIAL"
-                  title="Mindset"
-                  description="Building repeatable frameworks that turn ambiguity into structured programs with clear milestones and measurable business impact."
-                  hover={false}
-                />
-                <p className="text-xs text-secondary">Hover disabled</p>
+
+                <div className="pt-2">
+                  <BlockHeader>COUNTER CARD</BlockHeader>
+                  <div className="grid gap-6 sm:grid-cols-3">
+                    <CounterCard start={0} stop={99} label="REVENUE IMPACTED" />
+                    <CounterCard start={0} stop={12} label="FEATURES DELIVERED" />
+                    <CounterCard start={0} stop={48} label="EXPERIMENTS RUN" />
+                  </div>
+                </div>
               </div>
             </div>
-          </section>
-        </div>
+          </div>
+        </section>
         </div>
       </main>
     </div>

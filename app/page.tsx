@@ -3,13 +3,13 @@ import { Footer } from '@/components/layout/Footer'
 import { GetInTouch } from '@/components/layout/GetInTouch'
 import { UnderConstructionBanner } from '@/components/layout/UnderConstructionBanner'
 import { Hero } from '@/components/home/Hero'
-import { PrimaryAttributes } from '@/components/home/PrimaryAttributes'
-import { FeaturedProjects } from '@/components/home/FeaturedProjects'
-import { getProfile, getFeaturedProjects } from '@/lib/content/loader.server'
+import { Strengths } from '@/components/home/Strengths'
+import { FeaturedWork } from '@/components/home/FeaturedWork'
+import { Counters } from '@/components/home/Counters'
+import { getProfile } from '@/lib/content/loader.server'
 
 export default async function HomePage() {
   const profile = getProfile()
-  const featuredProjects = getFeaturedProjects()
   
   return (
     <div className="min-h-screen flex flex-col">
@@ -20,8 +20,9 @@ export default async function HomePage() {
       
       <main className="flex-1">
         <Hero name={profile.name} />
-        <PrimaryAttributes />
-        <FeaturedProjects projects={featuredProjects} />
+        <Strengths />
+        <FeaturedWork />
+        <Counters />
       </main>
       
       <GetInTouch />

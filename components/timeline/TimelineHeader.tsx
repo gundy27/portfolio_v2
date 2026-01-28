@@ -26,7 +26,7 @@ export function TimelineHeader() {
 
             <p className="mt-4 text-base sm:text-lg text-[var(--color-text-body)] max-w-xl">
               Scroll through to see Dan&apos;s career arc highlighting key accomplishments and phases. Scroll down to
-              explore earlier years, or start from the bottom and work your way up.
+              see recent experience, or start from the bottom and work your way up.
             </p>
 
             <div className="mt-8">
