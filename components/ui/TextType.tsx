@@ -19,6 +19,7 @@ type TextTypeProps = HTMLAttributes<HTMLElement> & {
   deletingSpeed?: number
   loop?: boolean
   className?: string
+  multiline?: boolean
   showCursor?: boolean
   hideCursorWhileTyping?: boolean
   cursorCharacter?: string
@@ -40,6 +41,7 @@ const TextType = ({
   deletingSpeed = 30,
   loop = true,
   className = '',
+  multiline = false,
   showCursor = true,
   hideCursorWhileTyping = false,
   cursorCharacter = '|',
@@ -195,7 +197,7 @@ const TextType = ({
     Component,
     {
       ref: containerRef,
-      className: `text-type ${className}`,
+      className: `text-type ${multiline ? 'text-type--multiline' : ''} ${className}`,
       ...props
     },
     // Invisible spacer that reserves width for the longest text

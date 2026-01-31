@@ -3,6 +3,12 @@
   white-space: nowrap;
 }
 
+.text-type--multiline {
+  display: grid;
+  width: 100%;
+  white-space: normal;
+}
+
 /* Invisible element that reserves width for the longest text */
 .text-type__spacer {
   visibility: hidden;
@@ -11,11 +17,21 @@
   pointer-events: none;
 }
 
+.text-type--multiline .text-type__spacer {
+  display: block;
+  width: 100%;
+  white-space: normal;
+}
+
 /* Wrapper for visible content, overlays the spacer */
 .text-type__visible {
   grid-area: 1 / 1;
   display: inline-flex;
   align-items: center;
+}
+
+.text-type--multiline .text-type__visible {
+  display: block;
 }
 
 .text-type__content {

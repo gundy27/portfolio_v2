@@ -3,7 +3,9 @@ import { Label } from '@/components/ui/Label'
 import { Button } from '@/components/ui/Button'
 import { FeaturedWorkCard } from '@/components/ui/FeaturedWorkCard'
 import { CounterCard } from '@/components/ui/CounterCard'
+import { EndorsementCard } from '@/components/ui/EndorsementCard'
 import { Header } from '@/components/layout/Header'
+import type { Endorsement } from '@/lib/content/types'
 
 export const metadata: Metadata = {
   title: 'Design System | Dan Gunderson',
@@ -108,6 +110,16 @@ function Tag({
 }
 
 export default function DesignSystemPage() {
+  const sampleEndorsement: Endorsement = {
+    id: 'design-system-endorsement',
+    name: 'Sample Name',
+    role: 'Role, Company',
+    quote: 'A short endorsement quote to preview typography, spacing, and layout.',
+    pills: ['UX Design', 'Product Strategy', 'Execution'],
+    linkedinUrl: '',
+    avatarUrl: '',
+  }
+
   return (
     <div className="min-h-screen flex flex-col">
       <Header />
@@ -369,6 +381,43 @@ export default function DesignSystemPage() {
                     <CounterCard start={0} stop={12} label="FEATURES DELIVERED" />
                     <CounterCard start={0} stop={48} label="EXPERIMENTS RUN" />
                   </div>
+                </div>
+
+                <div className="pt-2">
+                  <BlockHeader>TESTIMONIAL CARD</BlockHeader>
+                  <EndorsementCard endorsement={sampleEndorsement} />
+                </div>
+
+                <div className="pt-2">
+                  <BlockHeader>TESTIMONIAL MARQUEE CONTAINER</BlockHeader>
+                  <section
+                    className="overflow-x-auto select-none touch-pan-y scrollbar-hide"
+                    style={{
+                      scrollbarWidth: 'none', /* Firefox */
+                      msOverflowStyle: 'none', /* IE/Edge */
+                    }}
+                    aria-label="Endorsements carousel container (placeholder)"
+                  >
+                    <div className="flex w-max gap-6">
+                      <EndorsementCard endorsement={sampleEndorsement} />
+                      <EndorsementCard
+                        endorsement={{
+                          ...sampleEndorsement,
+                          id: 'design-system-endorsement-2',
+                          name: 'Second Sample',
+                          pills: ['Communication', 'Collaboration'],
+                        }}
+                      />
+                      <EndorsementCard
+                        endorsement={{
+                          ...sampleEndorsement,
+                          id: 'design-system-endorsement-3',
+                          name: 'Third Sample',
+                          pills: ['Leadership', 'Systems Thinking'],
+                        }}
+                      />
+                    </div>
+                  </section>
                 </div>
               </div>
             </div>

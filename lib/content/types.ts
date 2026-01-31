@@ -61,3 +61,13 @@ export interface TimelineYear {
   anchors: TimelineAnchor[]
 }
 
+export interface Endorsement {
+  id: string
+  name: string
+  role: string
+  quote: string
+  pills: string[]
+  linkedinUrl?: string
+  avatarUrl?: string
+}
+

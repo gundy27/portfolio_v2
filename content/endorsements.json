@@ -1,0 +1,48 @@
+[
+  {
+    "id": "vineet-goel",
+    "name": "Vineet Goel",
+    "role": "Director, Product Management | DataRobot",
+    "quote": "Dan is a highly productive, organized, disciplined and a resourceful product manager and I always admired how quickly he learned new things and how effectively he got things done. Dan was always great with making effective use of product, design and collaboration tools, written and verbal communication, as well as data analysis.",
+    "pills": ["Data Driven", "Communication", "Grit"],
+    "linkedinUrl": "",
+    "avatarUrl": "/assets/companies/datarobot-logo.png"
+  },
+  {
+    "id": "marc-manza",
+    "name": "Marc Manza",
+    "role": "Senior Director of Engineering | DataRobot",
+    "quote": "His insights, views and approach served well to make us all better and keep us all focused on the real customer and business value. We worked closely together on strategy, planning, and vision and I always felt we could have the hard discussions on tradeoffs, scoping options, and balancing as we laid out our short and long term plans, built milestone driven iterative value, and kept true to our vision.",
+    "pills": ["Customer Centric", "Collaboration", "AI Infrastructure", "Security"],
+    "linkedinUrl": "https://www.linkedin.com/in/marcbmanza/",
+    "avatarUrl": "/assets/companies/datarobot-logo.png"
+  },
+  {
+    "id": "joshua-lederman",
+    "name": "Joshua Lederman",
+    "role": "VP Product | Slingshot",
+    "quote": "He has a tremendous capability to visualize and articulate thought processes, exceptional organizational skills, and a methodical approach that makes Dan an outstanding PM. Dan is passionate about the PM role, he is always learning and trying to grow to apply approaches and is a true joy to work with.",
+    "pills": ["Growth", "Communication", "Systems"],
+    "linkedinUrl": "https://www.linkedin.com/in/joshualederman/",
+    "avatarUrl": "/assets/companies/slingshot-aerospace-logo.png"
+  },
+  {
+    "id": "dustin-burke",
+    "name": "Dustin Burke",
+    "role": "Tech Lead for AI Platform | DataRobot",
+    "quote": "He writes some of the most organized and well formatted product requirements documents that provide the right level of detail to distill the core requirements, strategic aims, user needs/wants to make it actionable for developers to start technical planning. His work set the bar for what a high quality PRD should look like.",
+    "pills": ["Product Requirements", "UX Design", "Influence"],
+    "linkedinUrl": "https://www.linkedin.com/in/burkestar/",
+    "avatarUrl": "/assets/companies/datarobot-logo.png"
+  },
+  {
+    "id": "chris-styduhar",
+    "name": "Chris Styduhar",
+    "role": "Lead Product Manager | DataRobot",
+    "quote": "Dan took on the two most complex products and was able to deliver fantastic progress and value. He has an uncanny ability to break large, complex tasks down into a set of manageable work items that can be distributed amongst himself and the team.",
+    "pills": ["First Principles Thinking", "Leadership"],
+    "linkedinUrl": "https://www.linkedin.com/in/stydie/",
+    "avatarUrl": "/assets/companies/datarobot-logo.png"
+  }
+]
+

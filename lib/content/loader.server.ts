@@ -1,7 +1,7 @@
 import fs from 'fs'
 import path from 'path'
 import matter from 'gray-matter'
-import type { Profile, Project, TimelineEvent, TimelineYear } from './types'
+import type { Endorsement, Profile, Project, TimelineEvent, TimelineYear } from './types'
 
 const contentDirectory = path.join(process.cwd(), 'content')
 
@@ -32,6 +32,20 @@ export function getProfile(): Profile {
   } catch (error) {
     console.error('[content] Error loading profile:', error)
     return defaultProfile
+  }
+}
+
+export function getEndorsements(): Endorsement[] {
+  try {
+    const filePath = path.join(contentDirectory, 'endorsements.json')
+    if (!fs.existsSync(filePath)) return []
+    const fileContents = fs.readFileSync(filePath, 'utf8')
+    const parsed: unknown = JSON.parse(fileContents)
+    if (!Array.isArray(parsed)) return []
+    return parsed as Endorsement[]
+  } catch (error) {
+    console.error('[content] Error loading endorsements:', error)
+    return []
   }
 }
 

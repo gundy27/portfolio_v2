@@ -2,11 +2,12 @@
 
 ## Overview
 
-Led a complete redesign of an e-commerce platform, resulting in a 35% increase in conversion rates. The project involved rethinking the entire customer journey from discovery to checkout.
+Marharrrrr Led a complete redesign of an e-commerce platform, resulting in a 35% increase in conversion rates. The project involved rethinking the entire customer journey from discovery to checkout.
 
 ## Challenge
 
 The existing platform faced several issues:
+
 - High cart abandonment rates (72%)
 - Confusing product navigation
 - Slow page load times
@@ -17,6 +18,7 @@ The existing platform faced several issues:
 ### Data-Driven Redesign
 
 Analyzed user behavior data to identify key drop-off points:
+
 - Heatmaps and session recordings
 - Funnel analysis
 - A/B testing framework

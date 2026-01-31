@@ -6,10 +6,13 @@ import { Hero } from '@/components/home/Hero'
 import { Strengths } from '@/components/home/Strengths'
 import { FeaturedWork } from '@/components/home/FeaturedWork'
 import { Counters } from '@/components/home/Counters'
-import { getProfile } from '@/lib/content/loader.server'
+import { Approach } from '@/components/home/Approach'
+import { Testimonials } from '@/components/home/Testimonials'
+import { getEndorsements, getProfile } from '@/lib/content/loader.server'
 
 export default async function HomePage() {
   const profile = getProfile()
+  const endorsements = getEndorsements()
   
   return (
     <div className="min-h-screen flex flex-col">
@@ -23,6 +26,8 @@ export default async function HomePage() {
         <Strengths />
         <FeaturedWork />
         <Counters />
+        <Approach />
+        <Testimonials endorsements={endorsements} />
       </main>
       
       <GetInTouch />
