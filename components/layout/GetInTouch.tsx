@@ -75,73 +75,73 @@ function GitHubIcon() {
 export function GetInTouch() {
   return (
     <section className="bg-gray-50 border-t border-gray-200">
-      <div className="grid grid-cols-1 lg:grid-cols-[minmax(0,1fr)_1fr] min-h-[400px] lg:min-h-[500px]">
-        {/* Left Side - Content */}
-        <div className="container-wide py-16 sm:py-20 lg:py-24 flex items-start w-full">
-          <div className="space-y-6 w-full">
-            <SectionHeader
-              label="CONNECT"
-              heading="Get in Touch"
-              headingLevel="h2"
-              headingClassName="text-3xl sm:text-4xl lg:text-5xl"
-            />
-            <p className="text-body text-lg text-primary max-w-lg">
-              Interested in collaboration, part-time opportunities, or something else?
-            </p>
+      <div className="container-wide py-16 sm:py-20 lg:py-24">
+        <div className="flex flex-col lg:flex-row lg:items-stretch lg:justify-between gap-8 lg:gap-12">
+          {/* Content */}
+          <div className="space-y-6 max-w-xl">
+          <SectionHeader
+            label="CONNECT"
+            heading="Get in Touch"
+            headingLevel="h2"
+            headingClassName="text-3xl sm:text-4xl lg:text-5xl"
+          />
+          <p className="text-body text-lg text-primary max-w-lg">
+            Interested in collaboration, part-time opportunities, or something else?
+          </p>
+          
+          {/* Action Items */}
+          <div className="flex flex-wrap items-center gap-4 pt-4">
+            {/* Schedule Meeting Button */}
+            <Link
+              href="https://calendar.app.google/ABvWohuTUmiqFG8f9"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-2 rounded-lg border border-accent bg-transparent px-6 py-3 text-sm font-label text-accent transition-colors hover:bg-accent/10"
+            >
+              <ScheduleIcon />
+              Schedule Meeting
+            </Link>
             
-            {/* Action Items */}
-            <div className="flex flex-wrap items-center gap-4 pt-4">
-              {/* Schedule Meeting Button */}
-              <Link
-                href="https://calendar.app.google/ABvWohuTUmiqFG8f9"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-flex items-center gap-2 rounded-lg border border-accent bg-transparent px-6 py-3 text-sm font-label text-accent transition-colors hover:bg-accent/10"
-              >
-                <ScheduleIcon />
-                Schedule Meeting
-              </Link>
-              
-              {/* LinkedIn Icon */}
-              <Link
-                href="https://www.linkedin.com/in/dangunderson27"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-flex items-center justify-center rounded-lg transition-transform hover:scale-105"
-                aria-label="LinkedIn"
-              >
-                <LinkedInIcon />
-              </Link>
-              
-              {/* GitHub Icon */}
-              <Link
-                href="https://www.github.com/gundy27"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-flex items-center justify-center rounded-full transition-transform hover:scale-105"
-                aria-label="GitHub"
-              >
-                <GitHubIcon />
-              </Link>
-            </div>
+            {/* LinkedIn Icon */}
+            <Link
+              href="https://www.linkedin.com/in/dangunderson27"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center justify-center rounded-lg transition-transform hover:scale-105"
+              aria-label="LinkedIn"
+            >
+              <LinkedInIcon />
+            </Link>
+            
+            {/* GitHub Icon */}
+            <Link
+              href="https://www.github.com/gundy27"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center justify-center rounded-full transition-transform hover:scale-105"
+              aria-label="GitHub"
+            >
+              <GitHubIcon />
+            </Link>
           </div>
         </div>
-        
-        {/* Right Side - Magnet Lines Graphic */}
-        <div className="hidden lg:block h-full w-full">
-          <MagnetLines
-            variant="square"
-            rows={12}
-            columns={12}
-            containerWidth="100%"
-            containerHeight="100%"
-            lineColor="#598392"
-            lineWidth="2px"
-            lineHeight="24px"
-            baseAngle={-10}
-            className="h-full w-full"
-            style={{ backgroundColor: '#FAFAFA' }}
-          />
+
+          {/* Right Side - Magnet Lines Graphic */}
+          <div className="hidden lg:block w-[400px] h-[300px] flex-shrink-0 rounded-lg overflow-hidden">
+            <MagnetLines
+              variant="square"
+              rows={12}
+              columns={12}
+              containerWidth="100%"
+              containerHeight="100%"
+              lineColor="#598392"
+              lineWidth="2px"
+              lineHeight="24px"
+              baseAngle={-10}
+              className="h-full w-full"
+              style={{ backgroundColor: '#FAFAFA' }}
+            />
+          </div>
         </div>
       </div>
     </section>

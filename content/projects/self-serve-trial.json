@@ -2,12 +2,12 @@
   "id": "self-serve-trial",
   "label": "GROWTH & ONBOARDING",
   "title": "Self-Serve Trial for an Enterprise AI Platform",
-  "description": "I led the launch of DataRobot’s first self-serve trial, transforming a complex enterprise AI platform into an easy, first-session-success experience for new users. In a six-month sprint, I redesigned signup and onboarding, automated trial environment provisioning, and introduced viral team invites. The result was a scalable product-led growth motion that significantly boosted user acquisition and conversion.",
+  "description": "I led the launch of DataRobot’s self-serve trial motion. In a six-month window, I redesigned the organization structure, onboarding, and trial experience. The result was a scalable product-led growth motion that significantly boosted user acquisition and conversion through social signups, organic user invitiations, and tight integration with the sales CRM.",
   "year": 2023,
   "type": "paid",
   "tags": ["Sign Up Flow UI/UX", "Experimentation", "AI", "Growth", "Activation"],
   "featured": true,
-  "thumbnail": "/assets/projects/self-service-trial-hero.png",
+  "thumbnail": "/trial-hero.png",
   "company": "DataRobot",
   "meta": {
     "role": "Senior Product Manager",
@@ -25,7 +25,7 @@
       "image": "/assets/projects/placeholder.svg",
       "imageAlt": "Problem overview",
       "imagePosition": "left",
-      "content": "I faced a major challenge: our enterprise AI platform lacked a seamless way for prospects to try the product on their own. The existing trial was ad hoc and had low conversion, with limited insights into user engagement. For an enterprise tool as powerful as DataRobot, this was a missed opportunity.\n\n- **Sales-led bottleneck:** Historically, trials were handled manually by sales engineering, which didn’t scale and introduced delays.\n- **Complex onboarding:** New users often felt overwhelmed by the platform’s breadth, failing to reach an aha moment in their first session.\n- **No growth loop:** Because it was one-user only and hidden behind sales, we weren’t benefiting from any viral or organic growth."
+      "content": "DataRobot's enterprise AI platform lacked a seamless way for prospects to try the product on their own and **couldn't grow their team within DataRobot**. The existing trial was ad hoc and had low conversion, with limited insights into user engagement. For an enterprise tool as powerful as DataRobot, this was a missed opportunity."
     },
     {
       "id": "approach",

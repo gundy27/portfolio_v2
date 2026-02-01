@@ -32,16 +32,33 @@ export function ProjectHero({
   externalUrl,
   className,
 }: ProjectHeroProps) {
+  const media = (
+    <div className="relative w-full overflow-hidden rounded-lg">
+      <Image
+        src={image}
+        alt={imageAlt ?? title}
+        width={1200}
+        height={900}
+        className="w-full h-auto"
+        sizes="(min-width: 1024px) 50vw, 100vw"
+        priority
+      />
+    </div>
+  )
+
   return (
     <section className={cn('pt-20 sm:pt-24 lg:pt-28', className)}>
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 items-start">
-        <div className="text-block mx-auto lg:max-w-none">
-          <div className="mb-6">
+        <div className="w-full text-left">
+          <div className="mb-4">
             <Link href="/" className="text-secondary hover:text-accent font-label text-xs">
               ← Back to Home
             </Link>
           </div>
           <SectionHeader label={label} heading={title} headingLevel="h1" />
+
+          {/* On small screens, show media between title and description */}
+          <div className="lg:hidden mb-3">{media}</div>
 
           {description ? <p className="text-secondary text-lg mb-5">{description}</p> : null}
 
@@ -67,16 +84,8 @@ export function ProjectHero({
           ) : null}
         </div>
 
-        <div className="relative aspect-video w-full overflow-hidden bg-gray-100 rounded-lg">
-          <Image
-            src={image}
-            alt={imageAlt ?? title}
-            fill
-            className="object-cover"
-            sizes="(min-width: 1024px) 50vw, 100vw"
-            priority
-          />
-        </div>
+        {/* On large screens, keep media in the right column */}
+        <div className="hidden lg:block">{media}</div>
       </div>
     </section>
   )

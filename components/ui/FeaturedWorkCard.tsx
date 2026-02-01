@@ -24,13 +24,13 @@ export function FeaturedWorkCard({
   return (
     <div
       className={cn(
-        'featured-work-card relative w-full bg-white',
+        'featured-work-card relative w-full bg-transparent',
         className
       )}
       style={{ borderRadius: 'var(--radius-card)' }}
     >
       <div className="relative overflow-hidden" style={{ borderRadius: 'var(--radius-card)' }}>
-        <div className="flex flex-col gap-8 p-6 sm:p-8 md:flex-row md:items-start md:justify-between">
+        <div className="flex flex-col gap-4 p-3 sm:p-4 md:flex-row md:items-start md:justify-between">
           {/* Content */}
           <div className="min-w-0 flex-1">
             <Label variant="accent">{label}</Label>
@@ -46,10 +46,10 @@ export function FeaturedWorkCard({
           </div>
 
           {/* Thumbnail */}
-          <div className="w-full md:w-64 lg:w-72">
+          <div className="w-full md:w-80 lg:w-96">
             {image ? (
               <div
-                className="relative aspect-[4/3] w-full overflow-hidden border border-gray-200 bg-gray-100"
+                className="relative aspect-[4/3] w-full overflow-hidden"
                 style={{ borderRadius: 'calc(var(--radius-card) - 4px)' }}
               >
                 <Image
@@ -57,12 +57,12 @@ export function FeaturedWorkCard({
                   alt={imageAlt ?? title}
                   fill
                   className="object-cover"
-                  sizes="(min-width: 768px) 288px, 100vw"
+                  sizes="(min-width: 768px) 384px, 100vw"
                 />
               </div>
             ) : (
               <div
-                className="aspect-[4/3] w-full border border-gray-200 bg-gray-100"
+                className="aspect-[4/3] w-full bg-gray-100"
                 style={{ borderRadius: 'calc(var(--radius-card) - 4px)' }}
                 aria-hidden="true"
               />

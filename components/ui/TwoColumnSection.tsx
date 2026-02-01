@@ -24,23 +24,24 @@ export function TwoColumnSection({
   contentClassName,
   mediaClassName,
   imageClassName,
-  imageAspectClassName = 'aspect-video',
+  imageAspectClassName = '',
 }: TwoColumnSectionProps) {
   const mediaNode =
     media ??
     (image ? (
-      <div className={cn('relative w-full overflow-hidden bg-gray-100 rounded-lg', imageAspectClassName)}>
+      <div className={cn('relative w-full overflow-hidden rounded-lg', imageAspectClassName)}>
         <Image
           src={image}
           alt={imageAlt}
-          fill
-          className={cn('object-cover', imageClassName)}
+          width={1200}
+          height={900}
+          className={cn('w-full h-auto', imageClassName)}
           sizes="(min-width: 1024px) 50vw, 100vw"
         />
       </div>
     ) : null)
 
-  const contentNode = <div className={cn('text-block mx-auto lg:max-w-none', contentClassName)}>{children}</div>
+  const contentNode = <div className={cn('w-full text-left', contentClassName)}>{children}</div>
   const mediaWrapper = mediaNode ? <div className={cn('w-full', mediaClassName)}>{mediaNode}</div> : null
 
   return (
