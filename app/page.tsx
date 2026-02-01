@@ -8,11 +8,16 @@ import { FeaturedWork } from '@/components/home/FeaturedWork'
 import { Counters } from '@/components/home/Counters'
 import { Approach } from '@/components/home/Approach'
 import { Testimonials } from '@/components/home/Testimonials'
-import { getEndorsements, getProfile } from '@/lib/content/loader.server'
+import { getEndorsements, getProfile, getProjects } from '@/lib/content/loader.server'
 
 export default async function HomePage() {
   const profile = getProfile()
   const endorsements = getEndorsements()
+  const projects = getProjects()
+
+  const featuredWorkProjects = projects.filter((p) =>
+    p.id === 'self-serve-trial' || p.id === 'entitlements-management' || p.id === 'sts-launch'
+  )
   
   return (
     <div className="min-h-screen flex flex-col">
@@ -24,7 +29,7 @@ export default async function HomePage() {
       <main className="flex-1">
         <Hero name={profile.name} />
         <Strengths />
-        <FeaturedWork />
+        <FeaturedWork projects={featuredWorkProjects} />
         <Counters />
         <Approach />
         <Testimonials endorsements={endorsements} />

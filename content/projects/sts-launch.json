@@ -1,0 +1,81 @@
+{
+  "id": "sts-launch",
+  "label": "ENTERPRISE & SECURITY",
+  "title": "Single-Tenant SaaS (STS) Launch",
+  "description": "I led the 0→1 launch of a new single-tenant SaaS deployment model designed for enterprise and regulated customers who needed stronger isolation without losing SaaS velocity. I owned discovery, requirements, pricing inputs, and GTM enablement, turning a trust-and-compliance gap into a scalable product line that drove meaningful revenue impact.",
+  "year": 2024,
+  "type": "paid",
+  "tags": ["Platform", "Authorization", "Provisioning", "Packaging", "Billing", "Technical"],
+  "featured": false,
+  "thumbnail": "/assets/projects/placeholder.svg",
+  "company": "DataRobot",
+  "meta": {
+    "role": "Senior Product Manager",
+    "company": "DataRobot",
+    "timeline": "~12 months (0→1 launch + scale)",
+    "proudOf": "Turning enterprise security needs into a repeatable product + sales motion that scaled rapidly",
+    "learned": "Narrative clarity and early cross-functional alignment matter as much as technical correctness in executive-visible launches"
+  },
+  "sections": [
+    {
+      "id": "context",
+      "type": "two-column",
+      "label": "STS",
+      "heading": "Context",
+      "image": "/assets/projects/placeholder.svg",
+      "imageAlt": "Deployment spectrum overview",
+      "imagePosition": "left",
+      "content": "DataRobot served two ends of the deployment spectrum:\n\n- **Multi-tenant SaaS:** Fast feature delivery, but some customers needed stronger isolation guarantees.\n- **On-prem:** Strong isolation, but slow upgrades and heavy operational burden (Kubernetes, infra complexity, long deployment timelines).\n\nA growing segment of enterprise and regulated customers wanted **SaaS velocity with single-tenant security posture**. Without it, we were losing or stalling deals that required clearer guarantees around isolation, governance, and compliance."
+    },
+    {
+      "id": "goals-and-success-criteria",
+      "type": "two-column",
+      "label": "STS",
+      "heading": "Goals and Success Criteria",
+      "image": "/assets/projects/placeholder.svg",
+      "imageAlt": "Goals and success criteria overview",
+      "imagePosition": "right",
+      "content": "I aligned leadership, Engineering, Security, and Sales on measurable success criteria:\n\n- **Unlock new enterprise and regulated revenue** we couldn’t win with existing deployment options\n- **Reduce deployment and upgrade friction** relative to on-prem\n- **Preserve SaaS velocity** (customers should get new features quickly)\n- **Improve sales confidence** with clear positioning, pricing, and enablement\n\nWe treated STS as a *first-class product line*, not a one-off deployment exception."
+    },
+    {
+      "id": "key-product-decisions",
+      "type": "two-column",
+      "label": "STS",
+      "heading": "Key Product Decisions",
+      "image": "/assets/projects/placeholder.svg",
+      "imageAlt": "Key product decisions overview",
+      "imagePosition": "left",
+      "content": "**1) STS as a first-class SKU**\n- Defined STS as a distinct offering with its own scope, roadmap, and requirements.\n- Avoided a support-heavy “special case” that would degrade over time.\n\n**2) Security-first positioning**\n- Led with isolation guarantees and a clear threat model.\n- Created a narrative that Sales could repeat consistently.\n\n**3) “Your Own Castle” analogy**\n- I developed a simple metaphor to make the architecture intuitive:\n  - Multi-tenant = shared fortress.\n  - STS = **your own castle with your own guards**.\n- This materially improved sales conversations by making security posture legible to non-technical stakeholders.\n\n**4) Pricing for value (not just cost)**\n- Partnered with Engineering to understand cost drivers.\n- Worked with Pricing and Sales to validate willingness-to-pay.\n- Landed pricing that reflected the *security + operational value* while preserving margins and scaling with customer size."
+    },
+    {
+      "id": "execution",
+      "type": "two-column",
+      "label": "STS",
+      "heading": "Execution",
+      "image": "/assets/projects/placeholder.svg",
+      "imageAlt": "Execution overview",
+      "imagePosition": "right",
+      "content": "I drove delivery end-to-end across product, engineering, security, pricing, and GTM.\n\n**Discovery & Requirements**\n- Conducted discovery with customers, prospects, and internal Success/Sales teams.\n- Authored the core PRD and requirements, translating ambiguous compliance needs into concrete capabilities.\n\n**Cross-functional delivery**\n- Coordinated engineering work across multiple teams.\n- Built decision docs to align on security model and operational responsibilities.\n\n**GTM enablement**\n- Created enablement materials (positioning docs, FAQs, sales narratives).\n- Joined customer calls to explain architecture and security posture directly.\n- Supported active deal cycles, helping close and accelerate multiple six-figure contracts.\n\n**Validation before full automation**\n- Before investing heavily in automation, we proved demand by supporting early deals manually.\n- This de-risked the architecture and pricing while we iterated on the sales motion."
+    },
+    {
+      "id": "impact",
+      "type": "two-column",
+      "label": "STS",
+      "heading": "Impact",
+      "image": "/assets/projects/placeholder.svg",
+      "imageAlt": "Impact overview",
+      "imagePosition": "left",
+      "content": "STS became a meaningful part of the business quickly:\n\n- **40+ customers adopted STS**.\n- **10%+ of ARR** attributable to the product line at the time I departed.\n- **Multiple large enterprise deals** were directly influenced or closed through STS.\n\nBeyond the headline numbers, STS changed how the company sold trust:\n- We turned security/compliance requirements into a repeatable product narrative.\n- Sales teams gained confidence in positioning because the offering was clearly defined (not “custom”)."
+    },
+    {
+      "id": "what-worked-what-id-improve",
+      "type": "two-column",
+      "label": "STS",
+      "heading": "What Worked, What I’d Improve",
+      "image": "/assets/projects/placeholder.svg",
+      "imageAlt": "Retrospective overview",
+      "imagePosition": "right",
+      "content": "**What worked**\n- Treating STS as a true product line created clarity, ownership, and scalability.\n- Security-first narrative made value obvious and differentiated us from “SaaS-only” competitors.\n- Early alignment with Sales, Pricing, and Security reduced late-stage deal friction.\n\n**What I’d do differently**\n- Invest earlier in self-service deployment tooling to reduce operational load.\n- Tighten post-launch feedback loops to identify expansion and retention opportunities sooner.\n- Formalize upgrade paths from multi-tenant → STS so customers could grow into the model.\n\n**What I’d do next**\n- Expand into additional regulated verticals with tighter compliance packaging.\n- Bundle STS with premium security features for clearer upsell ladders.\n- Build a guided “migration” experience to reduce switching friction.\n\n**Growth PM takeaway**\n- Enterprise growth often hinges on *trust* as much as features.\n- The win wasn’t just shipping architecture — it was building a repeatable story + SKU + GTM motion that turned compliance needs into revenue."
+    }
+  ]
+}

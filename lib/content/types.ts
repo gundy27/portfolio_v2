@@ -18,6 +18,7 @@ export interface Profile {
 
 export interface Project {
   id: string
+  label?: string
   title: string
   description: string
   year: number
@@ -29,6 +30,38 @@ export interface Project {
   companyLogo?: string
   url?: string
   contentFile?: string // Optional markdown file
+  meta?: ProjectMeta
+  sections?: ProjectSection[]
+}
+
+export interface ProjectMeta {
+  role?: string
+  company?: string
+  timeline?: string
+  proudOf?: string
+  learned?: string
+}
+
+export interface ProjectMetric {
+  value: number
+  label: string
+  format?: string // e.g. "{}%", "${}M", "{} Weeks"
+}
+
+export type ProjectSectionType = 'two-column' | 'full-width' | 'highlight' | 'metrics'
+
+export interface ProjectSection {
+  id: string
+  type: ProjectSectionType
+  label?: string
+  heading?: string
+  content?: string // markdown-supported
+  bullets?: string[]
+  checklist?: string[]
+  image?: string
+  imageAlt?: string
+  imagePosition?: 'left' | 'right'
+  metrics?: ProjectMetric[]
 }
 
 export interface TimelineEvent {

@@ -4,6 +4,12 @@ import { Button } from '@/components/ui/Button'
 import { FeaturedWorkCard } from '@/components/ui/FeaturedWorkCard'
 import { CounterCard } from '@/components/ui/CounterCard'
 import { EndorsementCard } from '@/components/ui/EndorsementCard'
+import { SectionHeader } from '@/components/ui/SectionHeader'
+import { TwoColumnSection } from '@/components/ui/TwoColumnSection'
+import { FullWidthSection } from '@/components/ui/FullWidthSection'
+import { HighlightSection } from '@/components/ui/HighlightSection'
+import { BulletList } from '@/components/ui/BulletList'
+import { ChecklistItem } from '@/components/ui/ChecklistItem'
 import { Header } from '@/components/layout/Header'
 import type { Endorsement } from '@/lib/content/types'
 
@@ -360,6 +366,58 @@ export default function DesignSystemPage() {
           <div className="floating-section">
             <div className="floating-section__content">
               <div className="space-y-10">
+                <BlockHeader>LAYOUT PRIMITIVES</BlockHeader>
+
+                <div className="space-y-6">
+                  <BlockHeader>TWO COLUMN SECTION</BlockHeader>
+                  <TwoColumnSection image="/assets/projects/placeholder.svg" imageAlt="Placeholder" imagePosition="left">
+                    <div className="space-y-6">
+                      <SectionHeader label="BUSINESS" heading="Impact Up Front" />
+                      <BulletList
+                        items={[
+                          'A bullet list that fits a two-column layout',
+                          'Use imagePosition to swap left/right',
+                          'Optimized for responsive stacking on mobile',
+                        ]}
+                      />
+                    </div>
+                  </TwoColumnSection>
+                </div>
+
+                <div className="space-y-6">
+                  <BlockHeader>FULL WIDTH SECTION</BlockHeader>
+                  <FullWidthSection width="wide">
+                    <div className="space-y-6">
+                      <SectionHeader label="THE" heading="Approach" />
+                      <p className="text-body">
+                        A centered, readable text block wrapper for long-form content. Use it for sections where the
+                        content should not compete with imagery.
+                      </p>
+                    </div>
+                  </FullWidthSection>
+                </div>
+
+                <div className="space-y-6">
+                  <BlockHeader>HIGHLIGHT SECTION</BlockHeader>
+                  <HighlightSection>
+                    <div className="space-y-6">
+                      <SectionHeader
+                        label="RESULTS"
+                        heading="Insights"
+                        headingLevel="h1"
+                        className="text-white"
+                        labelClassName="text-white/80"
+                        headingClassName="text-white"
+                      />
+                      <div className="space-y-3">
+                        <ChecklistItem iconClassName="text-white">Achieved XYZ</ChecklistItem>
+                        <ChecklistItem iconClassName="text-white">Improved ABC</ChecklistItem>
+                        <ChecklistItem iconClassName="text-white">Reduced time-to-value</ChecklistItem>
+                      </div>
+                    </div>
+                  </HighlightSection>
+                </div>
+
                 <BlockHeader>WORK ITEM CARD</BlockHeader>
                 <FeaturedWorkCard
                   label="GROWTH & ONBOARDING"

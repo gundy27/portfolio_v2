@@ -61,6 +61,7 @@ const TextType = ({
   const [isVisible, setIsVisible] = useState(!startOnVisible)
   const cursorRef = useRef<HTMLSpanElement | null>(null)
   const containerRef = useRef<HTMLElement | null>(null)
+  const completionRef = useRef<{ index: number; done: boolean }>({ index: -1, done: false })
 
   const textArray = useMemo(() => (Array.isArray(text) ? text : [text]), [text])
 
@@ -156,7 +157,19 @@ const TextType = ({
             variableSpeed ? getRandomSpeed() : typingSpeed
           )
         } else if (textArray.length >= 1) {
-          if (!loop && currentTextIndex === textArray.length - 1) return
+          // Non-looping single sentence: fire completion once and stop.
+          if (!loop && currentTextIndex === textArray.length - 1) {
+            if (
+              onSentenceComplete &&
+              (completionRef.current.index !== currentTextIndex || !completionRef.current.done)
+            ) {
+              completionRef.current = { index: currentTextIndex, done: true }
+              timeout = setTimeout(() => {
+                onSentenceComplete(textArray[currentTextIndex], currentTextIndex)
+              }, pauseDuration)
+            }
+            return
+          }
           timeout = setTimeout(() => {
             setIsDeleting(true)
           }, pauseDuration)

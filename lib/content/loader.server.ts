@@ -20,9 +20,6 @@ export function getProfile(): Profile {
   try {
     const filePath = path.join(contentDirectory, 'profile.json')
     const fileExists = fs.existsSync(filePath)
-    // #region agent log
-    fetch('http://127.0.0.1:7242/ingest/bf0f521d-5cb7-4c07-aed8-e5295c19b5a4',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({location:'lib/content/loader.server.ts:getProfile',message:'Profile file check',data:{filePath,fileExists},timestamp:Date.now(),sessionId:'debug-session',runId:'initial',hypothesisId:'H1'})}).catch(()=>{});
-    // #endregion
     if (!fileExists) {
       console.warn('[content] profile.json not found')
       return defaultProfile
@@ -56,9 +53,6 @@ export function getProjects(): Project[] {
     const dirExists = fs.existsSync(projectsDirectory)
     const files = dirExists ? fs.readdirSync(projectsDirectory) : []
     const jsonFiles = files.filter((file) => file.endsWith('.json') && !file.includes('template'))
-    // #region agent log
-    fetch('http://127.0.0.1:7242/ingest/bf0f521d-5cb7-4c07-aed8-e5295c19b5a4',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({location:'lib/content/loader.server.ts:getProjects',message:'Projects directory scan',data:{projectsDirectory,dirExists,fileCount:files.length,jsonFileCount:jsonFiles.length},timestamp:Date.now(),sessionId:'debug-session',runId:'initial',hypothesisId:'H2'})}).catch(()=>{});
-    // #endregion
     if (!dirExists) {
       return []
     }
@@ -116,9 +110,6 @@ export function getProjectContent(slug: string): string | null {
     const filePath = path.join(contentDirectory, 'projects', project.contentFile)
 
     const fileExists = fs.existsSync(filePath)
-    // #region agent log
-    fetch('http://127.0.0.1:7242/ingest/bf0f521d-5cb7-4c07-aed8-e5295c19b5a4',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({location:'lib/content/loader.server.ts:getProjectContent',message:'Project content file check',data:{slug,contentFile:project.contentFile,filePath,fileExists},timestamp:Date.now(),sessionId:'debug-session',runId:'initial',hypothesisId:'H5'})}).catch(()=>{});
-    // #endregion
     if (!fileExists) {
       return null
     }
@@ -153,9 +144,6 @@ export function getTimelineEvents(): TimelineEvent[] {
   try {
     const filePath = path.join(contentDirectory, 'timeline', 'events.json')
     const fileExists = fs.existsSync(filePath)
-    // #region agent log
-    fetch('http://127.0.0.1:7242/ingest/bf0f521d-5cb7-4c07-aed8-e5295c19b5a4',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({location:'lib/content/loader.server.ts:getTimelineEvents',message:'Timeline events file check',data:{filePath,fileExists},timestamp:Date.now(),sessionId:'debug-session',runId:'initial',hypothesisId:'H4'})}).catch(()=>{});
-    // #endregion
     if (!fileExists) {
       return []
     }

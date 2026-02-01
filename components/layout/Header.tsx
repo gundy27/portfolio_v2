@@ -12,6 +12,25 @@ export function Header() {
   const toggleMenu = () => setIsMenuOpen(!isMenuOpen)
   const closeMenu = () => setIsMenuOpen(false)
 
+  const onResumeClick = () => {
+    try {
+      const payload = JSON.stringify({ event: 'resume_download_click', ts: Date.now() })
+      if (typeof navigator !== 'undefined' && 'sendBeacon' in navigator) {
+        // Fire-and-forget client breadcrumb (server-side audit logging happens on /resume).
+        navigator.sendBeacon('/api/audit', payload)
+      } else {
+        fetch('/api/audit', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: payload,
+          keepalive: true,
+        }).catch(() => {})
+      }
+    } catch {
+      // no-op
+    }
+  }
+
   useEffect(() => {
     let ticking = false
 
@@ -62,12 +81,13 @@ export function Header() {
           
           {/* Desktop Menu */}
           <div className="hidden md:flex items-center gap-8">
-            <Link href="/timeline">
-              <Label>CAREER TIMELINE</Label>
-            </Link>
             <Link href="/design-system">
               <Label>DESIGN SYSTEM</Label>
             </Link>
+
+            <a href="/resume" onClick={onResumeClick} className="inline-flex items-center">
+              <Label>RESUME</Label>
+            </a>
           </div>
 
           {/* Mobile Hamburger Button */}
@@ -117,19 +137,23 @@ export function Header() {
             >
               <div className="flex flex-col py-4 gap-4">
                 <Link
-                  href="/timeline"
-                  onClick={closeMenu}
-                  className="px-4 py-2 hover:bg-gray-50 transition-colors"
-                >
-                  <Label>CAREER TIMELINE</Label>
-                </Link>
-                <Link
                   href="/design-system"
                   onClick={closeMenu}
                   className="px-4 py-2 hover:bg-gray-50 transition-colors"
                 >
                   <Label>DESIGN SYSTEM</Label>
                 </Link>
+
+                <a
+                  href="/resume"
+                  onClick={() => {
+                    onResumeClick()
+                    closeMenu()
+                  }}
+                  className="px-4 py-2 hover:bg-gray-50 transition-colors"
+                >
+                  <Label>RESUME</Label>
+                </a>
               </div>
             </motion.div>
           )}

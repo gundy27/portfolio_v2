@@ -27,18 +27,11 @@ export function Testimonials({ endorsements }: TestimonialsProps) {
   const [isDragging, setIsDragging] = React.useState(false)
 
   React.useEffect(() => {
-    // #region agent log
-    fetch('http://127.0.0.1:7242/ingest/bf0f521d-5cb7-4c07-aed8-e5295c19b5a4',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({location:'components/home/Testimonials.tsx:useEffect',message:'Auto-scroll effect start',data:{endorsementsCount:endorsements.length},timestamp:Date.now(),sessionId:'debug-session',runId:'run1',hypothesisId:'A'})}).catch(()=>{});
-    // #endregion
-
     if (endorsements.length === 0) return
 
     const el = scrollerRef.current
     const firstCopy = firstCopyRef.current
     if (!el || !firstCopy) {
-      // #region agent log
-      fetch('http://127.0.0.1:7242/ingest/bf0f521d-5cb7-4c07-aed8-e5295c19b5a4',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({location:'components/home/Testimonials.tsx:useEffect',message:'Missing refs, aborting auto-scroll',data:{hasScroller:!!el,hasFirstCopy:!!firstCopy},timestamp:Date.now(),sessionId:'debug-session',runId:'run1',hypothesisId:'A'})}).catch(()=>{});
-      // #endregion
       return
     }
 
@@ -47,15 +40,10 @@ export function Testimonials({ endorsements }: TestimonialsProps) {
       window.matchMedia &&
       window.matchMedia('(prefers-reduced-motion: reduce)').matches
 
-    // #region agent log
-    fetch('http://127.0.0.1:7242/ingest/bf0f521d-5cb7-4c07-aed8-e5295c19b5a4',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({location:'components/home/Testimonials.tsx:useEffect',message:'Reduced motion check',data:{prefersReduced},timestamp:Date.now(),sessionId:'debug-session',runId:'run1',hypothesisId:'B'})}).catch(()=>{});
-    // #endregion
-
     if (prefersReduced) return
 
     let rafId = 0
     let lastTs = performance.now()
-    let loggedFrames = 0
     // Keep our own float accumulator so sub-pixel deltas accumulate.
     // `scrollLeft` effectively behaves as an integer in many browsers, so `+= 0.x` never advances.
     posRef.current = el.scrollLeft
@@ -73,19 +61,8 @@ export function Testimonials({ endorsements }: TestimonialsProps) {
         el.scrollLeft = posRef.current
       }
 
-      if (loggedFrames < 3) {
-        loggedFrames += 1
-        // #region agent log
-        fetch('http://127.0.0.1:7242/ingest/bf0f521d-5cb7-4c07-aed8-e5295c19b5a4',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({location:'components/home/Testimonials.tsx:tick',message:'Auto-scroll frame',data:{dt,copyWidth,pos:posRef.current,scrollLeft:el.scrollLeft,clientWidth:el.clientWidth,scrollWidth:el.scrollWidth,autoScrollPxPerSecond:AUTO_SCROLL_PX_PER_SECOND,isDragging:isDraggingRef.current},timestamp:Date.now(),sessionId:'debug-session',runId:'run1',hypothesisId:'C'})}).catch(()=>{});
-        // #endregion
-      }
-
       rafId = window.requestAnimationFrame(tick)
     }
-
-    // #region agent log
-    fetch('http://127.0.0.1:7242/ingest/bf0f521d-5cb7-4c07-aed8-e5295c19b5a4',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({location:'components/home/Testimonials.tsx:useEffect',message:'Starting requestAnimationFrame loop',data:{initialScrollLeft:el.scrollLeft,copyWidth:firstCopy.scrollWidth,clientWidth:el.clientWidth,scrollWidth:el.scrollWidth},timestamp:Date.now(),sessionId:'debug-session',runId:'run1',hypothesisId:'C'})}).catch(()=>{});
-    // #endregion
 
     rafId = window.requestAnimationFrame(tick)
     return () => {
@@ -166,7 +143,7 @@ export function Testimonials({ endorsements }: TestimonialsProps) {
         <div className="floating-section__content">
           <SectionHeader
             label="ENDORSEMENTS"
-            heading="From Leaders of the Industry"
+            heading="From Industry Experts"
             headingLevel="h2"
           />
 

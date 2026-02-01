@@ -1,49 +1,35 @@
 'use client'
 
 import { useEffect, useId, useMemo, useRef, useState } from 'react'
+import Link from 'next/link'
 import { ChevronDown } from 'lucide-react'
 import { SectionHeader } from '@/components/ui/SectionHeader'
 import { FeaturedWorkCard } from '@/components/ui/FeaturedWorkCard'
+import type { Project } from '@/lib/content/types'
 
 type FeaturedWorkItem = {
+  id: string
   label: string
   title: string
   description: string
   skills: string[]
+  image?: string
+  imageAlt?: string
 }
 
-export function FeaturedWork() {
+export function FeaturedWork({ projects }: { projects: Project[] }) {
   const items: FeaturedWorkItem[] = useMemo(
-    () => [
-      {
-        label: 'GROWTH & ONBOARDING',
-        title: 'Self Service Trial',
-        description:
-          'Re-imagined self-service experience to drive 3X boost in product-led sales conversions.',
-        skills: ['Sign Up Flow UI/UX', 'Authentication', 'Provisioning', 'Experimentation', 'Feature Access'],
-      },
-      {
-        label: 'AI IMPLEMENTATION',
-        title: 'Evolution of a Chatbot',
-        description: 'Developed internal production-grade AI library as well as RAG chatbot.',
-        skills: ['Full-stack', 'AI', 'Data Pipelines', 'Technical', 'Platform'],
-      },
-      {
-        label: 'ORGANIC EXPANSION',
-        title: 'Entitlements Service',
-        description:
-          'Built a scalable entitlements layer to power feature access, packaging, and self-serve expansion.',
-        skills: ['APIs', 'Authorization', 'Packaging', 'Billing', 'Platform'],
-      },
-      {
-        label: 'ANALYTICS PLATFORM',
-        title: 'Activation Dashboards',
-        description:
-          'Designed dashboards and experimentation loops to improve activation, retention, and decision velocity.',
-        skills: ['Instrumentation', 'Analytics', 'Experimentation', 'Data Modeling', 'Growth'],
-      },
-    ],
-    []
+    () =>
+      projects.map((project) => ({
+        id: project.id,
+        label: project.label ?? 'PROJECT',
+        title: project.title,
+        description: project.description,
+        skills: project.tags,
+        image: project.thumbnail,
+        imageAlt: project.title,
+      })),
+    [projects]
   )
 
   const regionId = useId()
@@ -129,12 +115,21 @@ export function FeaturedWork() {
                       key={`${item.label}-${item.title}`}
                       ref={idx === 0 ? card1Ref : idx === 1 ? card2Ref : undefined}
                     >
-                      <FeaturedWorkCard
-                        label={item.label}
-                        title={item.title}
-                        description={item.description}
-                        skills={item.skills}
-                      />
+                      <Link
+                        href={`/projects/${item.id}`}
+                        className="block rounded-[var(--radius-card)] focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-accent)] focus-visible:ring-offset-2 focus-visible:ring-offset-white"
+                        aria-label={`View project: ${item.title}`}
+                      >
+                        <FeaturedWorkCard
+                          label={item.label}
+                          title={item.title}
+                          description={item.description}
+                          skills={item.skills}
+                          image={item.image}
+                          imageAlt={item.imageAlt}
+                          className="transition-transform duration-200 ease-out hover:scale-[1.01]"
+                        />
+                      </Link>
                     </div>
                   ))}
                 </div>

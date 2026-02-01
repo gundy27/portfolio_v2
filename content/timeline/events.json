@@ -37,8 +37,7 @@
         "description": "Second placeholder anchor for 2025. Replace or remove as needed.",
         "imageUrl": "/assets/timeline/datarobot.svg",
         "imageDescription": "Placeholder image description",
-        "type": "project",
-        "projectLink": "datarobot-platform"
+        "type": "project"
       }
     ]
   },
@@ -122,8 +121,7 @@
         "description": "Second placeholder anchor for 2021. Replace or remove as needed.",
         "imageUrl": "/assets/timeline/datarobot.svg",
         "imageDescription": "Placeholder image description",
-        "type": "project",
-        "projectLink": "datarobot-platform"
+        "type": "project"
       }
     ]
   },
@@ -165,8 +163,7 @@
         "description": "Second placeholder anchor for 2019. Replace or remove as needed.",
         "imageUrl": "/assets/timeline/slingshot.svg",
         "imageDescription": "Placeholder image description",
-        "type": "project",
-        "projectLink": "analytics-platform"
+        "type": "project"
       }
     ]
   },

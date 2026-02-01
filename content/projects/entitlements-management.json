@@ -1,0 +1,90 @@
+{
+  "id": "entitlements-management",
+  "label": "ORGANIC EXPANSION",
+  "title": "Entitlements Management — A Growth Platform Case Study",
+  "description": "I led the design and launch of a centralized entitlements system that became the foundation for trials, demos, and monetization at DataRobot. By introducing governed, time-bound feature access, we eliminated $500K+ in revenue leakage and unlocked new growth motions — including reverse trials for paid customers.",
+  "year": 2024,
+  "type": "paid",
+  "tags": [
+    "Platform",
+    "Authorization",
+    "Feature Access",
+    "Provisioning",
+    "Packaging",
+    "Billing",
+    "Experimentation",
+    "Technical"
+  ],
+  "featured": false,
+  "thumbnail": "/assets/projects/placeholder.svg",
+  "company": "DataRobot",
+  "meta": {
+    "role": "Senior Product Manager",
+    "company": "DataRobot",
+    "timeline": "~9 months",
+    "proudOf": "Turning access control into a growth lever through reverse trials and self-serve experimentation",
+    "learned": "Strong platform foundations are required before growth and monetization can safely scale"
+  },
+  "sections": [
+    {
+      "id": "problem",
+      "type": "two-column",
+      "label": "CASE STUDY",
+      "heading": "Problem",
+      "image": "/assets/projects/placeholder.svg",
+      "imageAlt": "Problem overview",
+      "imagePosition": "left",
+      "content": "As DataRobot scaled, feature access was controlled through a mix of hard-coded logic, manual provisioning, and tribal knowledge spread across teams. This created significant business and growth issues:\n\n- **Revenue leakage:** Over-provisioned accounts retained access to paid features long after contracts ended, contributing to $500K+ in annual leakage.\n- **Customer friction:** Customers frequently lacked access to features they had purchased, leading to confusion and support escalations.\n- **Growth blocked:** We could not safely run trials, demos, or upsell experiments because feature access was brittle and untrustworthy.\n\nMost critically, there was no safe way to let *existing paid customers* temporarily try premium features — any access granted required manual cleanup and carried real risk."
+    },
+    {
+      "id": "hypothesis",
+      "type": "two-column",
+      "label": "CASE STUDY",
+      "heading": "Hypothesis",
+      "image": "/assets/projects/placeholder.svg",
+      "imageAlt": "Hypothesis overview",
+      "imagePosition": "right",
+      "content": "I believed that if we introduced a centralized, schema-driven entitlements system — decoupled from provisioning and enforced consistently across the platform — we could:\n\n- Eliminate revenue leakage\n- Make trials and demos truly self-serve\n- Enable **reverse trials**, where paid customers could temporarily access premium features with automatic expiration\n\nThe key insight was that access control wasn’t just a security problem — it was a growth constraint."
+    },
+    {
+      "id": "strategy",
+      "type": "two-column",
+      "label": "CASE STUDY",
+      "heading": "Strategy",
+      "image": "/assets/projects/placeholder.svg",
+      "imageAlt": "Strategy overview",
+      "imagePosition": "left",
+      "content": "I intentionally framed entitlements as a **growth platform**, not a backend refactor.\n\nCore principles:\n- **Single source of truth:** One authoritative system for feature access across all deployments.\n- **Time-bound access:** Every entitlement could expire automatically, removing manual cleanup.\n- **Schema-driven:** Features, limits, and durations defined in configuration — not code.\n- **Future-proofed:** Designed to support use cases we hadn’t launched yet, including reverse trials and usage-based access.\n\nWe started where Product had the most control and visibility: trials."
+    },
+    {
+      "id": "execution",
+      "type": "two-column",
+      "label": "CASE STUDY",
+      "heading": "Execution",
+      "image": "/assets/projects/placeholder.svg",
+      "imageAlt": "Execution overview",
+      "imagePosition": "right",
+      "content": "**1. Defined the Entitlements Model**\n- Authored the long-term vision and core schema mapping customers, users, features, limits, and time-bound access.\n- Partnered closely with Engineering and Security to ensure enforcement was consistent and auditable.\n\n**2. Proved It with Trials**\n- Replaced manual trial provisioning with governed entitlements.\n- Validated that features turned on and off correctly under real usage and cost constraints.\n\n**3. Unlocked Reverse Trials**\n- Extended the model to paid customers, allowing premium features to be granted temporarily.\n- Access automatically expired without engineering or support intervention.\n- Sales and Customer Success could now offer \"try before you buy\" experiences to existing customers — safely.\n\n**4. Expanded Adoption**\n- Support teams adopted entitlements to fix misprovisioned accounts without engineering help.\n- Rolled out the system across demos and paid SKUs, reducing operational drag across the org."
+    },
+    {
+      "id": "results",
+      "type": "two-column",
+      "label": "CASE STUDY",
+      "heading": "Results",
+      "image": "/assets/projects/placeholder.svg",
+      "imageAlt": "Results overview",
+      "imagePosition": "left",
+      "content": "The impact was immediate and durable:\n\n- **$500K+ in revenue leakage eliminated** by shutting off unused or mis-scoped resources.\n- **Reverse trials enabled:** Paid customers could temporarily access premium features, unlocking a low-risk upsell motion that previously wasn’t possible.\n- **Faster GTM:** Trial and demo environments became faster to provision, more consistent, and easier to reason about.\n- **Reduced support burden:** Feature access issues dropped significantly as ownership moved out of ad hoc processes.\n\nMost importantly, Product and GTM teams could now experiment with packaging and upsells confidently — without fear of breaking access control."
+    },
+    {
+      "id": "lessons-takeaways",
+      "type": "two-column",
+      "label": "CASE STUDY",
+      "heading": "Lessons & Takeaways",
+      "image": "/assets/projects/placeholder.svg",
+      "imageAlt": "Lessons and takeaways overview",
+      "imagePosition": "right",
+      "content": "- **Growth depends on trust:** You can’t experiment with monetization if feature access isn’t reliable.\n- **Platform work compounds:** Starting with trials de-risked the system and accelerated adoption across the company.\n- **Reverse trials are powerful:** Letting customers experience value *before* committing — even after they’ve paid — materially improves upsell conversations.\n\n**What I’d do next:**\n- Introduce usage-based entitlements tied directly to metering.\n- Build in-product upgrade paths triggered by reverse trial engagement.\n- Integrate entitlements directly with billing and invoicing.\n\n**Growth PM takeaway:** This project shows how backend infrastructure can directly unlock revenue, experimentation velocity, and product-led expansion — when designed intentionally."
+    }
+  ]
+}

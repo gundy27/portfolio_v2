@@ -1,3 +1,4 @@
+import Image from 'next/image'
 import { Label } from '@/components/ui/Label'
 import { cn } from '@/lib/utils/cn'
 
@@ -6,10 +7,20 @@ export interface FeaturedWorkCardProps {
   title: string
   description: string
   skills: string[]
+  image?: string
+  imageAlt?: string
   className?: string
 }
 
-export function FeaturedWorkCard({ label, title, description, skills, className }: FeaturedWorkCardProps) {
+export function FeaturedWorkCard({
+  label,
+  title,
+  description,
+  skills,
+  image,
+  imageAlt,
+  className,
+}: FeaturedWorkCardProps) {
   return (
     <div
       className={cn(
@@ -34,13 +45,28 @@ export function FeaturedWorkCard({ label, title, description, skills, className 
             </p>
           </div>
 
-          {/* Thumbnail slot (placeholder) */}
+          {/* Thumbnail */}
           <div className="w-full md:w-64 lg:w-72">
-            <div
-              className="aspect-[4/3] w-full border border-gray-200 bg-gray-100"
-              style={{ borderRadius: 'calc(var(--radius-card) - 4px)' }}
-              aria-hidden="true"
-            />
+            {image ? (
+              <div
+                className="relative aspect-[4/3] w-full overflow-hidden border border-gray-200 bg-gray-100"
+                style={{ borderRadius: 'calc(var(--radius-card) - 4px)' }}
+              >
+                <Image
+                  src={image}
+                  alt={imageAlt ?? title}
+                  fill
+                  className="object-cover"
+                  sizes="(min-width: 768px) 288px, 100vw"
+                />
+              </div>
+            ) : (
+              <div
+                className="aspect-[4/3] w-full border border-gray-200 bg-gray-100"
+                style={{ borderRadius: 'calc(var(--radius-card) - 4px)' }}
+                aria-hidden="true"
+              />
+            )}
           </div>
         </div>
       </div>

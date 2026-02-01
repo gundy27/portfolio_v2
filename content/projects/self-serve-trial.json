@@ -1,0 +1,71 @@
+{
+  "id": "self-serve-trial",
+  "label": "GROWTH & ONBOARDING",
+  "title": "Self-Serve Trial for an Enterprise AI Platform",
+  "description": "I led the launch of DataRobot’s first self-serve trial, transforming a complex enterprise AI platform into an easy, first-session-success experience for new users. In a six-month sprint, I redesigned signup and onboarding, automated trial environment provisioning, and introduced viral team invites. The result was a scalable product-led growth motion that significantly boosted user acquisition and conversion.",
+  "year": 2023,
+  "type": "paid",
+  "tags": ["Sign Up Flow UI/UX", "Experimentation", "AI", "Growth", "Activation"],
+  "featured": true,
+  "thumbnail": "/assets/projects/self-service-trial-hero.png",
+  "company": "DataRobot",
+  "meta": {
+    "role": "Senior Product Manager",
+    "company": "DataRobot",
+    "timeline": "6 months",
+    "proudOf": "Turning a complex enterprise AI platform into a first-session success for new users",
+    "learned": "How to balance enterprise constraints with product-led growth"
+  },
+  "sections": [
+    {
+      "id": "problem",
+      "type": "two-column",
+      "label": "THE",
+      "heading": "Problem",
+      "image": "/assets/projects/placeholder.svg",
+      "imageAlt": "Problem overview",
+      "imagePosition": "left",
+      "content": "I faced a major challenge: our enterprise AI platform lacked a seamless way for prospects to try the product on their own. The existing trial was ad hoc and had low conversion, with limited insights into user engagement. For an enterprise tool as powerful as DataRobot, this was a missed opportunity.\n\n- **Sales-led bottleneck:** Historically, trials were handled manually by sales engineering, which didn’t scale and introduced delays.\n- **Complex onboarding:** New users often felt overwhelmed by the platform’s breadth, failing to reach an aha moment in their first session.\n- **No growth loop:** Because it was one-user only and hidden behind sales, we weren’t benefiting from any viral or organic growth."
+    },
+    {
+      "id": "approach",
+      "type": "two-column",
+      "label": "THE",
+      "heading": "Approach",
+      "image": "/assets/projects/placeholder.svg",
+      "imageAlt": "Approach overview",
+      "imagePosition": "right",
+      "content": "I led a cross-functional effort to design a frictionless trial experience from scratch, balancing ease-of-use with enterprise requirements. **Solution highlights:**\n\n- **Streamlined signup:** Simplified the registration to one-minute, one-form signup (including SSO options) and resolved internal pushback by enabling marketing to capture lead info without adding friction. The result was near-zero drop-off at signup.\n- **Instant provisioning:** Built an automated provisioning system to spin up a dedicated trial environment for each user immediately after signup, instead of waiting on manual setup. Every new user could start exploring AI tools within minutes.\n- **Guided onboarding:** Curated the first-run experience with in-app guidance and a sample AI project, helping users build their first model in the first session. This turned a complex platform into a manageable, rewarding journey.\n- **Team invitations:** Enabled trial users to invite colleagues into their environment to encourage team evaluation. This viral loop not only drove a ~6% lift in signups via invites, but we discovered multi-user accounts converted to paid at 5× the rate of single-user trials.\n- **Trial parameters:** Chose a time-boxed trial (e.g. 14 days) with nearly full feature access. We included premium features so users could experience full value, while enforcing usage guardrails to protect infrastructure. This see-try-buy model aligned with our product-led growth goals."
+    },
+    {
+      "id": "results",
+      "type": "two-column",
+      "label": "THE",
+      "heading": "Results",
+      "image": "/assets/projects/placeholder.svg",
+      "imageAlt": "Results overview",
+      "imagePosition": "left",
+      "content": "The new trial program had a huge impact on user growth and revenue pipeline:\n\n- **2,500+ MAU:** Within a few months, trial usage exploded to over 2,500 monthly active users, dramatically expanding the top of our funnel.\n- **5× conversion uplift:** Trial-to-paid conversion rates jumped ~5× compared to the old approach. By removing friction and guiding users to value, far more trial users became paying customers.\n- **Organic team adoption:** About 6% of new trial users were invited by peers, creating a viral loop. Importantly, trial workspaces with 3+ users showed much higher conversion, validating our focus on team onboarding.\n- **Enterprise pipeline boost:** The self-serve trial became a key lead source for sales. Trial engagement data helped identify high-intent accounts and armed sales reps with insights, turning the trial into a reliable lead-gen pipeline."
+    },
+    {
+      "id": "lessons-learned",
+      "type": "two-column",
+      "label": "THE",
+      "heading": "Lessons Learned",
+      "image": "/assets/projects/placeholder.svg",
+      "imageAlt": "Lessons learned overview",
+      "imagePosition": "right",
+      "content": "This project taught me several key lessons as a growth-oriented PM:\n\n- **Balancing act:** Enterprise PLG means balancing user experience with internal needs. I learned to work closely with stakeholders (like Sales & Marketing) to capture important data without sacrificing a seamless user journey.\n- **Fast time-to-value:** I saw first-hand that getting users to their aha moment quickly is vital. By focusing on first-session success and activation metrics, we drove higher engagement and conversion.\n- **Iterate with data:** We approached the trial as an experiment-driven funnel. Continuous analysis of where users dropped off or got stuck allowed me to iterate rapidly and improve the experience (and metrics) over time."
+    },
+    {
+      "id": "next-steps-takeaway",
+      "type": "two-column",
+      "label": "THE",
+      "heading": "Next Steps & Takeaway",
+      "image": "/assets/projects/placeholder.svg",
+      "imageAlt": "Next steps overview",
+      "imagePosition": "left",
+      "content": "- **What I’d do next:** Build on this momentum by introducing in-app purchasing for the trial. I would allow users to seamlessly upgrade to a paid plan or extend their trial self-serve, further reducing friction in the conversion process.\n- **Growth PM takeaway:** Even in enterprise software, product-led growth can be a game-changer. By focusing on quick user value and removing friction, we turned a traditionally high-touch process into a scalable growth engine."
+    }
+  ]
+}
