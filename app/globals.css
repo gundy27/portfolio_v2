@@ -510,19 +510,7 @@ label,
 }
 
 .section-label {
-  margin-bottom: 12px; /* Spacing between label and header */
-}
-
-@media (min-width: 640px) {
-  .section-label {
-    margin-bottom: 14px;
-  }
-}
-
-@media (min-width: 1024px) {
-  .section-label {
-    margin-bottom: 16px;
-  }
+  margin-bottom: 4px; /* Spacing between label and header */
 }
 
 .section-heading {
@@ -584,6 +572,11 @@ label,
   pointer-events: none;
 }
 
+/* Heading + Subtitle Gap (tight pairing for h3 + description patterns) */
+.subtitle-gap {
+  margin-top: 4px;
+}
+
 /* Hide scrollbar utility */
 .scrollbar-hide {
   -ms-overflow-style: none; /* IE and Edge */
@@ -593,4 +586,3 @@ label,
 .scrollbar-hide::-webkit-scrollbar {
   display: none; /* Chrome, Safari, Opera */
 }
-

@@ -27,7 +27,7 @@ export default async function HomePage() {
       </div>
       
       <main className="flex-1">
-        <Hero name={profile.name} />
+        <Hero role={profile.role} />
         <Strengths />
         <FeaturedWork projects={featuredWorkProjects} />
         <Counters />

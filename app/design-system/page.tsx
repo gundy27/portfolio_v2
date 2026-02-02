@@ -213,6 +213,10 @@ export default function DesignSystemPage() {
               <SpacingRow label="24px – 16" widthClass="w-24" />
               <SpacingRow label="36px – 16x" widthClass="w-32" />
               <SpacingRow label="48px – 24x" widthClass="w-40" />
+              <div className="pt-4 border-t border-gray-200 mt-4">
+                <p className="text-xs text-secondary font-medium mb-2">Special tokens</p>
+                <SpacingRow label="4px – subtitle-gap" widthClass="w-4" />
+              </div>
               <div className="pt-3">
                 <p className="text-xs text-secondary">
                   Major sections: 64–80px. Subsections: 40–56px. Text blocks: 620–720px max.
@@ -370,7 +374,12 @@ export default function DesignSystemPage() {
 
                 <div className="space-y-6">
                   <BlockHeader>TWO COLUMN SECTION</BlockHeader>
-                  <TwoColumnSection image="/assets/projects/placeholder.svg" imageAlt="Placeholder" imagePosition="left">
+                  <TwoColumnSection
+                    image="/assets/projects/placeholder.svg"
+                    imageAlt="Placeholder"
+                    imagePosition="left"
+                    contentClassName="text-block"
+                  >
                     <div className="space-y-6">
                       <SectionHeader label="BUSINESS" heading="Impact Up Front" />
                       <BulletList

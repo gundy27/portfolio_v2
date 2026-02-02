@@ -103,4 +103,3 @@ export interface Endorsement {
   linkedinUrl?: string
   avatarUrl?: string
 }
-

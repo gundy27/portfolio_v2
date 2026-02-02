@@ -5,7 +5,7 @@ import { motion } from 'framer-motion'
 import { Label } from '@/components/ui/Label'
 
 interface HeroProps {
-  name: string
+  role: string
 }
 
 const defaultBio =
@@ -15,21 +15,21 @@ const defaultBio =
 const HERO_IMAGE_WIDTH = 800
 const HERO_IMAGE_HEIGHT = 600
 
-export function Hero({ name }: HeroProps) {
+export function Hero({ role }: HeroProps) {
   return (
     <section className="section-spacing-large relative">
       <div className="floating-section">
         <div className="floating-section__content">
           <div className="flex flex-col gap-10 lg:flex-row lg:items-start lg:justify-between lg:gap-16">
             <div className="space-before-h1 min-w-0 flex-1 max-w-2xl">
-              <Label className="text-accent section-label">ABOUT</Label>
+              <Label className="text-accent section-label">ABOUT DAN GUNDERSON</Label>
               <motion.h1
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.6 }}
-                className="mt-3"
+                className="mt-1"
               >
-                {name}
+                {role}
               </motion.h1>
               <p className="text-base sm:text-lg text-[var(--color-text-body)]">{defaultBio}</p>
             </div>

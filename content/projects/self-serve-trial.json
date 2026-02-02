@@ -2,10 +2,10 @@
   "id": "self-serve-trial",
   "label": "GROWTH & ONBOARDING",
   "title": "Self-Serve Trial for an Enterprise AI Platform",
-  "description": "I led the launch of DataRobot’s self-serve trial motion. In a six-month window, I redesigned the organization structure, onboarding, and trial experience. The result was a scalable product-led growth motion that significantly boosted user acquisition and conversion through social signups, organic user invitiations, and tight integration with the sales CRM.",
-  "year": 2023,
+  "description": "I led the launch of DataRobot's self-serve trial motion. In a six-month window, I redesigned the multi-tenant onboarding to support organic expansion, added social login to reduce friction, and introduced a streamlined trial experience that generated a 3X conversion rate improvement. The result was a scalable product-led growth motion that significantly boosted user acquisition and conversion through social signups, organic user invitations, and a tailored onboarding experience.",
+  "year": 2022,
   "type": "paid",
-  "tags": ["Sign Up Flow UI/UX", "Experimentation", "AI", "Growth", "Activation"],
+  "tags": ["Sign Up Flow UI/UX", "Experimentation", "AI", "Growth"],
   "featured": true,
   "thumbnail": "/trial-hero.png",
   "company": "DataRobot",
@@ -20,52 +20,42 @@
     {
       "id": "problem",
       "type": "two-column",
-      "label": "THE",
-      "heading": "Problem",
-      "image": "/assets/projects/placeholder.svg",
+      "label": "DISTILLING DOWN",
+      "heading": "Problem and Hypothesis",
+      "image": "/assets/projects/self-serve-trial/self-serve-trial-problem.png",
       "imageAlt": "Problem overview",
       "imagePosition": "left",
-      "content": "DataRobot's enterprise AI platform lacked a seamless way for prospects to try the product on their own and **couldn't grow their team within DataRobot**. The existing trial was ad hoc and had low conversion, with limited insights into user engagement. For an enterprise tool as powerful as DataRobot, this was a missed opportunity."
+      "content": "DataRobot's previous trial prevented users from growing their team within the product. I believed that a trial which supported organic expansion within an existing tenant would help grow total user base and conversion rates."
     },
     {
       "id": "approach",
       "type": "two-column",
-      "label": "THE",
-      "heading": "Approach",
-      "image": "/assets/projects/placeholder.svg",
+      "label": "BIAS TOWARDS ACTION",
+      "heading": "Build and Learn",
+      "image": "",
       "imageAlt": "Approach overview",
       "imagePosition": "right",
-      "content": "I led a cross-functional effort to design a frictionless trial experience from scratch, balancing ease-of-use with enterprise requirements. **Solution highlights:**\n\n- **Streamlined signup:** Simplified the registration to one-minute, one-form signup (including SSO options) and resolved internal pushback by enabling marketing to capture lead info without adding friction. The result was near-zero drop-off at signup.\n- **Instant provisioning:** Built an automated provisioning system to spin up a dedicated trial environment for each user immediately after signup, instead of waiting on manual setup. Every new user could start exploring AI tools within minutes.\n- **Guided onboarding:** Curated the first-run experience with in-app guidance and a sample AI project, helping users build their first model in the first session. This turned a complex platform into a manageable, rewarding journey.\n- **Team invitations:** Enabled trial users to invite colleagues into their environment to encourage team evaluation. This viral loop not only drove a ~6% lift in signups via invites, but we discovered multi-user accounts converted to paid at 5× the rate of single-user trials.\n- **Trial parameters:** Chose a time-boxed trial (e.g. 14 days) with nearly full feature access. We included premium features so users could experience full value, while enforcing usage guardrails to protect infrastructure. This see-try-buy model aligned with our product-led growth goals."
+      "content": "I led the end-to-end trial launch, working beyond my team’s core product scope to align marketing, data, growth, and platform readiness. I delivered the trial signup flow, tenant provisioning, and UX improvements, including admin setup and inviting up to five users on the free tier. I instrumented the funnel to measure activation, engagement, and expansion, and partnered with users and data scientists to define trial limits and features. Finally, I collaborated with marketing on A/B-tested drip campaigns to drive trial conversion."
     },
     {
       "id": "results",
       "type": "two-column",
       "label": "THE",
       "heading": "Results",
-      "image": "/assets/projects/placeholder.svg",
+      "image": "",
       "imageAlt": "Results overview",
       "imagePosition": "left",
-      "content": "The new trial program had a huge impact on user growth and revenue pipeline:\n\n- **2,500+ MAU:** Within a few months, trial usage exploded to over 2,500 monthly active users, dramatically expanding the top of our funnel.\n- **5× conversion uplift:** Trial-to-paid conversion rates jumped ~5× compared to the old approach. By removing friction and guiding users to value, far more trial users became paying customers.\n- **Organic team adoption:** About 6% of new trial users were invited by peers, creating a viral loop. Importantly, trial workspaces with 3+ users showed much higher conversion, validating our focus on team onboarding.\n- **Enterprise pipeline boost:** The self-serve trial became a key lead source for sales. Trial engagement data helped identify high-intent accounts and armed sales reps with insights, turning the trial into a reliable lead-gen pipeline."
+      "content": "The new trial program had a major impact on user growth and revenue pipeline. It is still featured today as one of the first CTAs on DataRobot's website.\n\n- **2,500+ MAU:** Within a few months, trial usage exploded to over 2,500 monthly active users, dramatically expanding the top of our funnel.\n- **3× conversion uplift:** Trial-to-paid conversion rates jumped ~3× compared to the old approach. By removing friction, facilitating invites, and guiding users to value, far more trial users became paying customers. Importantly, trial workspaces with 3+ users showed much higher conversion, validating our focus on team onboarding.\n\nThe self-serve trial became a key lead source for sales. Trial engagement data helped identify high-intent accounts and armed sales with insights, turning the trial into a reliable lead-gen pipeline."
     },
     {
       "id": "lessons-learned",
       "type": "two-column",
-      "label": "THE",
-      "heading": "Lessons Learned",
-      "image": "/assets/projects/placeholder.svg",
+      "label": "LESSONS",
+      "heading": "Learned",
+      "image": "",
       "imageAlt": "Lessons learned overview",
       "imagePosition": "right",
-      "content": "This project taught me several key lessons as a growth-oriented PM:\n\n- **Balancing act:** Enterprise PLG means balancing user experience with internal needs. I learned to work closely with stakeholders (like Sales & Marketing) to capture important data without sacrificing a seamless user journey.\n- **Fast time-to-value:** I saw first-hand that getting users to their aha moment quickly is vital. By focusing on first-session success and activation metrics, we drove higher engagement and conversion.\n- **Iterate with data:** We approached the trial as an experiment-driven funnel. Continuous analysis of where users dropped off or got stuck allowed me to iterate rapidly and improve the experience (and metrics) over time."
-    },
-    {
-      "id": "next-steps-takeaway",
-      "type": "two-column",
-      "label": "THE",
-      "heading": "Next Steps & Takeaway",
-      "image": "/assets/projects/placeholder.svg",
-      "imageAlt": "Next steps overview",
-      "imagePosition": "left",
-      "content": "- **What I’d do next:** Build on this momentum by introducing in-app purchasing for the trial. I would allow users to seamlessly upgrade to a paid plan or extend their trial self-serve, further reducing friction in the conversion process.\n- **Growth PM takeaway:** Even in enterprise software, product-led growth can be a game-changer. By focusing on quick user value and removing friction, we turned a traditionally high-touch process into a scalable growth engine."
+      "content": "- **Lesson 1:** Set a fast pace and others will follow\n- **Lesson 2:** Repeat key information over and over\n- **Lesson 3:** Run more experiments"
     }
   ]
 }

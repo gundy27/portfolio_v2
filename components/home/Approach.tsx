@@ -1,5 +1,7 @@
+'use client'
+
+import { motion, useReducedMotion } from 'framer-motion'
 import { SectionHeader } from '@/components/ui/SectionHeader'
-import TextType from '@/components/ui/TextType'
 
 const approachParagraph =
   'Dan approaches product by breaking complex problems down to their most atomic parts and challenging assumptions early. He starts by asking “why,” writing things down, and using visuals—flows, wireframes, and diagrams—to clarify thinking. He forms clear hypotheses and designs experiments to learn as quickly as possible with minimal waste. Data is collected and synthesized to inform strong opinions and practical recommendations. He collaborates closely with partners to shape a shared vision and align on a path forward. When stakes are high, he builds coalitions and uses simple metaphors that help others understand, champion, and sell the idea.'
@@ -32,6 +34,23 @@ const steps = [
 ] as const
 
 export function Approach() {
+  const shouldReduceMotion = useReducedMotion()
+
+  const listVariants = {
+    hidden: {},
+    show: {
+      transition: {
+        delayChildren: 1,
+        staggerChildren: 2,
+      },
+    },
+  } as const
+
+  const itemVariants = {
+    hidden: { opacity: 0 },
+    show: { opacity: 1, transition: { duration: 1 } },
+  } as const
+
   return (
     <section className="section-spacing-large">
       <div className="floating-section">
@@ -39,18 +58,7 @@ export function Approach() {
           <div className="grid gap-10 lg:grid-cols-2 lg:items-start lg:gap-16">
             <div className="min-w-0 max-w-2xl">
               <SectionHeader label="WORKING STYLE" heading="Approach To Product" headingLevel="h2" />
-              <TextType
-                as="p"
-                multiline
-                className="text-base sm:text-lg text-[var(--color-text-body)]"
-                text={approachParagraph}
-                loop={false}
-                showCursor={false}
-                startOnVisible
-                initialDelay={150}
-                typingSpeed={18}
-                variableSpeed={{ min: 12, max: 28 }}
-              />
+              <p className="text-base sm:text-lg text-[var(--color-text-body)]">{approachParagraph}</p>
             </div>
 
             <div className="min-w-0">
@@ -61,25 +69,53 @@ export function Approach() {
                   aria-hidden="true"
                 />
 
-                <ol className="space-y-7 sm:space-y-8">
-                  {steps.map((step) => (
-                    <li key={step.title} className="relative pl-12">
-                      {/* Step marker */}
-                      <span
-                        className="absolute left-4 top-2 -translate-x-1/2 w-3.5 h-3.5 rounded-full border-2 bg-white"
-                        style={{ borderColor: '#598392' }}
-                        aria-hidden="true"
-                      />
+                {shouldReduceMotion ? (
+                  <ol className="space-y-7 sm:space-y-8">
+                    {steps.map((step) => (
+                      <li key={step.title} className="relative pl-12">
+                        {/* Step marker */}
+                        <span
+                          className="absolute left-4 top-2 -translate-x-1/2 w-3.5 h-3.5 rounded-full border-2 bg-white"
+                          style={{ borderColor: '#598392' }}
+                          aria-hidden="true"
+                        />
 
-                      <h3 className="font-heading text-base sm:text-lg font-semibold text-[var(--color-text-primary)]">
-                        {step.title}
-                      </h3>
-                      <p className="mt-1 text-sm sm:text-base text-[var(--color-text-secondary)]">
-                        {step.subtitle}
-                      </p>
-                    </li>
-                  ))}
-                </ol>
+                        <h3 className="font-heading text-base sm:text-lg font-semibold leading-tight text-[var(--color-text-primary)]">
+                          {step.title}
+                        </h3>
+                        <p className="subtitle-gap text-sm sm:text-base leading-snug text-[var(--color-text-secondary)]">
+                          {step.subtitle}
+                        </p>
+                      </li>
+                    ))}
+                  </ol>
+                ) : (
+                  <motion.ol
+                    className="space-y-7 sm:space-y-8"
+                    variants={listVariants}
+                    initial="hidden"
+                    whileInView="show"
+                    viewport={{ once: true, amount: 0.25 }}
+                  >
+                    {steps.map((step) => (
+                      <motion.li key={step.title} className="relative pl-12" variants={itemVariants}>
+                        {/* Step marker */}
+                        <span
+                          className="absolute left-4 top-2 -translate-x-1/2 w-3.5 h-3.5 rounded-full border-2 bg-white"
+                          style={{ borderColor: '#598392' }}
+                          aria-hidden="true"
+                        />
+
+                        <h3 className="font-heading text-base sm:text-lg font-semibold leading-tight text-[var(--color-text-primary)]">
+                          {step.title}
+                        </h3>
+                        <p className="subtitle-gap text-sm sm:text-base leading-snug text-[var(--color-text-secondary)]">
+                          {step.subtitle}
+                        </p>
+                      </motion.li>
+                    ))}
+                  </motion.ol>
+                )}
               </div>
             </div>
           </div>
