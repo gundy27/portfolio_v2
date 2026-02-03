@@ -7,9 +7,9 @@ export function Counters() {
         <div className="py-8 px-6 sm:py-12 sm:px-8 lg:py-16 lg:px-10">
           <div className="grid gap-6 sm:grid-cols-4">
             <CounterCard start={0} stop={7} label="BUILDING PRODUCTS" valueSuffix=" yrs" variant="dark-accent" />
-            <CounterCard start={0} stop={3} label="0->1 PRODUCT LAUNCHES" valueSuffix="" variant="dark-accent" />
-            <CounterCard start={0} stop={15} label="EXPERIMENTS RUN" valueSuffix="+" variant="dark-accent" />
-            <CounterCard start={0} stop={2} label="PATENTS" variant="dark-accent" />
+            <CounterCard start={0} stop={4} label="0->1 PRODUCT LAUNCHES" valueSuffix="" variant="dark-accent" />
+            <CounterCard start={0} stop={27} label="REVENUE IMPACTED" valueSuffix="M+" variant="dark-accent" />
+            <CounterCard start={0} stop={3} label="CONVERSION RATE BOOST" valueSuffix="X" variant="dark-accent" />
           </div>
         </div>
       </div>

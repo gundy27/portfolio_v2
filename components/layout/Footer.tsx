@@ -7,7 +7,7 @@ interface FooterProps {
 
 export function Footer({ logos = [] }: FooterProps = {}) {
   return (
-    <footer className="bg-gray-100 border-t border-gray-200">
+    <footer className="border-t border-gray-200">
       {logos.length > 0 && (
         <div className="border-b border-gray-200 bg-white">
           <LogoCarousel logos={logos} />

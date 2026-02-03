@@ -59,6 +59,8 @@ export interface ProjectSection {
   label?: string
   heading?: string
   content?: string // markdown-supported
+  /** Optional “Bottom line” strip rendered below highlight sections (markdown-supported). */
+  bottomLine?: string
   bullets?: string[]
   checklist?: string[]
   image?: string

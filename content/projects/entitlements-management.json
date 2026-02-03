@@ -70,7 +70,8 @@
       "image": "/assets/projects/placeholder.svg",
       "imageAlt": "Lessons and takeaways overview",
       "imagePosition": "right",
-      "content": "The impact was immediate and durable:\n\n- **$500K in revenue leakage eliminated** by shutting off unused or mis-scoped resources.\n- **Support tickets related to underprovisioned resources cut in half.**\n- Trial and demo environments became faster to provision, more consistent, and easier to reason about.\n- Paid customers could temporarily self-serve premium features, unlocking a low-risk upsell motion that previously wasn’t possible.\n\nI learned that platform work compounds. Backend infrastructure can directly unlock revenue, experimentation velocity, and product-led expansion."
+      "content": "The impact was immediate and durable:\n\n- **$500K in revenue leakage eliminated** by shutting off unused or mis-scoped resources.\n- **Support tickets related to underprovisioned resources cut in half.**\n- Trial and demo environments became faster to provision, more consistent, and easier to reason about.\n- Paid customers could temporarily self-serve premium features, unlocking a low-risk upsell motion that previously wasn’t possible.\n\nI learned that platform work compounds. Backend infrastructure can directly unlock revenue, experimentation velocity, and product-led expansion.",
+      "bottomLine": "Platform work compounds: when access is governed and enforceable, you protect revenue while accelerating experimentation and self-serve growth."
     }
   ]
 }

@@ -38,7 +38,7 @@
       "type": "two-column",
       "label": "DESIGNING FOR GROWTH",
       "heading": "Approach",
-      "image": "/assets/projects/self-serve-trial/trial-preseed.png",
+      "image": "/assets/projects/self-serve-trial/trial-preseed-v2.png",
       "imageAlt": "Approach overview",
       "imagePosition": "right",
       "content": "I led the end-to-end trial launch, working beyond my team’s core scope to align marketing, analytics, and platform readiness. \n\n I delivered the trial signup flow, provisioning, and UX improvements. By partnering with our analytics team to interpret the data, interviewing data scientist users, and running experiments, I defined key activation moments and designed the trial around them. \n\n I then ensured that these moments were instrumented so we could measure activation, engagement, and expansion."
