@@ -173,10 +173,7 @@ export function Testimonials({ endorsements }: TestimonialsProps) {
                 </div>
                 <div className="flex w-max gap-6" aria-hidden="true">
                   {endorsements.map((endorsement) => (
-                    <EndorsementCard
-                      key={`${endorsement.id}-dup`}
-                      endorsement={endorsement}
-                    />
+                    <EndorsementCard key={`${endorsement.id}-dup`} endorsement={endorsement} />
                   ))}
                 </div>
               </div>

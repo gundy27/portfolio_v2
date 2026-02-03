@@ -7,6 +7,7 @@ import type { ProjectSection as ProjectSectionType } from '@/lib/content/types'
 import { getNextProject, getPreviousProject, getProject, getProjectContent } from '@/lib/content/loader.server'
 import { ProjectHero } from '@/components/projects/ProjectHero'
 import { ProjectMeta } from '@/components/projects/ProjectMeta'
+import { MetricsRow } from '@/components/projects/MetricsRow'
 import { ProjectSection } from '@/components/projects/ProjectSection'
 
 interface ProjectPageProps {
@@ -54,6 +55,12 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
             learned={project.meta?.learned}
           />
 
+          {project.metrics?.length ? (
+            <section className="subsection-spacing">
+              <MetricsRow metrics={project.metrics} />
+            </section>
+          ) : null}
+
           {sections.length ? (
             <div className="pt-2">
               {sections.map((section) => (
@@ -68,7 +75,7 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
                 {previousProject ? (
                   <Link
                     href={`/projects/${previousProject.id}`}
-                    className="group rounded-lg border border-gray-200 p-5 hover:border-gray-300 hover:bg-gray-50 transition-colors"
+                    className="group rounded-lg border border-gray-200 bg-white p-5 hover:border-gray-300 hover:bg-gray-50 transition-colors"
                   >
                     <div className="text-xs font-medium tracking-wide text-secondary mb-2">
                       ← Previous Project
@@ -84,7 +91,7 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
                 {nextProject && (
                   <Link
                     href={`/projects/${nextProject.id}`}
-                    className="group rounded-lg border border-gray-200 p-5 hover:border-gray-300 hover:bg-gray-50 transition-colors sm:text-right"
+                    className="group rounded-lg border border-gray-200 bg-white p-5 hover:border-gray-300 hover:bg-gray-50 transition-colors sm:text-right"
                   >
                     <div className="text-xs font-medium tracking-wide text-secondary mb-2">
                       Next Project →

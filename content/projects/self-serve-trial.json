@@ -7,7 +7,7 @@
   "type": "paid",
   "tags": ["Sign Up Flow UI/UX", "Experimentation", "AI", "Growth"],
   "featured": true,
-  "thumbnail": "/trial-hero.png",
+  "thumbnail": "/assets/projects/self-serve-trial/trial-hero.png",
   "company": "DataRobot",
   "meta": {
     "role": "Senior Product Manager",
@@ -16,6 +16,12 @@
     "proudOf": "Turning a complex enterprise AI platform into a first-session success for new users",
     "learned": "How to balance enterprise constraints with product-led growth"
   },
+  "metrics": [
+    { "value": 3, "label": "CONVERSION RATE UPLIFT", "format": "{}×" },
+    { "value": 2500, "label": "MAU WITHIN 1 YEAR", "format": "{}+" },
+    { "value": 6, "label": "TO LAUNCH", "format": "{} months" },
+    { "value": 12, "label": "MAU FROM INVITES", "format": "{}%" }
+  ],
   "sections": [
     {
       "id": "problem",

@@ -6,6 +6,7 @@ import { CounterCard } from '@/components/ui/CounterCard'
 import { EndorsementCard } from '@/components/ui/EndorsementCard'
 import { SectionHeader } from '@/components/ui/SectionHeader'
 import { TwoColumnSection } from '@/components/ui/TwoColumnSection'
+import { ContentCardSection } from '@/components/ui/ContentCardSection'
 import { FullWidthSection } from '@/components/ui/FullWidthSection'
 import { HighlightSection } from '@/components/ui/HighlightSection'
 import { BulletList } from '@/components/ui/BulletList'
@@ -394,6 +395,26 @@ export default function DesignSystemPage() {
                 </div>
 
                 <div className="space-y-6">
+                  <BlockHeader>CONTENT CARD SECTION</BlockHeader>
+                  <ContentCardSection image="/assets/projects/placeholder.svg" imageAlt="Placeholder" imagePosition="left">
+                    <div className="space-y-6">
+                      <SectionHeader label="PRODUCT" heading="Content-only Card" />
+                      <p className="text-body">
+                        Use this pattern when the media should float on the page background, while the text sits in a
+                        solid white card for readability.
+                      </p>
+                      <BulletList
+                        items={[
+                          'Text content is wrapped in a white card',
+                          'Media gets a drop shadow for depth',
+                          'Transparent section background (no full-width card)',
+                        ]}
+                      />
+                    </div>
+                  </ContentCardSection>
+                </div>
+
+                <div className="space-y-6">
                   <BlockHeader>FULL WIDTH SECTION</BlockHeader>
                   <FullWidthSection width="wide">
                     <div className="space-y-6">
@@ -447,6 +468,15 @@ export default function DesignSystemPage() {
                     <CounterCard start={0} stop={99} label="REVENUE IMPACTED" />
                     <CounterCard start={0} stop={12} label="FEATURES DELIVERED" />
                     <CounterCard start={0} stop={48} label="EXPERIMENTS RUN" />
+                  </div>
+                </div>
+
+                <div className="pt-2">
+                  <BlockHeader>COUNTER CARD (dark-accent variant)</BlockHeader>
+                  <div className="grid gap-6 sm:grid-cols-3">
+                    <CounterCard variant="dark-accent" start={0} stop={99} label="REVENUE IMPACTED" />
+                    <CounterCard variant="dark-accent" start={0} stop={12} label="FEATURES DELIVERED" />
+                    <CounterCard variant="dark-accent" start={0} stop={48} label="EXPERIMENTS RUN" />
                   </div>
                 </div>
 

@@ -3,12 +3,13 @@ import { CounterCard } from '@/components/ui/CounterCard'
 export function Counters() {
   return (
     <section className="section-spacing-large">
-      <div className="floating-section">
-        <div className="floating-section__content">
-          <div className="grid gap-6 sm:grid-cols-3">
-            <CounterCard start={0} stop={34} label="REVENUE IMPACTED" />
-            <CounterCard start={0} stop={45} label="FEATURES DELIVERED" />
-            <CounterCard start={0} stop={12} label="EXPERIMENTS RUN" />
+      <div className="w-[calc(100%-2rem)] sm:w-[calc(100%-3rem)] lg:w-[calc(100%-4rem)] xl:w-[calc(100%-6rem)] 2xl:w-[calc(100%-8rem)] max-w-[90rem] mx-auto">
+        <div className="py-8 px-6 sm:py-12 sm:px-8 lg:py-16 lg:px-10">
+          <div className="grid gap-6 sm:grid-cols-4">
+            <CounterCard start={0} stop={7} label="BUILDING PRODUCTS" valueSuffix=" yrs" variant="dark-accent" />
+            <CounterCard start={0} stop={3} label="0->1 PRODUCT LAUNCHES" valueSuffix="" variant="dark-accent" />
+            <CounterCard start={0} stop={15} label="EXPERIMENTS RUN" valueSuffix="+" variant="dark-accent" />
+            <CounterCard start={0} stop={2} label="PATENTS" variant="dark-accent" />
           </div>
         </div>
       </div>

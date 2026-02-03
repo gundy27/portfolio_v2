@@ -2,6 +2,7 @@
 
 export interface Profile {
   name: string
+  role: string
   headline: string
   tagline: string
   bio: string
@@ -31,6 +32,8 @@ export interface Project {
   url?: string
   contentFile?: string // Optional markdown file
   meta?: ProjectMeta
+  /** Top-level metrics shown below meta, before first section (up to 4 cards) */
+  metrics?: ProjectMetric[]
   sections?: ProjectSection[]
 }
 
