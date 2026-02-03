@@ -26,7 +26,7 @@
     {
       "id": "problem",
       "type": "two-column",
-      "label": "DISTILLING DOWN",
+      "label": "FIRST PRINCIPLES",
       "heading": "Problem and Hypothesis",
       "image": "/assets/projects/self-serve-trial/self-serve-trial-problem.png",
       "imageAlt": "Problem overview",
@@ -41,7 +41,7 @@
       "image": "/assets/projects/self-serve-trial/trial-preseed-v2.png",
       "imageAlt": "Approach overview",
       "imagePosition": "right",
-      "content": "I led the end-to-end trial launch, working beyond my team’s core scope to align marketing, analytics, and platform readiness. \n\n I delivered the trial signup flow, provisioning, and UX improvements. By partnering with our analytics team to interpret the data, interviewing data scientist users, and running experiments, I defined key activation moments and designed the trial around them. \n\n I then ensured that these moments were instrumented so we could measure activation, engagement, and expansion."
+      "content": "I led the end-to-end trial launch, working beyond my team’s core scope to align marketing, analytics, and platform readiness. \n\n I delivered the trial signup flow, provisioning, and UX improvements. By partnering with our analytics team to interpret the data, interviewing data scientist users, and running experiments, I **defined key activation moments** and designed the trial around them. \n\n I then ensured that these moments were instrumented so we could measure activation, engagement, and expansion."
     },
     {
       "id": "results",
@@ -51,7 +51,7 @@
       "image": "/assets/projects/self-serve-trial/trial-results-v2.png",
       "imageAlt": "Results overview",
       "imagePosition": "left",
-      "content": "The new trial program had a major impact on user growth and revenue pipeline. It is still featured today as one of the first CTAs on [DataRobot's marketing website](https://www.datarobot.com).\n\n- Trial usage grew from ~700 to over 2,500 monthly active users, dramatically expanding the top of our funnel.\n- Data analysis showed that workspaces with 3+ users had higher retention rates. Collaboration made the product sticky. I added a simple invite flow to help users grow their team and share projects. At it's peak, 12% of trial users had registered through an invite. \n- Trial-to-paid conversion rates jumped 3X compared to the old approach. By removing friction, facilitating invites, and guiding users to value, far more trial users became paying customers. \n\nThe self-serve trial became a key lead source for sales. Trial engagement data helped identify high-intent accounts and armed sales with insights, turning the trial into a reliable lead-gen pipeline."
+      "content": "The new trial program had a major impact on user growth and revenue pipeline. It is still featured today as one of the first CTAs on [DataRobot's marketing website](https://www.datarobot.com).\n\n- Trial usage grew from ~700 to over 2,500 monthly active users, dramatically expanding the top of our funnel.\n- Data analysis showed that workspaces with 3+ users had higher retention rates. Collaboration made the product sticky. I added a simple invite flow to help users grow their team and share projects. At it's peak, 12% of trial users had registered through an invite. \n- Trial-to-paid **conversion rates jumped 3X** compared to the old approach. By removing friction, facilitating invites, and guiding users to value, far more trial users became paying customers. \n\nThe self-serve trial became a key lead source for sales. Trial engagement data helped identify high-intent accounts and armed sales with insights, turning the trial into a reliable lead-gen pipeline."
     },
     {
       "id": "lessons-learned",

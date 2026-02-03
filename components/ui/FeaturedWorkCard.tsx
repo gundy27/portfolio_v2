@@ -1,5 +1,4 @@
 import Image from 'next/image'
-import { ArrowRight } from 'lucide-react'
 import { Label } from '@/components/ui/Label'
 import { cn } from '@/lib/utils/cn'
 
@@ -31,16 +30,6 @@ export function FeaturedWorkCard({
       style={{ borderRadius: 'var(--radius-card)' }}
     >
       <div className="relative overflow-hidden" style={{ borderRadius: 'var(--radius-card)' }}>
-        {/* Top-right icon (above thumbnail) */}
-        <div className="absolute top-3 right-3 sm:top-4 sm:right-4 z-20">
-          <div className="flex h-9 w-9 items-center justify-center rounded-md bg-white/90 ring-1 ring-black/10 backdrop-blur-sm transition-colors duration-200 group-hover:bg-[var(--color-accent)] group-hover:ring-white/30">
-            <ArrowRight
-              className="h-4 w-4 text-[var(--color-accent)] transition-colors duration-200 group-hover:text-white"
-              aria-hidden="true"
-            />
-          </div>
-        </div>
-
         <div className="flex flex-col gap-4 p-3 sm:p-4 md:flex-row md:items-start md:justify-between">
           {/* Content */}
           <div className="min-w-0 flex-1">

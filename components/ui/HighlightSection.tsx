@@ -28,12 +28,12 @@ export function HighlightSection({
             background: 'linear-gradient(180deg, rgba(60, 88, 98, 0.96), rgba(60, 88, 98, 0.90))',
           }}
         >
-          <div className="w-full max-w-6xl text-white text-left">{children}</div>
+          <div className="w-full text-white text-left">{children}</div>
         </div>
 
         {bottomLine ? (
           <div className="bg-white px-6 py-6 sm:px-10 sm:py-8">
-            <div className="w-full max-w-6xl text-left">
+            <div className="w-full text-left">
               <div className="font-label text-xs uppercase tracking-wider text-secondary">
                 Bottom line
               </div>
