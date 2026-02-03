@@ -1,42 +1,22 @@
-import Image from 'next/image'
 import { SectionHeader } from '@/components/ui/SectionHeader'
-
-const SUPERPOWERS_IMAGE_WIDTH = 1536
-const SUPERPOWERS_IMAGE_HEIGHT = 1024
+import { ContentCardSection } from '@/components/ui/ContentCardSection'
+import { SuperpowersOrbit } from '@/components/ui/SuperpowersOrbit'
 
 export function Strengths() {
   return (
-    <section className="section-spacing-large">
-      <div className="floating-section">
-        <div className="floating-section__content">
-          <div className="grid gap-10 lg:grid-cols-2 lg:items-center">
-            <div
-              className="relative w-full"
-              style={{ aspectRatio: `${SUPERPOWERS_IMAGE_WIDTH} / ${SUPERPOWERS_IMAGE_HEIGHT}` }}
-            >
-              <Image
-                src="/assets/superpowers.png"
-                alt=""
-                width={SUPERPOWERS_IMAGE_WIDTH}
-                height={SUPERPOWERS_IMAGE_HEIGHT}
-                sizes="(max-width: 1023px) 100vw, 45vw"
-                className="size-full object-contain"
-              />
-            </div>
-
-            <div className="min-w-0">
-              <SectionHeader label="PRODUCT MANAGER" heading="Superpowers" headingLevel="h2" />
-              <p className="text-base sm:text-lg text-[var(--color-text-body)]">
-                Dan excels at working with engineering-heavy, technical teams to translate customer signal
-                into focused roadmaps. His systems-first approach drives him to think of the long game. He
-                prefers to run small experiments, conduct discovery, and ensure that the team is focused on
-                the right thing.
-              </p>
-            </div>
-          </div>
-        </div>
+    <ContentCardSection
+      imagePosition="left"
+      media={
+        <SuperpowersOrbit orbitRadius={185} orbitDurationSeconds={20} />
+      }
+    >
+      <div className="space-y-4">
+        <SectionHeader label="PRODUCT MANAGER" heading="Superpowers" headingLevel="h2" />
+        <p className="text-base sm:text-lg text-[var(--color-text-body)]">
+        My superpowers help me turn noisy, ambiguous customer signals into clear discovery experiments and focused roadmaps. I use influence and leadership to build alignment around the work, and I take pride in crafting simple, maintainable solutions that are easy to understand and a delight to use.
+        </p>
       </div>
-    </section>
+    </ContentCardSection>
   )
 }
 

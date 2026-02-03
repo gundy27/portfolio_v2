@@ -77,10 +77,7 @@ export function ProjectMeta({ role, company, timeline, proudOf, learned, classNa
 
   return (
     <section className={cn('subsection-spacing', className)}>
-      <div
-        className="rounded-xl border border-gray-200 bg-gray-50 px-6 py-6 sm:px-8"
-        style={{ boxShadow: '0 2px 10px rgba(17, 17, 17, 0.04)' }}
-      >
+      <div className="inset-panel">
         <div className="space-y-4">
           {items.map((item, idx) => {
             const state: 'pending' | 'active' | 'done' =

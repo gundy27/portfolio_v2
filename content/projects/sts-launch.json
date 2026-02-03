@@ -7,7 +7,7 @@
   "type": "paid",
   "tags": ["Platform", "Authorization", "Provisioning", "Packaging", "Billing", "Technical"],
   "featured": false,
-  "thumbnail": "/assets/projects/sts-castle.png",
+  "thumbnail": "/assets/projects/sts-launch/sts-castle.png",
   "company": "DataRobot",
   "meta": {
     "role": "Senior Product Manager",
@@ -16,6 +16,12 @@
     "proudOf": "Turning enterprise security needs into a repeatable product + sales motion that scaled rapidly",
     "learned": "Narrative clarity and early cross-functional alignment matter as much as technical correctness in executive-visible launches"
   },
+  "metrics": [
+    { "value": 40, "label": "Customers adopted STS", "format": "{}+" },
+    { "value": 10, "label": "Of ARR attributable", "format": "{}%" },
+    { "value": 12, "label": "Months (0→1 + scale)", "format": "{} months" },
+    { "value": 6, "label": "Figure deal size", "format": "{}‑figure contracts" }
+  ],
   "sections": [
     {
       "id": "context",

@@ -31,6 +31,8 @@ export interface Project {
   url?: string
   contentFile?: string // Optional markdown file
   meta?: ProjectMeta
+  /** Top-level metrics shown below meta, before first section (up to 4 cards) */
+  metrics?: ProjectMetric[]
   sections?: ProjectSection[]
 }
 

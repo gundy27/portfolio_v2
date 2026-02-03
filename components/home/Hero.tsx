@@ -9,7 +9,7 @@ interface HeroProps {
 }
 
 const defaultBio =
-  'Dan is a Senior Product Manager with 12+ years of experience. He specializes in building scalable systems that turn complexity into activation, retention, and revenue. While open to product roles, he is hoping to pivot into Growth Engineering. Available for part-time or full-time opportunities.'
+  'I specialize in building scalable systems that turn complexity into acquisition, activation, retention, and revenue.'
 
 /* Intrinsic size for hero collage (4:3) to avoid layout shift */
 const HERO_IMAGE_WIDTH = 800

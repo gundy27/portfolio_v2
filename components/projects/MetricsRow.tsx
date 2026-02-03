@@ -20,8 +20,8 @@ export function MetricsRow({ metrics, className }: MetricsRowProps) {
   if (!metrics.length) return null
 
   return (
-    <div className={cn('grid gap-6 sm:grid-cols-3', className)}>
-      {metrics.slice(0, 3).map((metric, idx) => {
+    <div className={cn('grid gap-6 sm:grid-cols-2 lg:grid-cols-4', className)}>
+      {metrics.slice(0, 4).map((metric, idx) => {
         return (
           <CounterCard
             key={`${idx}-${metric.label}`}

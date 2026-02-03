@@ -127,7 +127,6 @@ export function FeaturedWork({ projects }: { projects: Project[] }) {
                           skills={item.skills}
                           image={item.image}
                           imageAlt={item.imageAlt}
-                          className="transition-transform duration-200 ease-out hover:scale-[1.01]"
                         />
                       </Link>
                     </div>

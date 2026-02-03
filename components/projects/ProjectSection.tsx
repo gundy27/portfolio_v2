@@ -12,9 +12,18 @@ import { BulletList } from '@/components/ui/BulletList'
 import { ChecklistItem } from '@/components/ui/ChecklistItem'
 import { MetricsRow } from '@/components/projects/MetricsRow'
 
-function Markdown({ content }: { content: string }) {
+function Markdown({ content, inverse }: { content: string; inverse?: boolean }) {
   return (
-    <div className="prose prose-lg max-w-none prose-headings:font-heading prose-headings:text-primary prose-p:text-body prose-p:leading-relaxed prose-a:text-accent prose-a:no-underline hover:prose-a:underline prose-img:rounded-lg prose-img:my-8 prose-strong:text-primary">
+    <div
+      className={[
+        'prose prose-lg max-w-none',
+        'prose-headings:font-heading',
+        inverse
+          ? 'prose-invert prose-headings:text-white prose-p:text-white/90 prose-strong:text-white prose-a:text-white'
+          : 'prose-headings:text-primary prose-p:text-body prose-strong:text-primary prose-a:text-accent',
+        'prose-p:leading-relaxed prose-a:no-underline hover:prose-a:underline prose-img:rounded-lg prose-img:my-8',
+      ].join(' ')}
+    >
       <ReactMarkdown
         remarkPlugins={[remarkGfm]}
         components={{
@@ -113,6 +122,27 @@ export function ProjectSection({ section }: { section: ProjectSectionType }) {
   }
 
   if (section.type === 'highlight') {
+    const highlightBullets = section.bullets?.length ? (
+      <BulletList items={section.bullets} className="text-white/90" itemClassName="text-white/90" />
+    ) : null
+
+    const highlightChecklist =
+      section.checklist?.length ? (
+        <div className="space-y-3">
+          {section.checklist.map((item, idx) => (
+            <ChecklistItem
+              key={`${idx}-${item}`}
+              iconClassName="text-white"
+              textClassName="text-white/90"
+            >
+              {item}
+            </ChecklistItem>
+          ))}
+        </div>
+      ) : null
+
+    const highlightMarkdown = section.content ? <Markdown content={section.content} inverse /> : null
+
     return (
       <HighlightSection>
         <div className="space-y-6">
@@ -125,9 +155,9 @@ export function ProjectSection({ section }: { section: ProjectSectionType }) {
               headingClassName="text-white"
             />
           ) : null}
-          {bullets}
-          {checklist}
-          {markdown}
+          {highlightBullets}
+          {highlightChecklist}
+          {highlightMarkdown}
         </div>
       </HighlightSection>
     )

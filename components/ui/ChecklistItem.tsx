@@ -21,13 +21,14 @@ export interface ChecklistItemProps {
   children: React.ReactNode
   className?: string
   iconClassName?: string
+  textClassName?: string
 }
 
-export function ChecklistItem({ children, className, iconClassName }: ChecklistItemProps) {
+export function ChecklistItem({ children, className, iconClassName, textClassName }: ChecklistItemProps) {
   return (
     <div className={cn('flex items-start gap-3', className)}>
       <CheckIcon className={cn('text-accent mt-0.5', iconClassName)} />
-      <div className="text-body leading-relaxed">{children}</div>
+      <div className={cn('text-body leading-relaxed', textClassName)}>{children}</div>
     </div>
   )
 }
