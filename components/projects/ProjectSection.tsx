@@ -13,13 +13,24 @@ import { ChecklistItem } from '@/components/ui/ChecklistItem'
 import { MetricsRow } from '@/components/projects/MetricsRow'
 
 function Markdown({ content, inverse }: { content: string; inverse?: boolean }) {
+  const pClassName = inverse ? 'text-white leading-relaxed mb-4' : 'text-body leading-relaxed mb-4'
+  const listClassName = inverse
+    ? 'list-disc list-outside mb-4 ml-6 space-y-2 text-white'
+    : 'list-disc list-outside mb-4 ml-6 space-y-2 text-body'
+  const orderedListClassName = inverse
+    ? 'list-decimal list-outside mb-4 ml-6 space-y-2 text-white'
+    : 'list-decimal list-outside mb-4 ml-6 space-y-2 text-body'
+  const liClassName = inverse ? 'text-white' : 'text-body'
+  const aClassName = inverse ? 'text-white hover:underline' : 'text-accent hover:underline'
+  const strongClassName = inverse ? 'font-semibold text-white' : 'font-semibold text-primary'
+
   return (
     <div
       className={[
         'prose prose-lg max-w-none',
         'prose-headings:font-heading',
         inverse
-          ? 'prose-invert prose-headings:text-white prose-p:text-white/90 prose-strong:text-white prose-a:text-white'
+          ? 'prose-invert prose-headings:text-white prose-p:text-white prose-strong:text-white prose-a:text-white'
           : 'prose-headings:text-primary prose-p:text-body prose-strong:text-primary prose-a:text-accent',
         'prose-p:leading-relaxed prose-a:no-underline hover:prose-a:underline prose-img:rounded-lg prose-img:my-8',
       ].join(' ')}
@@ -52,22 +63,22 @@ function Markdown({ content, inverse }: { content: string; inverse?: boolean }) 
               isValidElement(children[0]) &&
               children[0].type === 'figure'
             if (isOnlyFigure || isOnlyFigureInArray) return <>{props.children}</>
-            return <p className="text-body leading-relaxed mb-4">{props.children}</p>
+            return <p className={pClassName}>{props.children}</p>
           },
           ul: ({ node, ...props }: ComponentPropsWithoutRef<'ul'> & { node?: unknown }) => (
-            <ul className="list-disc list-outside mb-4 ml-6 space-y-2 text-body">{props.children}</ul>
+            <ul className={listClassName}>{props.children}</ul>
           ),
           ol: ({ node, ...props }: ComponentPropsWithoutRef<'ol'> & { node?: unknown }) => (
-            <ol className="list-decimal list-outside mb-4 ml-6 space-y-2 text-body">{props.children}</ol>
+            <ol className={orderedListClassName}>{props.children}</ol>
           ),
           li: ({ node, ...props }: ComponentPropsWithoutRef<'li'> & { node?: unknown }) => (
-            <li className="text-body">{props.children}</li>
+            <li className={liClassName}>{props.children}</li>
           ),
           a: ({ node, ...props }: ComponentPropsWithoutRef<'a'> & { node?: unknown }) => (
-            <a className="text-accent hover:underline" {...props} />
+            <a className={aClassName} {...props} />
           ),
           strong: ({ node, ...props }: ComponentPropsWithoutRef<'strong'> & { node?: unknown }) => (
-            <strong className="font-semibold text-primary">{props.children}</strong>
+            <strong className={strongClassName}>{props.children}</strong>
           ),
         }}
       >
@@ -123,7 +134,7 @@ export function ProjectSection({ section }: { section: ProjectSectionType }) {
 
   if (section.type === 'highlight') {
     const highlightBullets = section.bullets?.length ? (
-      <BulletList items={section.bullets} className="text-white/90" itemClassName="text-white/90" />
+      <BulletList items={section.bullets} className="text-white" itemClassName="text-white" />
     ) : null
 
     const highlightChecklist =
@@ -133,7 +144,7 @@ export function ProjectSection({ section }: { section: ProjectSectionType }) {
             <ChecklistItem
               key={`${idx}-${item}`}
               iconClassName="text-white"
-              textClassName="text-white/90"
+              textClassName="text-white"
             >
               {item}
             </ChecklistItem>
@@ -142,16 +153,17 @@ export function ProjectSection({ section }: { section: ProjectSectionType }) {
       ) : null
 
     const highlightMarkdown = section.content ? <Markdown content={section.content} inverse /> : null
+    const highlightBottomLine = section.bottomLine ? <Markdown content={section.bottomLine} /> : null
 
     return (
-      <HighlightSection>
+      <HighlightSection bottomLine={highlightBottomLine}>
         <div className="space-y-6">
           {section.label && section.heading ? (
             <SectionHeader
               label={section.label}
               heading={section.heading}
               className="text-white"
-              labelClassName="text-white/80"
+              labelClassName="text-accent-light"
               headingClassName="text-white"
             />
           ) : null}

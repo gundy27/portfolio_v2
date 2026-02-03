@@ -15,7 +15,7 @@ function ScheduleIcon() {
       strokeWidth="2"
       strokeLinecap="round"
       strokeLinejoin="round"
-      className="lucide lucide-calendar-plus"
+      className="lucide lucide-calendar-plus shrink-0"
       aria-label="Schedule"
     >
       <title>Schedule</title>
@@ -29,16 +29,39 @@ function ScheduleIcon() {
   )
 }
 
+// Email Icon Component (Lucide-style envelope)
+function EmailIcon() {
+  return (
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      width="20"
+      height="20"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="2"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      aria-label="Email"
+    >
+      <title>Email</title>
+      <rect width="20" height="16" x="2" y="4" rx="2" />
+      <path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7" />
+    </svg>
+  )
+}
+
 // LinkedIn Icon Component
 function LinkedInIcon() {
   return (
     <svg
-      width="24"
-      height="24"
+      width="20"
+      height="20"
       viewBox="0 0 24 24"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
       aria-label="LinkedIn"
+      className="shrink-0"
     >
       <title>LinkedIn</title>
       <rect width="24" height="24" rx="4" fill="#0077B5" />
@@ -54,12 +77,13 @@ function LinkedInIcon() {
 function GitHubIcon() {
   return (
     <svg
-      width="24"
-      height="24"
+      width="20"
+      height="20"
       viewBox="0 0 24 24"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
       aria-label="GitHub"
+      className="shrink-0"
     >
       <title>GitHub</title>
       <circle cx="12" cy="12" r="12" fill="#24292E" />
@@ -86,7 +110,7 @@ export function GetInTouch() {
             headingClassName="text-3xl sm:text-4xl lg:text-5xl"
           />
           <p className="text-body text-lg text-primary max-w-lg">
-            Interested in collaboration, part-time opportunities, or something else?
+            Want to chat about a project, learn more about my work, or just say hello?
           </p>
           
           {/* Action Items */}
@@ -102,23 +126,32 @@ export function GetInTouch() {
               Schedule Meeting
             </Link>
             
-            {/* LinkedIn Icon */}
+            {/* Email */}
+            <Link
+              href="mailto:dan@gundy.io"
+              className="inline-flex items-center justify-center rounded-lg border border-accent bg-transparent p-3 text-accent transition-colors hover:bg-accent/10"
+              aria-label="Email"
+            >
+              <EmailIcon />
+            </Link>
+            
+            {/* LinkedIn */}
             <Link
               href="https://www.linkedin.com/in/dangunderson27"
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center justify-center rounded-lg transition-transform hover:scale-105"
+              className="inline-flex items-center justify-center rounded-lg border border-accent bg-transparent p-3 text-accent transition-colors hover:bg-accent/10"
               aria-label="LinkedIn"
             >
               <LinkedInIcon />
             </Link>
             
-            {/* GitHub Icon */}
+            {/* GitHub */}
             <Link
               href="https://www.github.com/gundy27"
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center justify-center rounded-full transition-transform hover:scale-105"
+              className="inline-flex items-center justify-center rounded-lg border border-accent bg-transparent p-3 text-accent transition-colors hover:bg-accent/10"
               aria-label="GitHub"
             >
               <GitHubIcon />

@@ -1,76 +1,73 @@
 {
   "id": "entitlements-management",
-  "label": "ORGANIC EXPANSION",
-  "title": "Entitlements Management — A Growth Platform Case Study",
-  "description": "I led the design and launch of a centralized entitlements system that became the foundation for trials, demos, and monetization at DataRobot. By introducing governed, time-bound feature access, we eliminated $500K+ in revenue leakage and unlocked new growth motions — including reverse trials for paid customers.",
+  "label": "PRICING & PACKAGING",
+  "title": "Entitlements Management",
+  "description": "I led the design and launch of a centralized entitlements management service that became the foundation for trials, sales-led demos, and upsells at DataRobot. By introducing governed, time-bound feature access, we eliminated significant revenue leakage and unlocked new growth motions, including reverse trials for paid customers.",
   "year": 2024,
   "type": "paid",
   "tags": [
     "Platform",
-    "Authorization",
     "Feature Access",
-    "Provisioning",
-    "Packaging",
-    "Billing",
-    "Experimentation",
-    "Technical"
+    "Lifecycle Management",
+    "Experimentation"
   ],
   "featured": false,
   "thumbnail": "/assets/projects/entitlements-management/pricing-plans.png",
   "company": "DataRobot",
   "meta": {
-    "role": "Senior Product Manager",
+    "role": "Product Manager -> Senior Product Manager",
     "company": "DataRobot",
-    "timeline": "~9 months",
-    "proudOf": "Turning access control into a growth lever through reverse trials and self-serve experimentation",
+    "timeline": "2+ years",
+    "proudOf": "Turned access control into an extensible customer lifecycle management framework and a durable growth lever",
     "learned": "Strong platform foundations are required before growth and monetization can safely scale"
   },
   "metrics": [
-    { "value": 500, "label": "Revenue leakage eliminated (K)", "format": "${}K" },
-    { "value": 50, "label": "Support tickets reduced", "format": "{}%" },
-    { "value": 9, "label": "Months to launch", "format": "{} months" },
-    { "value": 4, "label": "Execution streams", "format": "{} streams" }
+    { "value": 100, "label": "REVENUE LEAKAGE ELIMINATED", "format": "${}Ks" },
+    { "value": 50, "label": "SUPPORT TICKET REDUCTION", "format": "{}%" },
+    { "value": 180, "label": "FEATURE FLAGS DEPRECATED", "format": "{}+" },
+    { "value": 24, "label": "DEPLOYED TO PROD", "format": "{} SKUs" }
   ],
   "sections": [
     {
       "id": "problem",
       "type": "two-column",
-      "label": "FIRST PRINCIPLES APPROACH",
+      "label": "CONTEXT",
       "heading": "Problem and Hypothesis",
-      "image": "/assets/projects/entitlements-management/entitlements-problem.png",
+      "image": "/assets/projects/entitlements-management/entitlements-meme.png",
       "imageAlt": "Entitlements problem overview",
-      "imagePosition": "left",
-      "content": "As DataRobot scaled, feature access was controlled through a mix of hard-coded logic, feature flags, manual provisioning, and tribal knowledge spread across teams. This created significant business and growth challenges:\n\n- **Revenue leakage:** Over-provisioned accounts retained access to increased compute capacity and paid features long after contracts ended, contributing to hundreds of thousands in annual leakage.\n- **Customer friction:** Customers frequently lacked access to features they had purchased, leading to confusion and support escalations.\n- **Growth blocked:** We could not safely run trials, demos, or upsell experiments because feature access was brittle.\n\nI made the decision to build an entitlements management system that would remove the error-prone manual processes and improve governance. We believed that this would eliminate the revenue leakage while laying the foundation for future growth levers."
+      "imagePosition": "right",
+      "content": "As DataRobot scaled, feature access was controlled through a mix of hard-coded logic, feature flags, manual provisioning, and tribal knowledge spread across teams. \n\n Over-provisioned accounts retained access to increased compute capacity and paid features long after contracts ended, contributing to hundreds of thousands in annual leakage.\n\n Customers occasionally **lacked access to features they had purchased**, leading to confusion and support escalations.\n\nWe could not safely run trials, demos, or upsell experiments at scale because the whole setup was so brittle.\n\nI made the decision to build an entitlements management service that would remove the error-prone manual processes and improve governance. I believed that this would eliminate the revenue leakage and reduce the burden on support, all while laying the foundation for future growth motions."
     },
     {
       "id": "strategy",
       "type": "two-column",
-      "label": "GROWTH",
-      "heading": "Strategy",
-      "image": "/assets/projects/entitlements-management/entitlements-opp.png",
+      "label": "CORE",
+      "heading": "Building Blocks",
+      "image": "/assets/projects/entitlements-management/legos.png",
       "imageAlt": "Packaging and access strategy",
-      "imagePosition": "right",
-      "content": "I intentionally framed entitlements as a growth platform, not a backend refactor.\n\nCore principles:\n- **Single source of truth:** One authoritative system for feature access across all deployments.\n- **Time-bound access:** Every entitlement could expire automatically, removing manual cleanup.\n- **Future-proofed:** Designed to support use cases we hadn’t launched yet, including reverse trials and usage-based access.\n- **Lifecycle hooks:** Allowed teams to hook into specific triggers in the customer’s lifecycle — whether it be marketing outreach or even data deletion and removal when a customer churns."
+      "imagePosition": "left",
+      "content": "I identified accounts that were in violation and began laying plans to ensure it couldn't happen again. In tandem, I started exploring ways that automated, governed access could be used to drive growth. \n\n **One source of truth** for feature access provides clarity to internal teams and customers.\n\n Entitlements should be **modular** and can be added/removed independently in designated quantities. \n\n A **time component** ensures that access is removed when no longer valid, eliminating manual cleanup.\n\n Teams can hook into **triggers** in the customer’s lifecycle to layer in additional actions."
     },
     {
       "id": "execution",
       "type": "two-column",
       "label": "ENTITLEMENTS MANAGEMENT",
-      "heading": "Layered Execution",
-      "image": "/assets/projects/entitlements-management/layered-capabilities.png",
+      "heading": "Evolution Timeline",
+      "image": "/assets/projects/entitlements-management/entitlements-timeline.png",
       "imageAlt": "Execution plan streams",
-      "imagePosition": "left",
-      "content": "\n\n**1. Defined the Entitlements Model**\n- Authored the long-term vision and core schema mapping customers, users, features, limits, and time-bound access.\n- Partnered closely with Engineering, Security, Support, and Analytics to ensure enforcement was consistent and auditable.\n\n**2. Proved It with Trials**\n- Replaced manual trial provisioning with governed entitlements.\n- Validated that features turned on and off correctly under real usage and cost constraints.\n\n**3. Extended to Demo Environments and Paid Customers**\n- Rolled out the system across demos and paid SKUs, reducing operational drag across the org.\n- Extended the model to paid customers.\n- Sales and Customer Success could now offer \"try before you buy\" experiences to existing customers — safely.\n\n**4. Unlocked Reverse Trials**\n- Paying customers could now self-serve temporary access to premium features like Generative AI.\n- Added hooks to CRM to allow account teams to follow up.\n- Launched just before I departed the company."
+      "imagePosition": "right",
+      "content": "\n\n**1. Defined the Entitlements Model**\n- Authored the long-term vision and core schema mapping for customers, phases, features, limits, and time-bound access.\n- Partnered closely with Engineering, Security, Support, and Analytics to clean up feature flag tech debt and ensure enforcement was auditable.\n\n**2. Proved It with Trials**\n- Replaced manual trial provisioning with governed entitlements.\n- Validated that features turned on and off correctly under real usage and cost constraints.\n\n**3. Extended to Sales-Led Demo Environments and Paid Customers**\n- Adopted entitlements for sales-led demo environments, reducing operational drag on support.\n- Extended the model to paid customers and used to provision 24 separate product SKUs.\n\n**4. Unlocked Reverse Trials**\n- Paying customers could now self-serve temporary access to premium features like Generative AI.\n- Added hooks to CRM to allow account teams to follow up."
     },
     {
       "id": "lessons-takeaways",
       "type": "highlight",
       "label": "TAKEAWAYS",
       "heading": "Lessons Learned",
-      "image": "/assets/projects/placeholder.svg",
+      "image": "",
       "imageAlt": "Lessons and takeaways overview",
       "imagePosition": "right",
-      "content": "The impact was immediate and durable:\n\n- **$500K in revenue leakage eliminated** by shutting off unused or mis-scoped resources.\n- **Support tickets related to underprovisioned resources cut in half.**\n- Trial and demo environments became faster to provision, more consistent, and easier to reason about.\n- Paid customers could temporarily self-serve premium features, unlocking a low-risk upsell motion that previously wasn’t possible.\n\nI learned that platform work compounds. Backend infrastructure can directly unlock revenue, experimentation velocity, and product-led expansion."
+      "content": "This work was a major turning point for me. It was the first time I was able to truly connect the dots between platform work and revenue. \n\n I also learned that the devil is in the details. Wrangling the feature flags to pivot to entitlements was tedious and time-consuming. Motivating other teams to invest in this effort was difficult. In retrospect, **I wish I had garnered more top-level buy-in** from the start. It was a great lesson in humility and patience.",
+      "bottomLine": "**Platform work compounds. When access is governed and enforceable, revenue can be protected while accelerating experimentation and self-serve growth.**"
     }
   ]
 }

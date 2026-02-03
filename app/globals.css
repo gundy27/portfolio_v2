@@ -16,6 +16,7 @@ html {
   --color-bg-white: #FFFFFF;
   --color-accent: #598392;
   --color-accent-dark: #3c5862;
+  --color-accent-light: #A8C4CE;
   --radius-section: 16px;
   --radius-card: 12px;
   --radius-card-sm: 10px;
@@ -541,6 +542,10 @@ label,
 
 .border-accent {
   border-color: var(--color-accent);
+}
+
+.text-accent-light {
+  color: var(--color-accent-light);
 }
 
 /* Section Header Pattern */

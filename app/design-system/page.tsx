@@ -429,14 +429,21 @@ export default function DesignSystemPage() {
 
                 <div className="space-y-6">
                   <BlockHeader>HIGHLIGHT SECTION</BlockHeader>
-                  <HighlightSection>
+                  <HighlightSection
+                    bottomLine={
+                      <p className="m-0">
+                        Summarize the single most important outcome in one sentence, so the reader remembers the
+                        impact.
+                      </p>
+                    }
+                  >
                     <div className="space-y-6">
                       <SectionHeader
                         label="RESULTS"
                         heading="Insights"
                         headingLevel="h1"
                         className="text-white"
-                        labelClassName="text-white/80"
+                        labelClassName="text-accent-light"
                         headingClassName="text-white"
                       />
                       <div className="space-y-3">

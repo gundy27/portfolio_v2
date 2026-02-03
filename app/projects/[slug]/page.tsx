@@ -75,7 +75,7 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
                 {previousProject ? (
                   <Link
                     href={`/projects/${previousProject.id}`}
-                    className="group rounded-lg border border-gray-200 bg-white p-5 hover:border-gray-300 hover:bg-gray-50 transition-colors"
+                    className="group rounded-lg border border-gray-200 bg-transparent p-5 hover:border-gray-300 hover:bg-transparent transition-colors"
                   >
                     <div className="text-xs font-medium tracking-wide text-secondary mb-2">
                       ← Previous Project
@@ -91,7 +91,7 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
                 {nextProject && (
                   <Link
                     href={`/projects/${nextProject.id}`}
-                    className="group rounded-lg border border-gray-200 bg-white p-5 hover:border-gray-300 hover:bg-gray-50 transition-colors sm:text-right"
+                    className="group rounded-lg border border-gray-200 bg-transparent p-5 hover:border-gray-300 hover:bg-transparent transition-colors sm:text-right"
                   >
                     <div className="text-xs font-medium tracking-wide text-secondary mb-2">
                       Next Project →
