@@ -8,6 +8,7 @@ const contentDirectory = path.join(process.cwd(), 'content')
 // Default profile for fallback
 const defaultProfile: Profile = {
   name: '',
+  role: '',
   headline: '',
   tagline: '',
   bio: '',

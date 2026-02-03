@@ -2,6 +2,7 @@
 
 export interface Profile {
   name: string
+  role: string
   headline: string
   tagline: string
   bio: string
