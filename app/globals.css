@@ -500,17 +500,34 @@ label,
 /* Featured Work Card */
 .featured-work-card {
   border: 1px solid rgba(17, 17, 17, 0.08);
-  box-shadow: 0 2px 14px rgba(17, 17, 17, 0.08);
+  box-shadow: 0 2px 10px rgba(17, 17, 17, 0.06);
+  position: relative;
+  isolation: isolate;
+  contain: paint;
   transform: translate3d(0, 0, 0) scale(1);
   will-change: transform;
-  transition:
-    transform 200ms ease-out,
-    box-shadow 200ms ease-out;
+  transition: transform 200ms ease-out;
+}
+
+.featured-work-card::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  box-shadow: 0 22px 44px -36px rgba(17, 17, 17, 0.24);
+  opacity: 0;
+  pointer-events: none;
+  z-index: -1;
+  transition: opacity 200ms ease-out;
+  will-change: opacity;
 }
 
 .featured-work-card:hover {
   transform: translate3d(0, -6px, 0) scale(1.02);
-  box-shadow: 0 16px 44px rgba(17, 17, 17, 0.05);
+}
+
+.featured-work-card:hover::after {
+  opacity: 1;
 }
 
 /* Accent Color */
