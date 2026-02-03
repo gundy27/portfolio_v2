@@ -75,7 +75,10 @@ export function Approach() {
                     <h3 className="font-heading text-base sm:text-lg font-semibold leading-tight text-[var(--color-text-primary)] mb-0">
                       {step.title}
                     </h3>
-                    <p className="subtitle-gap text-sm sm:text-base leading-snug text-[var(--color-text-secondary)] mb-0">
+                    <p
+                      className="subtitle-gap text-sm sm:text-base leading-snug text-[var(--color-text-secondary)] mb-0"
+                      style={{ marginTop: 4 }}
+                    >
                       {step.subtitle}
                     </p>
                   </li>
@@ -101,7 +104,10 @@ export function Approach() {
                     <h3 className="font-heading text-base sm:text-lg font-semibold leading-tight text-[var(--color-text-primary)] mb-0">
                       {step.title}
                     </h3>
-                    <p className="subtitle-gap text-sm sm:text-base leading-snug text-[var(--color-text-secondary)] mb-0">
+                    <p
+                      className="subtitle-gap text-sm sm:text-base leading-snug text-[var(--color-text-secondary)] mb-0"
+                      style={{ marginTop: 4 }}
+                    >
                       {step.subtitle}
                     </p>
                   </motion.li>

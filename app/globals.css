@@ -500,7 +500,7 @@ label,
 /* Featured Work Card */
 .featured-work-card {
   border: 1px solid rgba(17, 17, 17, 0.08);
-  box-shadow: 0 2px 12px rgba(17, 17, 17, 0.06);
+  box-shadow: 0 2px 14px rgba(17, 17, 17, 0.08);
   transform: translate3d(0, 0, 0) scale(1);
   will-change: transform;
   transition:
@@ -510,7 +510,7 @@ label,
 
 .featured-work-card:hover {
   transform: translate3d(0, -6px, 0) scale(1.02);
-  box-shadow: 0 6px 20px rgba(17, 17, 17, 0.04);
+  box-shadow: 0 16px 44px rgba(17, 17, 17, 0.05);
 }
 
 /* Accent Color */
