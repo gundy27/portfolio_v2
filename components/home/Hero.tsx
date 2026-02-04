@@ -9,7 +9,7 @@ interface HeroProps {
 }
 
 const defaultBio =
-  'I specialize in building scalable systems that turn complexity into acquisition, activation, retention, and revenue.'
+  'Product professional with 7+ years of industry experience. I specialize in building scalable systems that consistently turn complexity into activation, retention, and revenue.'
 
 /* Intrinsic size for hero collage (4:3) to avoid layout shift */
 const HERO_IMAGE_WIDTH = 800
@@ -38,7 +38,7 @@ export function Hero({ role }: HeroProps) {
               style={{ aspectRatio: `${HERO_IMAGE_WIDTH} / ${HERO_IMAGE_HEIGHT}` }}
             >
               <Image
-                src="/assets/hero-collage.webp"
+                src="/assets/hero-image-v3.png"
                 alt=""
                 width={HERO_IMAGE_WIDTH}
                 height={HERO_IMAGE_HEIGHT}
