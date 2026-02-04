@@ -2,16 +2,21 @@
 
 import * as React from 'react'
 import { motion, useReducedMotion } from 'framer-motion'
-import { FlaskConical, Paintbrush, PieChart, UsersRound } from 'lucide-react'
+import { Code2, FlaskConical, Paintbrush, PieChart, UsersRound } from 'lucide-react'
 import { cn } from '@/lib/utils/cn'
 
-export type SuperpowerItemId = 'curiosity' | 'data-driven' | 'leadership' | 'craftsmanship'
+export type SuperpowerItemId =
+  | 'curiosity'
+  | 'technical-acumen'
+  | 'data-driven'
+  | 'leadership'
+  | 'craftsmanship'
 
 export interface SuperpowerItem {
   id: SuperpowerItemId
   label: string
-  /** Angle offset in degrees: 0/90/180/270 correspond to top/right/bottom/left. */
-  angleOffset: 0 | 90 | 180 | 270
+  /** Angle offset in degrees: 0 = top, 90 = right, 180 = bottom, 270 = left. */
+  angleOffset: number
   icon: React.ComponentType<{ className?: string; 'aria-hidden'?: boolean }>
   description: string
 }
@@ -26,9 +31,17 @@ export const SUPERPOWERS_ITEMS: SuperpowerItem[] = [
       'Dan excels at working with engineering-heavy, technical teams to translate customer signal into focused roadmaps. His systems-first approach drives him to think of the long game. He prefers to run small experiments, conduct discovery, and ensure that the team is focused on the right thing.',
   },
   {
+    id: 'technical-acumen',
+    label: 'Technical Acumen',
+    angleOffset: 72,
+    icon: Code2,
+    description:
+      'Dan combines product strategy with hands-on technical depth. He understands system architecture, APIs, and implementation tradeoffs—enabling him to partner effectively with engineering and ship with confidence.',
+  },
+  {
     id: 'data-driven',
     label: 'Data',
-    angleOffset: 90,
+    angleOffset: 144,
     icon: PieChart,
     description:
       'Dan pairs strong product instincts with clear measurement. He works backward from outcomes, instruments what matters, and uses data to validate bets—without getting stuck chasing vanity metrics.',
@@ -36,7 +49,7 @@ export const SUPERPOWERS_ITEMS: SuperpowerItem[] = [
   {
     id: 'leadership',
     label: 'Leadership',
-    angleOffset: 180,
+    angleOffset: 216,
     icon: UsersRound,
     description:
       'Dan creates clarity in ambiguous environments by aligning stakeholders, making tradeoffs explicit, and keeping teams focused on impact. He builds trust through crisp communication and reliable follow-through.',
@@ -44,7 +57,7 @@ export const SUPERPOWERS_ITEMS: SuperpowerItem[] = [
   {
     id: 'craftsmanship',
     label: 'Craftsmanship',
-    angleOffset: 270,
+    angleOffset: 288,
     icon: Paintbrush,
     description:
       'Dan cares deeply about quality—from UX details to the operational footprint of what ships. He raises the bar with thoughtful docs, clean execution, and a bias toward simple, maintainable solutions.',
@@ -63,7 +76,7 @@ function degToRad(deg: number) {
   return (deg * Math.PI) / 180
 }
 
-function positionForAngle(radius: number, angleOffset: 0 | 90 | 180 | 270) {
+function positionForAngle(radius: number, angleOffset: number) {
   // Spec: angleOffset 0/90/180/270 should map to top/right/bottom/left.
   // In standard polar coordinates 0deg points right, so we subtract 90deg to make 0deg point up.
   const theta = degToRad(angleOffset - 90)
