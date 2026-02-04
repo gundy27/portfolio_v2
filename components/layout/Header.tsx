@@ -81,10 +81,6 @@ export function Header() {
           
           {/* Desktop Menu */}
           <div className="hidden md:flex items-center gap-8">
-            <Link href="/design-system">
-              <Label>DESIGN SYSTEM</Label>
-            </Link>
-
             <a href="/resume" onClick={onResumeClick} className="inline-flex items-center">
               <Label>RESUME</Label>
             </a>
@@ -136,14 +132,6 @@ export function Header() {
               className="md:hidden overflow-hidden border-t border-gray-200"
             >
               <div className="flex flex-col py-4 gap-4">
-                <Link
-                  href="/design-system"
-                  onClick={closeMenu}
-                  className="px-4 py-2 hover:bg-gray-50 transition-colors"
-                >
-                  <Label>DESIGN SYSTEM</Label>
-                </Link>
-
                 <a
                   href="/resume"
                   onClick={() => {
