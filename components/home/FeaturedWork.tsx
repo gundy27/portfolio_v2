@@ -88,7 +88,7 @@ export function FeaturedWork({ projects }: { projects: Project[] }) {
 
   return (
     <section className="section-spacing-large">
-      <div className="floating-section">
+      <div className="floating-section floating-section--transparent">
         <div className="floating-section__content">
           <div className="space-y-10">
             <SectionHeader
@@ -138,7 +138,7 @@ export function FeaturedWork({ projects }: { projects: Project[] }) {
                     className="pointer-events-none absolute inset-x-0 bottom-0 h-28"
                     style={{
                       background:
-                        'linear-gradient(to bottom, rgba(255,255,255,0) 0%, rgba(255,255,255,1) 70%)',
+                        'linear-gradient(to bottom, transparent 0%, var(--floating-section-fade-to, var(--color-bg-white)) 70%)',
                     }}
                     aria-hidden="true"
                   />

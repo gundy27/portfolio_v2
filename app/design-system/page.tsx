@@ -199,6 +199,7 @@ export default function DesignSystemPage() {
               <ColorRow name="Body" value="#2C2C2C" color="#2C2C2C" />
               <ColorRow name="Secondary" value="#6A6A6A" color="#6A6A6A" />
               <ColorRow name="Accent" value="#598392" color="#598392" />
+              <ColorRow name="Accent (dark)" value="#3c5862" color="#3c5862" />
               <ColorRow name="Background" value="#FAFAFA" color="#FAFAFA" />
               <ColorRow name="White" value="#FFFFFF" color="#FFFFFF" />
             </div>
@@ -453,6 +454,44 @@ export default function DesignSystemPage() {
                       </div>
                     </div>
                   </HighlightSection>
+                </div>
+
+                <div className="space-y-6">
+                  <BlockHeader>FLOATING SECTION VARIANTS</BlockHeader>
+                  <div className="grid gap-6 lg:grid-cols-3">
+                    <div className="space-y-3">
+                      <Label className="block">Default</Label>
+                      <div className="floating-section">
+                        <div className="floating-section__content">
+                          <p className="m-0 text-sm text-secondary">
+                            White-ish background + drop shadow
+                          </p>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div className="space-y-3">
+                      <Label className="block">Transparent</Label>
+                      <div className="floating-section floating-section--transparent">
+                        <div className="floating-section__content">
+                          <p className="m-0 text-sm text-secondary">
+                            No background, no shadow (content sits on page)
+                          </p>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div className="space-y-3">
+                      <Label className="block">Gray Tint</Label>
+                      <div className="floating-section floating-section--gray">
+                        <div className="floating-section__content">
+                          <p className="m-0 text-sm text-secondary">
+                            Subtle gray tint + drop shadow
+                          </p>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
                 </div>
 
                 <BlockHeader>WORK ITEM CARD</BlockHeader>

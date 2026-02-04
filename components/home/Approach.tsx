@@ -1,6 +1,5 @@
 'use client'
 
-import { motion, useReducedMotion } from 'framer-motion'
 import { SectionHeader } from '@/components/ui/SectionHeader'
 import { ContentCardSection } from '@/components/ui/ContentCardSection'
 
@@ -35,23 +34,6 @@ const steps = [
 ] as const
 
 export function Approach() {
-  const shouldReduceMotion = useReducedMotion()
-
-  const listVariants = {
-    hidden: {},
-    show: {
-      transition: {
-        delayChildren: 1,
-        staggerChildren: 2,
-      },
-    },
-  } as const
-
-  const itemVariants = {
-    hidden: { opacity: 0 },
-    show: { opacity: 1, transition: { duration: 1 } },
-  } as const
-
   return (
     <ContentCardSection
       imagePosition="right"
@@ -61,59 +43,28 @@ export function Approach() {
             {/* Vertical connector line */}
             <div className="absolute left-4 -translate-x-1/2 top-1 bottom-1 w-px bg-gray-200" aria-hidden="true" />
 
-            {shouldReduceMotion ? (
-              <ol className="space-y-7 sm:space-y-8">
-                {steps.map((step) => (
-                  <li key={step.title} className="relative pl-12">
-                    {/* Step marker */}
-                    <span
-                      className="absolute left-4 top-2 -translate-x-1/2 w-3.5 h-3.5 rounded-full border-2 bg-white"
-                      style={{ borderColor: '#598392' }}
-                      aria-hidden="true"
-                    />
+            <ol className="space-y-7 sm:space-y-8">
+              {steps.map((step) => (
+                <li key={step.title} className="relative pl-12">
+                  {/* Step marker */}
+                  <span
+                    className="absolute left-4 top-2 -translate-x-1/2 w-3.5 h-3.5 rounded-full border-2 bg-white"
+                    style={{ borderColor: '#598392' }}
+                    aria-hidden="true"
+                  />
 
-                    <h3 className="font-heading text-base sm:text-lg font-semibold leading-tight text-[var(--color-text-primary)] mb-0">
-                      {step.title}
-                    </h3>
-                    <p
-                      className="subtitle-gap text-sm sm:text-base leading-snug text-[var(--color-text-secondary)] mb-0"
-                      style={{ marginTop: 4 }}
-                    >
-                      {step.subtitle}
-                    </p>
-                  </li>
-                ))}
-              </ol>
-            ) : (
-              <motion.ol
-                className="space-y-7 sm:space-y-8"
-                variants={listVariants}
-                initial="hidden"
-                whileInView="show"
-                viewport={{ once: true, amount: 0.25 }}
-              >
-                {steps.map((step) => (
-                  <motion.li key={step.title} className="relative pl-12" variants={itemVariants}>
-                    {/* Step marker */}
-                    <span
-                      className="absolute left-4 top-2 -translate-x-1/2 w-3.5 h-3.5 rounded-full border-2 bg-white"
-                      style={{ borderColor: '#598392' }}
-                      aria-hidden="true"
-                    />
-
-                    <h3 className="font-heading text-base sm:text-lg font-semibold leading-tight text-[var(--color-text-primary)] mb-0">
-                      {step.title}
-                    </h3>
-                    <p
-                      className="subtitle-gap text-sm sm:text-base leading-snug text-[var(--color-text-secondary)] mb-0"
-                      style={{ marginTop: 4 }}
-                    >
-                      {step.subtitle}
-                    </p>
-                  </motion.li>
-                ))}
-              </motion.ol>
-            )}
+                  <h3 className="font-heading text-base sm:text-lg font-semibold leading-tight text-[var(--color-text-primary)] mb-0">
+                    {step.title}
+                  </h3>
+                  <p
+                    className="subtitle-gap text-sm sm:text-base leading-snug text-[var(--color-text-secondary)] mb-0"
+                    style={{ marginTop: 4 }}
+                  >
+                    {step.subtitle}
+                  </p>
+                </li>
+              ))}
+            </ol>
           </div>
         </div>
       }

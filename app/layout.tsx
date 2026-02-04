@@ -22,9 +22,17 @@ const lexendExa = Lexend_Exa({
 })
 
 export const metadata: Metadata = {
-  title: 'Dan Gunderson | Product Manager & Developer',
-  description: 'Portfolio showcasing my work in product management, full-stack development, and AI innovation.',
-  keywords: ['Product Manager', 'Full-Stack Developer', 'AI', 'Portfolio', 'Dan Gunderson'],
+  title: 'Dan Gunderson | Product & Growth Leader',
+  description: 'Senior product and growth leader building scalable systems that turn ambiguous problems into measurable business outcomes.',
+  keywords: [
+    'Product Manager',
+    'Product Leadership',
+    'Growth',
+    'Product-Led Growth',
+    'SaaS',
+    'Enterprise Product',
+    'Dan Gunderson',
+  ],
   authors: [{ name: 'Dan Gunderson', url: 'https://gundy.io' }],
   icons: {
     icon: [
@@ -35,17 +43,17 @@ export const metadata: Metadata = {
     apple: [{ url: '/apple-touch-icon.png' }],
   },
   openGraph: {
-    title: 'Dan Gunderson — Portfolio',
-    description: 'Product, design, and engineering work by Dan Gunderson.',
+    title: 'Dan Gunderson | Product & Growth Leader',
+    description: 'I build and scale product systems that turn ambiguous problems into simple solutions that drive business growth.',
     url: 'https://gundy.io',
-    siteName: 'Dan Gunderson Portfolio',
+    siteName: 'Dan Gunderson',
     type: 'website',
     images: [{ url: 'https://gundy.io/og-image.png' }],
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Dan Gunderson — Portfolio',
-    description: 'Product, design, and engineering work by Dan Gunderson.',
+    title: 'Dan Gunderson | Product & Growth Leader',
+    description: 'Senior product leader focused on shipping business outcomes through scalable product systems.',
     images: ['https://gundy.io/og-image.png'],
   },
 }

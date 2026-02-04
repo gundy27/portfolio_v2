@@ -2,16 +2,21 @@
 
 import * as React from 'react'
 import { motion, useReducedMotion } from 'framer-motion'
-import { FlaskConical, Paintbrush, PieChart, UsersRound } from 'lucide-react'
+import { Code2, FlaskConical, Paintbrush, PieChart, UsersRound } from 'lucide-react'
 import { cn } from '@/lib/utils/cn'
 
-export type SuperpowerItemId = 'curiosity' | 'data-driven' | 'leadership' | 'craftsmanship'
+export type SuperpowerItemId =
+  | 'curiosity'
+  | 'technical-acumen'
+  | 'data-driven'
+  | 'leadership'
+  | 'craftsmanship'
 
 export interface SuperpowerItem {
   id: SuperpowerItemId
   label: string
-  /** Angle offset in degrees: 0/90/180/270 correspond to top/right/bottom/left. */
-  angleOffset: 0 | 90 | 180 | 270
+  /** Angle offset in degrees: 0 = top, 90 = right, 180 = bottom, 270 = left. */
+  angleOffset: number
   icon: React.ComponentType<{ className?: string; 'aria-hidden'?: boolean }>
   description: string
 }
@@ -26,9 +31,17 @@ export const SUPERPOWERS_ITEMS: SuperpowerItem[] = [
       'Dan excels at working with engineering-heavy, technical teams to translate customer signal into focused roadmaps. His systems-first approach drives him to think of the long game. He prefers to run small experiments, conduct discovery, and ensure that the team is focused on the right thing.',
   },
   {
+    id: 'technical-acumen',
+    label: 'Technical Acumen',
+    angleOffset: 72,
+    icon: Code2,
+    description:
+      'Dan combines product strategy with hands-on technical depth. He understands system architecture, APIs, and implementation tradeoffs—enabling him to partner effectively with engineering and ship with confidence.',
+  },
+  {
     id: 'data-driven',
     label: 'Data',
-    angleOffset: 90,
+    angleOffset: 144,
     icon: PieChart,
     description:
       'Dan pairs strong product instincts with clear measurement. He works backward from outcomes, instruments what matters, and uses data to validate bets—without getting stuck chasing vanity metrics.',
@@ -36,7 +49,7 @@ export const SUPERPOWERS_ITEMS: SuperpowerItem[] = [
   {
     id: 'leadership',
     label: 'Leadership',
-    angleOffset: 180,
+    angleOffset: 216,
     icon: UsersRound,
     description:
       'Dan creates clarity in ambiguous environments by aligning stakeholders, making tradeoffs explicit, and keeping teams focused on impact. He builds trust through crisp communication and reliable follow-through.',
@@ -44,7 +57,7 @@ export const SUPERPOWERS_ITEMS: SuperpowerItem[] = [
   {
     id: 'craftsmanship',
     label: 'Craftsmanship',
-    angleOffset: 270,
+    angleOffset: 288,
     icon: Paintbrush,
     description:
       'Dan cares deeply about quality—from UX details to the operational footprint of what ships. He raises the bar with thoughtful docs, clean execution, and a bias toward simple, maintainable solutions.',
@@ -63,11 +76,43 @@ function degToRad(deg: number) {
   return (deg * Math.PI) / 180
 }
 
-function positionForAngle(radius: number, angleOffset: 0 | 90 | 180 | 270) {
-  // Spec: angleOffset 0/90/180/270 should map to top/right/bottom/left.
+function positionForAngle(radius: number, angleOffset: number) {
+  // Spec: angleOffset 0/90/180/270 map to top/right/bottom/left; any angle in degrees is supported.
   // In standard polar coordinates 0deg points right, so we subtract 90deg to make 0deg point up.
   const theta = degToRad(angleOffset - 90)
   return { x: radius * Math.cos(theta), y: radius * Math.sin(theta) }
+}
+
+function ShieldMark({ className }: { className?: string }) {
+  return (
+    <svg
+      viewBox="0 0 24 24"
+      className={className}
+      aria-hidden="true"
+      focusable="false"
+    >
+      <path
+        d="M12 2.75l7 3v6.55c0 5.18-2.95 9.41-7 10.95-4.05-1.54-7-5.77-7-10.95V5.75l7-3z"
+        fill="none"
+        stroke="currentColor"
+        strokeWidth="1.6"
+        strokeLinejoin="round"
+      />
+      <path
+        d="M12 5.35l4.75 2.05v4.86c0 3.57-2.08 6.42-4.75 7.53-2.67-1.11-4.75-3.96-4.75-7.53V7.4L12 5.35z"
+        fill="none"
+        stroke="currentColor"
+        strokeWidth="1.2"
+        strokeLinejoin="round"
+        opacity="0.55"
+      />
+      <path
+        d="M12 9.25l1.22 2.55 2.82.39-2.05 1.95.49 2.78L12 15.61l-2.48 1.31.49-2.78-2.05-1.95 2.82-.39L12 9.25z"
+        fill="currentColor"
+        opacity="0.9"
+      />
+    </svg>
+  )
 }
 
 export function SuperpowersOrbit({
@@ -142,6 +187,14 @@ export function SuperpowersOrbit({
           aria-hidden="true"
           style={{ width: orbitDiameter, height: orbitDiameter }}
         />
+
+        {/* Center mark */}
+        <div
+          className="pointer-events-none absolute left-1/2 top-1/2 z-10 -translate-x-1/2 -translate-y-1/2 text-[var(--color-accent)]"
+          aria-hidden="true"
+        >
+          <ShieldMark className="h-10 w-10 sm:h-12 sm:w-12 lg:h-14 lg:w-14" />
+        </div>
 
         {/* 
           “Stay upright while orbiting” technique:
