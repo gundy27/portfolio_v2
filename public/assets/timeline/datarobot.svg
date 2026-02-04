@@ -1,7 +1,0 @@
-<svg width="800" height="600" xmlns="http://www.w3.org/2000/svg">
-  <rect width="800" height="600" fill="#f3f4f6"/>
-  <circle cx="400" cy="300" r="100" fill="#4a67ff" opacity="0.2"/>
-  <text x="400" y="290" font-family="Arial, sans-serif" font-size="32" fill="#6b7280" text-anchor="middle">DataRobot</text>
-  <text x="400" y="330" font-family="Arial, sans-serif" font-size="18" fill="#9ca3af" text-anchor="middle">2021-2025</text>
-</svg>
-

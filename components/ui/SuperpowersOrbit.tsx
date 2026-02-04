@@ -77,10 +77,42 @@ function degToRad(deg: number) {
 }
 
 function positionForAngle(radius: number, angleOffset: number) {
-  // Spec: angleOffset 0/90/180/270 should map to top/right/bottom/left.
+  // Spec: angleOffset 0/90/180/270 map to top/right/bottom/left; any angle in degrees is supported.
   // In standard polar coordinates 0deg points right, so we subtract 90deg to make 0deg point up.
   const theta = degToRad(angleOffset - 90)
   return { x: radius * Math.cos(theta), y: radius * Math.sin(theta) }
+}
+
+function ShieldMark({ className }: { className?: string }) {
+  return (
+    <svg
+      viewBox="0 0 24 24"
+      className={className}
+      aria-hidden="true"
+      focusable="false"
+    >
+      <path
+        d="M12 2.75l7 3v6.55c0 5.18-2.95 9.41-7 10.95-4.05-1.54-7-5.77-7-10.95V5.75l7-3z"
+        fill="none"
+        stroke="currentColor"
+        strokeWidth="1.6"
+        strokeLinejoin="round"
+      />
+      <path
+        d="M12 5.35l4.75 2.05v4.86c0 3.57-2.08 6.42-4.75 7.53-2.67-1.11-4.75-3.96-4.75-7.53V7.4L12 5.35z"
+        fill="none"
+        stroke="currentColor"
+        strokeWidth="1.2"
+        strokeLinejoin="round"
+        opacity="0.55"
+      />
+      <path
+        d="M12 9.25l1.22 2.55 2.82.39-2.05 1.95.49 2.78L12 15.61l-2.48 1.31.49-2.78-2.05-1.95 2.82-.39L12 9.25z"
+        fill="currentColor"
+        opacity="0.9"
+      />
+    </svg>
+  )
 }
 
 export function SuperpowersOrbit({
@@ -155,6 +187,14 @@ export function SuperpowersOrbit({
           aria-hidden="true"
           style={{ width: orbitDiameter, height: orbitDiameter }}
         />
+
+        {/* Center mark */}
+        <div
+          className="pointer-events-none absolute left-1/2 top-1/2 z-10 -translate-x-1/2 -translate-y-1/2 text-[var(--color-accent)]"
+          aria-hidden="true"
+        >
+          <ShieldMark className="h-10 w-10 sm:h-12 sm:w-12 lg:h-14 lg:w-14" />
+        </div>
 
         {/* 
           “Stay upright while orbiting” technique:

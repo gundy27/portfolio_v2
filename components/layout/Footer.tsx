@@ -17,7 +17,7 @@ export function Footer({ logos = [] }: FooterProps = {}) {
       <div className="container-wide py-8 sm:py-10">
         <div className="flex flex-col sm:flex-row items-center justify-between gap-4">
           <p className="text-sm text-secondary text-center sm:text-left">
-            © 2026 Dan Gunderson. Made from scratch with ❤️. All rights reserved.
+            © 2026 Dan Gunderson  |  Built from scratch 👨🏻‍🍳  |  All rights reserved.
           </p>
           <ScrollToTopButton />
         </div>

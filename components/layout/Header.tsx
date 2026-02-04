@@ -3,33 +3,15 @@
 import { useState, useEffect } from 'react'
 import Link from 'next/link'
 import { motion, AnimatePresence } from 'framer-motion'
-import { Label } from '@/components/ui/Label'
+
+// Edit this to change the Hero title text on the homepage.
+export const HERO_ROLE = 'Ship Business Outcomes,\nNot Features'
 
 export function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
   const [opacity, setOpacity] = useState(1)
 
   const toggleMenu = () => setIsMenuOpen(!isMenuOpen)
-  const closeMenu = () => setIsMenuOpen(false)
-
-  const onResumeClick = () => {
-    try {
-      const payload = JSON.stringify({ event: 'resume_download_click', ts: Date.now() })
-      if (typeof navigator !== 'undefined' && 'sendBeacon' in navigator) {
-        // Fire-and-forget client breadcrumb (server-side audit logging happens on /resume).
-        navigator.sendBeacon('/api/audit', payload)
-      } else {
-        fetch('/api/audit', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: payload,
-          keepalive: true,
-        }).catch(() => {})
-      }
-    } catch {
-      // no-op
-    }
-  }
 
   useEffect(() => {
     let ticking = false
@@ -79,13 +61,6 @@ export function Header() {
             gundy.io
           </Link>
           
-          {/* Desktop Menu */}
-          <div className="hidden md:flex items-center gap-8">
-            <a href="/resume" onClick={onResumeClick} className="inline-flex items-center">
-              <Label>RESUME</Label>
-            </a>
-          </div>
-
           {/* Mobile Hamburger Button */}
           <button
             type="button"
@@ -131,18 +106,7 @@ export function Header() {
               transition={{ duration: 0.2 }}
               className="md:hidden overflow-hidden border-t border-gray-200"
             >
-              <div className="flex flex-col py-4 gap-4">
-                <a
-                  href="/resume"
-                  onClick={() => {
-                    onResumeClick()
-                    closeMenu()
-                  }}
-                  className="px-4 py-2 hover:bg-gray-50 transition-colors"
-                >
-                  <Label>RESUME</Label>
-                </a>
-              </div>
+              <div className="flex flex-col py-4 gap-4" />
             </motion.div>
           )}
         </AnimatePresence>

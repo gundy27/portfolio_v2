@@ -4,13 +4,11 @@ import { GetInTouch } from '@/components/layout/GetInTouch'
 import { Hero } from '@/components/home/Hero'
 import { Strengths } from '@/components/home/Strengths'
 import { FeaturedWork } from '@/components/home/FeaturedWork'
-import { Counters } from '@/components/home/Counters'
 import { Approach } from '@/components/home/Approach'
 import { Testimonials } from '@/components/home/Testimonials'
-import { getEndorsements, getProfile, getProjects } from '@/lib/content/loader.server'
+import { getEndorsements, getProjects } from '@/lib/content/loader.server'
 
 export default async function HomePage() {
-  const profile = getProfile()
   const endorsements = getEndorsements()
   const projects = getProjects()
 
@@ -23,12 +21,11 @@ export default async function HomePage() {
       <Header />
       
       <main className="flex-1 pt-16">
-        <Hero role={profile.role} />
-        <Strengths />
+        <Hero />
         <FeaturedWork projects={featuredWorkProjects} />
-        <Counters />
-        <Approach />
         <Testimonials endorsements={endorsements} />
+        <Approach />
+        <Strengths />
       </main>
       
       <GetInTouch />

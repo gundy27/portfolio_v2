@@ -104,58 +104,63 @@ export function GetInTouch() {
           {/* Content */}
           <div className="space-y-6 max-w-xl">
           <SectionHeader
-            label="CONNECT"
-            heading="Get in Touch"
+            label="NEXT STEPS"
+            heading="Let's Work Together"
             headingLevel="h2"
             headingClassName="text-3xl sm:text-4xl lg:text-5xl"
           />
           <p className="text-body text-lg text-primary max-w-lg">
-            Want to chat about a project, learn more about my work, or just say hello?
+          I’m currently open to senior product or growth roles, and I take on a small number of consulting engagements where I can have meaningful impact.
           </p>
           
           {/* Action Items */}
-          <div className="flex flex-wrap items-center gap-4 pt-4">
-            {/* Schedule Meeting Button */}
+          <div className="flex flex-col items-start gap-4 pt-4">
+            {/* Primary CTA */}
             <Link
               href="https://calendar.app.google/ABvWohuTUmiqFG8f9"
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 rounded-lg border border-accent bg-transparent px-6 py-3 text-sm font-label text-accent transition-colors hover:bg-accent/10"
+              className="inline-flex items-center gap-2 rounded-lg bg-[var(--color-accent-dark)] px-6 py-3 text-sm font-label font-semibold uppercase tracking-[0.08em] text-white transition-colors hover:text-gray-300"
             >
               <ScheduleIcon />
-              Schedule Meeting
+              BOOK A CONVERSATION
             </Link>
-            
-            {/* Email */}
-            <Link
-              href="mailto:dan@gundy.io"
-              className="inline-flex items-center justify-center rounded-lg border border-accent bg-transparent p-3 text-accent transition-colors hover:bg-accent/10"
-              aria-label="Email"
-            >
-              <EmailIcon />
-            </Link>
-            
-            {/* LinkedIn */}
-            <Link
-              href="https://www.linkedin.com/in/dangunderson27"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex items-center justify-center rounded-lg border border-accent bg-transparent p-3 text-accent transition-colors hover:bg-accent/10"
-              aria-label="LinkedIn"
-            >
-              <LinkedInIcon />
-            </Link>
-            
-            {/* GitHub */}
-            <Link
-              href="https://www.github.com/gundy27"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex items-center justify-center rounded-lg border border-accent bg-transparent p-3 text-accent transition-colors hover:bg-accent/10"
-              aria-label="GitHub"
-            >
-              <GitHubIcon />
-            </Link>
+
+            {/* Secondary links */}
+            <div className="flex flex-wrap items-center gap-4">
+              {/* Email */}
+              <Link
+                href="https://mail.google.com/mail/?view=cm&fs=1&to=dan@gundy.io&su=Intro"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center justify-center rounded-lg bg-transparent p-3 text-accent transition-colors hover:bg-accent/10"
+                aria-label="Email"
+              >
+                <EmailIcon />
+              </Link>
+
+              {/* LinkedIn */}
+              <Link
+                href="https://www.linkedin.com/in/dangunderson27"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center justify-center rounded-lg bg-transparent p-3 text-accent transition-colors hover:bg-accent/10"
+                aria-label="LinkedIn"
+              >
+                <LinkedInIcon />
+              </Link>
+
+              {/* GitHub */}
+              <Link
+                href="https://www.github.com/gundy27"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center justify-center rounded-lg bg-transparent p-3 text-accent transition-colors hover:bg-accent/10"
+                aria-label="GitHub"
+              >
+                <GitHubIcon />
+              </Link>
+            </div>
           </div>
         </div>
 
