@@ -7,6 +7,13 @@ html {
   scroll-behavior: smooth;
 }
 
+@media (max-width: 639px) {
+  html,
+  body {
+    overflow-x: clip;
+  }
+}
+
 :root {
   --color-text-primary: #111111;
   --color-text-body: #2C2C2C;
@@ -447,6 +454,10 @@ label,
 
 .floating-section--transparent {
   --floating-section-fade-to: var(--color-bg-primary);
+}
+
+/* Increased specificity ensures overrides without !important */
+.floating-section.floating-section--transparent {
   background-color: transparent;
   background-image: none;
   box-shadow: none;

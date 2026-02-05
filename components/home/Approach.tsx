@@ -4,12 +4,12 @@ import { SectionHeader } from '@/components/ui/SectionHeader'
 import { ContentCardSection } from '@/components/ui/ContentCardSection'
 
 const approachParagraph =
-  'When I’m building a product or running an experiment, I default to a repeatable way of working. I start by grounding on the user and questioning assumptions until the real shape is clear. I make my thinking visible early by writing, sketching, and sharing in-progress work to sharpen ideas and invite feedback. From there, I frame clear bets, define what success looks like, and iterate quickly to learn what moves the needle. I gravitate toward simplicity and storytelling. By distilling complexity into clear narratives, metaphors, and visuals, I help teams makes decisions, build alignment, and scale what works.'
+  'I rely on a simple, repeatable way of working to move from ambiguity to action. It creates clarity, aligns teams, and accelerates decision-making.'
 
 const steps = [
   {
     title: 'Decompose the problem',
-    subtitle: 'Break it down, revisit assumptions, ask why',
+    subtitle: 'Ground on the user, question assumptions, ask why',
   },
   {
     title: 'Make it visible',
@@ -17,19 +17,19 @@ const steps = [
   },
   {
     title: 'Form a hypothesis',
-    subtitle: 'Define success and what should be tested',
+    subtitle: 'Frame clear bets and define success',
   },
   {
     title: 'Test → learn → repeat',
-    subtitle: 'Run experiments to maximize learning speed',
+    subtitle: 'Iterate on experiments to maximize learning speed',
   },
   {
-    title: 'Decide',
-    subtitle: 'Synthesize data and chart a path forward',
+    title: 'Share insights',
+    subtitle: 'Synthesize data and share simple narratives',
   },
   {
-    title: 'Align and scale',
-    subtitle: 'Build buy-in and scale the solution',
+    title: 'Align and execute',
+    subtitle: 'Drive decision-making and scale what works',
   },
 ] as const
 

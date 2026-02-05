@@ -33,13 +33,14 @@ function MetaRow({
   return (
     <div className="grid grid-cols-[140px_minmax(0,1fr)] gap-4 sm:grid-cols-[180px_minmax(0,1fr)]">
       <div className="text-sm font-medium text-primary">{label}</div>
-      <div className="text-sm text-secondary">
+      <div className="min-w-0 text-sm text-secondary break-words">
         {state === 'done' ? (
           <span>{value}</span>
         ) : state === 'active' ? (
           <TextType
             as="span"
             text={value}
+            multiline
             typingSpeed={32}
             deletingSpeed={0}
             pauseDuration={1000}

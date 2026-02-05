@@ -120,7 +120,7 @@ export function GetInTouch() {
               href="https://calendar.app.google/ABvWohuTUmiqFG8f9"
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 rounded-lg bg-[var(--color-accent-dark)] px-6 py-3 text-sm font-label font-semibold uppercase tracking-[0.08em] text-white transition-colors hover:text-gray-300"
+              className="inline-flex w-full items-center justify-center gap-2 rounded-lg bg-[var(--color-accent-dark)] px-6 py-3 text-sm font-label font-semibold uppercase tracking-[0.08em] text-white transition-colors hover:text-gray-300 sm:w-auto"
             >
               <ScheduleIcon />
               BOOK A CONVERSATION

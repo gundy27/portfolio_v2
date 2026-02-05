@@ -11,7 +11,7 @@ type TestimonialsProps = {
   endorsements: readonly Endorsement[]
 }
 
-const AUTO_SCROLL_PX_PER_SECOND = 14
+const AUTO_SCROLL_PX_PER_SECOND = 30
 const DRAG_SPEED_MULTIPLIER = 2.5
 
 export function Testimonials({ endorsements }: TestimonialsProps) {
@@ -19,6 +19,7 @@ export function Testimonials({ endorsements }: TestimonialsProps) {
   const firstCopyRef = React.useRef<HTMLDivElement | null>(null)
   const posRef = React.useRef(0)
   const isDraggingRef = React.useRef(false)
+  const mobileIdleTimerRef = React.useRef<number | null>(null)
   const dragRef = React.useRef<{ active: boolean; startX: number; startScrollLeft: number }>({
     active: false,
     startX: 0,
@@ -76,6 +77,14 @@ export function Testimonials({ endorsements }: TestimonialsProps) {
     if (e.button !== 0) return
     const el = scrollerRef.current
     if (!el) return
+
+    // Touch: let the browser handle native horizontal scrolling.
+    if (e.pointerType === 'touch') {
+      isDraggingRef.current = true
+      posRef.current = el.scrollLeft
+      if (mobileIdleTimerRef.current) window.clearTimeout(mobileIdleTimerRef.current)
+      return
+    }
 
     // Don’t hijack interactions on the LinkedIn button.
     const target = e.target
@@ -137,6 +146,20 @@ export function Testimonials({ endorsements }: TestimonialsProps) {
     }
   }
 
+  const onScroll: React.UIEventHandler<HTMLElement> = () => {
+    const el = scrollerRef.current
+    if (!el) return
+
+    // Keep auto-scroll position in sync with native scrolling (mobile swipe).
+    posRef.current = el.scrollLeft
+    isDraggingRef.current = true
+
+    if (mobileIdleTimerRef.current) window.clearTimeout(mobileIdleTimerRef.current)
+    mobileIdleTimerRef.current = window.setTimeout(() => {
+      isDraggingRef.current = false
+    }, 180)
+  }
+
   return (
     <section className="section-spacing-large">
       <div className="floating-section floating-section--transparent">
@@ -150,7 +173,7 @@ export function Testimonials({ endorsements }: TestimonialsProps) {
           <div className="mt-8">
             <section
               ref={scrollerRef}
-              className={`overflow-x-auto select-none touch-pan-y scrollbar-hide ${
+              className={`overflow-x-auto select-none scrollbar-hide overscroll-x-contain touch-auto ${
                 isDragging ? 'cursor-grabbing' : 'cursor-grab'
               }`}
               style={{
@@ -164,6 +187,7 @@ export function Testimonials({ endorsements }: TestimonialsProps) {
               onPointerUp={endDrag}
               onPointerCancel={endDrag}
               onPointerLeave={endDrag}
+              onScroll={onScroll}
             >
               <div className="flex w-max gap-6">
                 <div ref={firstCopyRef} className="flex w-max gap-6">
