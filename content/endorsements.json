@@ -13,7 +13,7 @@
     "name": "Marc Manza",
     "role": "Senior Director of Engineering | DataRobot",
     "quote": "His insights, views and approach served well to make us all better and keep us all focused on the real customer and business value. We worked closely together on strategy, planning, and vision and I always felt we could have the hard discussions on tradeoffs, scoping options, and balancing as we laid out our short and long term plans, built milestone driven iterative value, and kept true to our vision.",
-    "pills": ["Customer Centric", "Collaboration", "AI Infrastructure", "Security"],
+    "pills": ["AI Infrastructure", "Security"],
     "linkedinUrl": "https://www.linkedin.com/in/marcbmanza/",
     "avatarUrl": "/assets/companies/datarobot-logo.png"
   },
@@ -31,7 +31,7 @@
     "name": "Dustin Burke",
     "role": "Tech Lead for AI Platform | DataRobot",
     "quote": "He writes some of the most organized and well formatted product requirements documents that provide the right level of detail to distill the core requirements, strategic aims, user needs/wants to make it actionable for developers to start technical planning. His work set the bar for what a high quality PRD should look like.",
-    "pills": ["Product Requirements", "UX Design", "Influence"],
+    "pills": ["Requirements", "UX Design", "Influence"],
     "linkedinUrl": "https://www.linkedin.com/in/burkestar/",
     "avatarUrl": "/assets/companies/datarobot-logo.png"
   },

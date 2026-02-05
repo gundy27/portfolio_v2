@@ -4,6 +4,11 @@ import Image from 'next/image'
 import type { Endorsement } from '@/lib/content/types'
 
 export function EndorsementCard({ endorsement }: { endorsement: Endorsement }) {
+  const pills = endorsement.pills ?? []
+  const maxPills = 4
+  const visiblePills = pills.slice(0, maxPills)
+  const remainingPills = Math.max(0, pills.length - visiblePills.length)
+
   const LinkedInSquareIcon = ({ className }: { className?: string }) => (
     <svg
       xmlns="http://www.w3.org/2000/svg"
@@ -23,18 +28,9 @@ export function EndorsementCard({ endorsement }: { endorsement: Endorsement }) {
     </svg>
   )
 
-  const linkedInBadge = (
-    <span
-      className="absolute bottom-5 right-5 h-11 w-11 overflow-hidden rounded-md bg-transparent shadow-sm transition-transform duration-200 ease-out"
-      aria-hidden="true"
-    >
-      <LinkedInSquareIcon className="h-full w-full" />
-    </span>
-  )
-
   return (
     <article
-      className="relative flex w-[min(480px,92vw)] flex-col gap-6 rounded-2xl border border-gray-200 bg-white p-6 pb-20 shadow-sm sm:p-7 sm:pb-20"
+      className="relative flex w-[min(480px,92vw)] flex-col gap-6 rounded-2xl border border-gray-200 bg-white p-6 shadow-sm sm:p-7"
       aria-label={`Endorsement from ${endorsement.name}`}
     >
       <div className="flex items-start gap-4">
@@ -62,32 +58,48 @@ export function EndorsementCard({ endorsement }: { endorsement: Endorsement }) {
         "{endorsement.quote}"
       </p>
 
-      {endorsement.pills?.length ? (
-        <div className="absolute bottom-5 left-6 right-20 flex flex-wrap gap-2 sm:left-7">
-          {endorsement.pills.map((pill, idx) => (
-            <span
-              key={`${endorsement.id}-${idx}`}
-              className="inline-flex items-center rounded-full border border-gray-200 bg-white px-3 py-1 font-label text-xs text-secondary"
+      {pills.length || endorsement.linkedinUrl ? (
+        <div className="mt-auto flex items-end justify-between gap-4">
+          {pills.length ? (
+            <div className="flex min-w-0 flex-wrap gap-2">
+              {visiblePills.map((pill, idx) => (
+                <span
+                  key={`${endorsement.id}-${idx}`}
+                  className="inline-flex items-center rounded-full border border-gray-200 bg-white px-3 py-1 font-label text-xs text-secondary"
+                >
+                  {pill}
+                </span>
+              ))}
+              {remainingPills > 0 ? (
+                <span className="inline-flex items-center rounded-full border border-gray-200 bg-white px-3 py-1 font-label text-xs text-secondary">
+                  +{remainingPills}
+                </span>
+              ) : null}
+            </div>
+          ) : (
+            <div />
+          )}
+
+          {endorsement.linkedinUrl ? (
+            <a
+              href={endorsement.linkedinUrl}
+              target="_blank"
+              rel="noreferrer"
+              className="h-11 w-11 shrink-0 overflow-hidden rounded-md bg-transparent shadow-sm transition-transform duration-200 ease-out hover:scale-[1.03]"
+              aria-label={`Open LinkedIn for ${endorsement.name}`}
             >
-              {pill}
+              <LinkedInSquareIcon className="h-full w-full" />
+            </a>
+          ) : (
+            <span
+              className="h-11 w-11 shrink-0 overflow-hidden rounded-md bg-transparent shadow-sm transition-transform duration-200 ease-out"
+              aria-hidden="true"
+            >
+              <LinkedInSquareIcon className="h-full w-full" />
             </span>
-          ))}
+          )}
         </div>
       ) : null}
-
-      {endorsement.linkedinUrl ? (
-        <a
-          href={endorsement.linkedinUrl}
-          target="_blank"
-          rel="noreferrer"
-          className="absolute bottom-5 right-5 h-11 w-11 overflow-hidden rounded-md bg-transparent shadow-sm transition-transform duration-200 ease-out hover:scale-[1.03]"
-          aria-label={`Open LinkedIn for ${endorsement.name}`}
-        >
-          <LinkedInSquareIcon className="h-full w-full" />
-        </a>
-      ) : (
-        linkedInBadge
-      )}
     </article>
   )
 }
