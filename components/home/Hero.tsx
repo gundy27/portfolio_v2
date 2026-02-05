@@ -19,8 +19,8 @@ export function Hero() {
     <section className="section-spacing-large relative">
       <div className="floating-section">
         <div className="floating-section__content">
-          <div className="flex flex-col gap-10 lg:flex-row lg:items-start lg:justify-between lg:gap-16">
-            <div className="space-before-h1 min-w-0 flex-1 max-w-2xl">
+          <div className="flex flex-col gap-10 lg:flex-row lg:items-center lg:justify-between lg:gap-16">
+            <div className="mt-8 sm:mt-10 lg:mt-0 min-w-0 flex-1 max-w-2xl">
               <Label className="text-accent section-label">PRODUCT & GROWTH LEADER</Label>
               <motion.h1
                 initial={{ opacity: 0, y: 20 }}
