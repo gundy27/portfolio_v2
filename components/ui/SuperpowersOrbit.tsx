@@ -143,7 +143,9 @@ export function SuperpowersOrbit({
   // effective radius to fit the available width.
   const fallbackSize = orbitRadius * 2 + 180
   const size = containerSize ?? fallbackSize
-  const pillClearance = 88 // approx half-width of a pill + padding
+  // Approx half-width of a pill + padding. Use a larger value on small screens
+  // since the longest label can otherwise look off-center.
+  const pillClearance = size < 420 ? 112 : 88
   const effectiveRadius = Math.min(orbitRadius, Math.max(120, size / 2 - pillClearance))
   const orbitDiameter = Math.round(effectiveRadius * 2)
 
@@ -222,13 +224,13 @@ export function SuperpowersOrbit({
               >
                 <div
                   className={cn(
-                    'group inline-flex items-center gap-2 whitespace-nowrap rounded-full border px-4 py-2 text-sm font-medium',
+                    'group inline-flex items-center gap-2 whitespace-nowrap rounded-full border px-3 py-1.5 text-xs font-medium sm:px-4 sm:py-2 sm:text-sm',
                     'bg-white/90 backdrop-blur-sm text-[var(--color-text-primary)] shadow-sm',
                     // Explicit: solid black border, no hover/focus animations.
                     'border-black'
                   )}
                 >
-                  <Icon className="h-4 w-4 text-black/70" aria-hidden={true} />
+                  <Icon className="h-3.5 w-3.5 text-black/70 sm:h-4 sm:w-4" aria-hidden={true} />
                   <span>{item.label}</span>
                 </div>
               </motion.div>
