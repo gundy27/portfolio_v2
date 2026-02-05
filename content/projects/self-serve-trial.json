@@ -17,7 +17,7 @@
     "learned": "How to balance enterprise constraints with product-led growth"
   },
   "metrics": [
-    { "value": 3, "label": "CONVERSION RATE BOOST", "format": "{}X" },
+    { "value": 3, "label": "TRIAL-TO-PAID CONVERSION", "format": "{}X" },
     { "value": 2500, "label": "MAU WITHIN 1 YEAR", "format": "{}+" },
     { "value": 6, "label": "TO LAUNCH", "format": "{} months" },
     { "value": 12, "label": "MAU FROM INVITES", "format": "{}%" }
@@ -51,7 +51,7 @@
       "image": "/assets/projects/self-serve-trial/trial-results-v2.png",
       "imageAlt": "Results overview",
       "imagePosition": "left",
-      "content": "The new trial program had a major impact on user growth and revenue pipeline. It is still featured today as one of the first CTAs on [DataRobot's marketing website](https://www.datarobot.com).\n\n- Trial usage grew from ~700 to over 2,500 monthly active users, dramatically expanding the top of our funnel.\n- Data analysis showed that workspaces with 3+ users had higher retention rates. Collaboration made the product sticky. I added a simple invite flow to help users grow their team and share projects. At it's peak, 12% of trial users had registered through an invite. \n- Trial-to-paid **conversion rates jumped 3X** compared to the old approach. By removing friction, facilitating invites, and guiding users to value, far more trial users became paying customers. \n\nThe self-serve trial became a key lead source for sales. Trial engagement data helped identify high-intent accounts and armed sales with insights, turning the trial into a reliable lead-gen pipeline."
+      "content": "The new trial program had a major impact on user growth and revenue pipeline. It is still featured today as one of the first CTAs on [DataRobot's marketing website](https://www.datarobot.com).\n\n- Trial usage grew from ~700 to over 2,500 monthly active users, dramatically expanding the top of our funnel.\n- Data analysis showed that workspaces with 3+ users had higher retention rates. Collaboration made the product sticky. I added a simple invite flow to help users grow their team and share projects. At its peak, 12% of trial users had registered through an invite. \n- Trial-to-paid **conversion rates jumped 3X** compared to the old approach. By removing friction, facilitating invites, and guiding users to value, far more trial users became paying customers. \n\nThe self-serve trial became a key lead source for sales. Trial engagement data helped identify high-intent accounts and armed sales with insights, turning the trial into a reliable lead-gen pipeline."
     },
     {
       "id": "lessons-learned",

@@ -30,7 +30,7 @@ export function FeaturedWorkCard({
       style={{ borderRadius: 'var(--radius-card)' }}
     >
       <div className="relative overflow-hidden" style={{ borderRadius: 'var(--radius-card)' }}>
-        <div className="flex flex-col gap-4 p-3 sm:p-4 md:flex-row md:items-start md:justify-between">
+        <div className="flex flex-col-reverse gap-4 p-3 sm:p-4 md:flex-row md:items-start md:justify-between">
           {/* Content */}
           <div className="min-w-0 flex-1">
             <Label variant="accent">

@@ -19,8 +19,8 @@ export function Hero() {
     <section className="section-spacing-large relative">
       <div className="floating-section">
         <div className="floating-section__content">
-          <div className="flex flex-col gap-10 lg:flex-row lg:items-center lg:justify-between lg:gap-16">
-            <div className="mt-8 sm:mt-10 lg:mt-0 min-w-0 flex-1 max-w-2xl">
+          <div className="flex flex-col-reverse gap-10 lg:flex-row lg:items-center lg:justify-between lg:gap-16">
+            <div className="min-w-0 flex-1 max-w-2xl">
               <Label className="text-accent section-label">PRODUCT & GROWTH LEADER</Label>
               <motion.h1
                 initial={{ opacity: 0, y: 20 }}
@@ -56,7 +56,7 @@ export function Hero() {
                       3X
                     </div>
                     <div className="mt-1 font-label text-[10px] sm:text-xs uppercase tracking-[0.08em] text-secondary/70">
-                      CONVERSION RATE BOOST
+                      TRIAL-TO-PAID CONVERSION
                     </div>
                   </div>
 
@@ -65,7 +65,7 @@ export function Hero() {
                       90%
                     </div>
                     <div className="mt-1 font-label text-[10px] sm:text-xs uppercase tracking-[0.08em] text-secondary/70">
-                      TRIAL ACTIVATION
+                      USER ACTIVATION
                     </div>
                   </div>
                 </div>
@@ -73,13 +73,13 @@ export function Hero() {
 
               <p className="mt-6 text-base sm:text-lg text-[var(--color-text-body)]">{defaultBio}</p>
 
-              <div className="mt-6 flex flex-wrap items-center gap-4">
+              <div className="mt-6 flex flex-col gap-3 sm:flex-row sm:flex-wrap sm:items-center sm:gap-4">
                 <a
                   href="https://mail.google.com/mail/?view=cm&fs=1&to=dan@gundy.io&su=Intro"
                   target="_blank"
                   rel="noopener noreferrer"
                   className={cn(
-                    'inline-flex items-center justify-center gap-2 rounded-lg bg-[var(--color-accent-dark)] px-6 py-3 text-sm font-label font-semibold uppercase tracking-[0.08em] text-white transition-colors hover:text-gray-300'
+                    'inline-flex w-full items-center justify-center gap-2 rounded-lg bg-[var(--color-accent-dark)] px-6 py-3 text-sm font-label font-semibold uppercase tracking-[0.08em] text-white transition-colors hover:text-gray-300 sm:w-auto'
                   )}
                 >
                   <Send className="h-4 w-4" aria-hidden />
@@ -89,7 +89,7 @@ export function Hero() {
                 <a
                   href="/resume"
                   className={cn(
-                    'inline-flex items-center justify-center rounded-md px-6 py-3 text-xs transition-colors',
+                    'inline-flex w-full items-center justify-center rounded-md px-6 py-3 text-xs transition-colors sm:w-auto',
                     'font-label font-semibold uppercase tracking-[0.08em]',
                     'text-secondary hover:text-accent'
                   )}
