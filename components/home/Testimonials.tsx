@@ -162,7 +162,7 @@ export function Testimonials({ endorsements }: TestimonialsProps) {
 
   return (
     <section className="section-spacing-large">
-      <div className="floating-section floating-section--transparent">
+      <div className="floating-section floating-section--transparent floating-section--gutter-mobile">
         <div className="floating-section__content">
           <SectionHeader
             label="ENDORSEMENTS"

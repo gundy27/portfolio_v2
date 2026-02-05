@@ -17,7 +17,7 @@ const HERO_IMAGE_HEIGHT = 600
 export function Hero() {
   return (
     <section className="section-spacing-large relative">
-      <div className="floating-section">
+      <div className="floating-section floating-section--gutter-mobile floating-section--inset-mobile">
         <div className="floating-section__content">
           <div className="flex flex-col-reverse gap-10 lg:flex-row lg:items-center lg:justify-between lg:gap-16">
             <div className="min-w-0 flex-1 max-w-2xl">

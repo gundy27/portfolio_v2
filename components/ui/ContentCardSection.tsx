@@ -62,9 +62,9 @@ export function ContentCardSection({
 
   return (
     <section className={cn('section-spacing-large', className)}>
-      <div className="w-[calc(100%-2rem)] sm:w-[calc(100%-3rem)] lg:w-[calc(100%-4rem)] xl:w-[calc(100%-6rem)] 2xl:w-[calc(100%-8rem)] max-w-[90rem] mx-auto">
-        <div className={cn('py-12 px-6 sm:py-16 sm:px-8 lg:py-20 lg:px-10', innerClassName)}>
-          <div className="grid gap-10 lg:grid-cols-2 lg:items-center">
+      <div className="w-full sm:w-full lg:w-[calc(100%-4rem)] xl:w-[calc(100%-6rem)] 2xl:w-[calc(100%-8rem)] max-w-[90rem] mx-auto">
+        <div className={cn('py-12 px-3 sm:py-16 sm:px-3 lg:py-20 lg:px-10', innerClassName)}>
+          <div className="grid gap-10 justify-items-center lg:justify-items-stretch lg:grid-cols-2 lg:items-center">
             {imagePosition === 'left' ? (
               <>
                 {mediaWrapper}
