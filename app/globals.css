@@ -439,7 +439,8 @@ label,
 
 /* Floating Section Container (white "card" on page background) */
 .floating-section {
-  width: calc(100% - 2rem); /* 1rem side margins on mobile */
+  /* Mobile/tablet: edge-to-edge */
+  width: 100%;
   max-width: 90rem; /* ~1440px */
   margin-left: auto;
   margin-right: auto;
@@ -471,7 +472,7 @@ label,
 
 @media (min-width: 640px) {
   .floating-section {
-    width: calc(100% - 3rem); /* 1.5rem side margins */
+    width: 100%;
   }
 }
 
@@ -494,7 +495,8 @@ label,
 }
 
 .floating-section__content {
-  padding: 3rem 1.5rem; /* py-12 px-6 */
+  /* Mobile/tablet: edge-to-edge */
+  padding: 3rem 0; /* py-12 px-0 */
 }
 
 .image-drop-shadow {
@@ -514,7 +516,19 @@ label,
 
 @media (min-width: 640px) {
   .floating-section__content {
-    padding: 4rem 2rem; /* py-16 px-8 */
+    padding: 4rem 0; /* py-16 px-0 */
+  }
+}
+
+/* Mobile gutter modifier: add a small horizontal inset on mobile/tablet only. */
+@media (max-width: 1023px) {
+  .floating-section.floating-section--gutter-mobile > .floating-section__content {
+    padding-left: 12px; /* ~px-3 */
+    padding-right: 12px; /* ~px-3 */
+  }
+
+  .floating-section.floating-section--inset-mobile {
+    width: calc(100% - 24px); /* ~12px gutters each side */
   }
 }
 

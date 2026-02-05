@@ -32,7 +32,7 @@ export const SUPERPOWERS_ITEMS: SuperpowerItem[] = [
   },
   {
     id: 'technical-acumen',
-    label: 'Technical Acumen',
+    label: 'Technical',
     angleOffset: 72,
     icon: Code2,
     description:
@@ -124,6 +124,7 @@ export function SuperpowersOrbit({
 
   const containerRef = React.useRef<HTMLDivElement | null>(null)
   const [containerSize, setContainerSize] = React.useState<number | null>(null)
+  const [maxPillWidth, setMaxPillWidth] = React.useState<number | null>(null)
 
   React.useEffect(() => {
     const el = containerRef.current
@@ -139,14 +140,43 @@ export function SuperpowersOrbit({
     return () => ro.disconnect()
   }, [])
 
+  React.useEffect(() => {
+    // Measure max pill width to compute a mobile-only clearance that guarantees
+    // the orbit stays within the stage (prevents overflow/clipping).
+    const stage = containerRef.current
+    if (!stage) return
+    if (typeof window === 'undefined') return
+
+    const measure = () => {
+      const pills = Array.from(stage.querySelectorAll('[data-orbit-pill]')) as HTMLElement[]
+      if (!pills.length) return
+      const widths = pills.map((p) => Math.ceil(p.getBoundingClientRect().width))
+      const nextMax = Math.max(...widths)
+      setMaxPillWidth((prev) => (prev === nextMax ? prev : nextMax))
+    }
+
+    measure()
+    const ro = new ResizeObserver(() => measure())
+    ro.observe(stage)
+    window.addEventListener('resize', measure)
+    return () => {
+      ro.disconnect()
+      window.removeEventListener('resize', measure)
+    }
+  }, [])
+
   // Ensure the orbit never causes horizontal scroll on small screens by shrinking the
   // effective radius to fit the available width.
   const fallbackSize = orbitRadius * 2 + 180
   const size = containerSize ?? fallbackSize
-  // Approx half-width of a pill + padding. Use a larger value on small screens
-  // since the longest label can otherwise look off-center.
-  const pillClearance = size < 420 ? 112 : 88
-  const effectiveRadius = Math.min(orbitRadius, Math.max(120, size / 2 - pillClearance))
+  const isSmallScreen = typeof window !== 'undefined' ? window.innerWidth < 640 : false
+  const dynamicClearance =
+    isSmallScreen && maxPillWidth ? Math.ceil(maxPillWidth / 2) + 28 : null
+  // Fallback heuristic for non-measured cases.
+  const pillClearance = dynamicClearance ?? (size < 420 ? 112 : 88)
+  // On very narrow screens, forcing a large minimum radius can push pills past the stage.
+  const minRadius = isSmallScreen ? 90 : 120
+  const effectiveRadius = Math.min(orbitRadius, Math.max(minRadius, size / 2 - pillClearance))
   const orbitDiameter = Math.round(effectiveRadius * 2)
 
   const orbitTransition = shouldReduceMotion
@@ -167,7 +197,9 @@ export function SuperpowersOrbit({
         className={cn(
           'relative mx-auto flex items-center justify-center',
           // Square stage that scales responsively.
-          'aspect-square w-full max-w-[36rem] min-h-[22rem] sm:min-h-[26rem]'
+          // NOTE: avoid large base min-height: with `aspect-square`, min-height also
+          // enforces a minimum width which can overflow on narrow mobile viewports.
+          'aspect-square w-full max-w-[36rem] min-h-[18rem] sm:min-h-[22rem] lg:min-h-[26rem]'
         )}
       >
         {/* Optional subtle dotted / graph-paper feel */}
@@ -229,6 +261,7 @@ export function SuperpowersOrbit({
                     // Explicit: solid black border, no hover/focus animations.
                     'border-black'
                   )}
+                  data-orbit-pill
                 >
                   <Icon className="h-3.5 w-3.5 text-black/70 sm:h-4 sm:w-4" aria-hidden={true} />
                   <span>{item.label}</span>
