@@ -15,8 +15,9 @@ const HERO_IMAGE_WIDTH = 800
 const HERO_IMAGE_HEIGHT = 600
 
 export function Hero() {
+  /* Shared CTA styles – display is set per button for responsive visibility */
   const primaryCtaClassName =
-    'inline-flex w-full items-center justify-center gap-2 rounded-lg bg-[var(--color-accent-dark)] px-6 py-3 text-sm font-label font-semibold uppercase tracking-[0.08em] text-white transition-colors hover:bg-transparent hover:text-black sm:w-auto'
+    'w-full items-center justify-center gap-2 rounded-lg bg-[var(--color-accent-dark)] px-6 py-3 text-sm font-label font-semibold uppercase tracking-[0.08em] text-white transition-colors hover:bg-transparent hover:text-black sm:w-auto'
 
   return (
     <section className="section-spacing-large relative">
@@ -79,7 +80,7 @@ export function Hero() {
               <div className="mt-6 flex flex-col gap-3 sm:flex-row sm:flex-wrap sm:items-center sm:gap-4">
                 <a
                   href="mailto:dan@gundy.io"
-                  className={cn('inline-flex', primaryCtaClassName, 'sm:hidden')}
+                  className={cn('inline-flex sm:hidden', primaryCtaClassName)}
                 >
                   <Send className="h-4 w-4 shrink-0" aria-hidden />
                   GET IN TOUCH
