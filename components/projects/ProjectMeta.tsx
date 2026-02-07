@@ -41,10 +41,10 @@ function MetaRow({
             as="span"
             text={value}
             multiline
-            typingSpeed={32}
+            typingSpeed={12}
             deletingSpeed={0}
-            pauseDuration={1000}
-            initialDelay={1000}
+            pauseDuration={0}
+            initialDelay={0}
             loop={false}
             showCursor={false}
             startOnVisible={startOnVisible}

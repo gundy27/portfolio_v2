@@ -159,7 +159,7 @@ export default function DesignSystemPage() {
                 <p className="text-xs text-secondary">H1 — Space Grotesk 600</p>
               </div>
               <div>
-                <h3 className="font-heading text-2xl font-semibold text-primary leading-tight">
+                <h3 className="font-heading text-2xl font-normal text-primary leading-tight">
                   Headline 2
                 </h3>
                 <p className="text-xs text-secondary">H2 — Space Grotesk 600</p>
@@ -232,7 +232,7 @@ export default function DesignSystemPage() {
             <div className="h-full rounded-2xl border border-gray-200 bg-gray-50 p-6 sm:p-8">
               <div className="mx-auto max-w-sm rounded-xl border border-gray-200 bg-white p-6 shadow-sm">
                 <div className="mb-6">
-                  <h3 className="font-heading text-xl font-semibold text-primary">Sign Up</h3>
+                  <h3 className="font-heading text-xl font-normal text-primary">Sign Up</h3>
                 </div>
 
                 <form className="space-y-4">
