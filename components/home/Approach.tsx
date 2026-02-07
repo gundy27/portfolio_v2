@@ -53,7 +53,7 @@ export function Approach() {
                     aria-hidden="true"
                   />
 
-                  <h3 className="font-heading text-base sm:text-lg font-semibold leading-tight text-[var(--color-text-primary)] mb-0">
+                  <h3 className="font-heading text-base sm:text-lg font-normal leading-tight text-[var(--color-text-primary)] mb-0">
                     {step.title}
                   </h3>
                   <p

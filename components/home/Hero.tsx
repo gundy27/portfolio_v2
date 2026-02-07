@@ -16,7 +16,7 @@ const HERO_IMAGE_HEIGHT = 600
 
 export function Hero() {
   const primaryCtaClassName =
-    'w-full items-center justify-center gap-2 rounded-lg bg-[var(--color-accent-dark)] px-6 py-3 text-sm font-label font-semibold uppercase tracking-[0.08em] text-white transition-colors hover:text-gray-300 sm:w-auto'
+    'inline-flex w-full items-center justify-center gap-2 rounded-lg bg-[var(--color-accent-dark)] px-6 py-3 text-sm font-label font-semibold uppercase tracking-[0.08em] text-white transition-colors hover:bg-transparent hover:text-black sm:w-auto'
 
   return (
     <section className="section-spacing-large relative">
@@ -81,7 +81,7 @@ export function Hero() {
                   href="mailto:dan@gundy.io"
                   className={cn('inline-flex', primaryCtaClassName, 'sm:hidden')}
                 >
-                  <Send className="h-4 w-4" aria-hidden />
+                  <Send className="h-4 w-4 shrink-0" aria-hidden />
                   GET IN TOUCH
                 </a>
 
@@ -89,12 +89,9 @@ export function Hero() {
                   href="https://mail.google.com/mail/?view=cm&fs=1&to=dan@gundy.io&su=Intro"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className={cn(
-                    'hidden sm:inline-flex',
-                    primaryCtaClassName
-                  )}
+                  className={cn('hidden sm:inline-flex', primaryCtaClassName)}
                 >
-                  <Send className="h-4 w-4" aria-hidden />
+                  <Send className="h-4 w-4 shrink-0" aria-hidden />
                   GET IN TOUCH
                 </a>
 

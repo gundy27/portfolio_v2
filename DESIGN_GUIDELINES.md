@@ -24,7 +24,7 @@ This document defines the design system for the portfolio website. **Always refe
 
 **H2** — Space Grotesk 600 — 32px
 
-**H3** — Space Grotesk 500 — 24px
+**H3** — Space Grotesk 400 — 24px
 
 **H4** — Space Grotesk 500 — 20px
 
@@ -304,7 +304,7 @@ Timeline events support optional custom colors via the `color` property:
 ```
 H1: Space Grotesk 600, 48px
 H2: Space Grotesk 600, 32px
-H3: Space Grotesk 500, 24px
+H3: Space Grotesk 400, 24px
 H4: Space Grotesk 500, 20px
 H5: Poppins 500, 18px
 Body: Poppins 400, 16–17px (line-height: 150–165%)
@@ -333,6 +333,7 @@ Background: #FAFAFA / #FFFFFF
 Accent: #598392
 Dark Accent: #3c5862
 Light Accent: #84a7b4
+Burnt Orange: #C46A2E
 ```
 
 ### Responsive Design

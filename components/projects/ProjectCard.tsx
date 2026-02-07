@@ -3,6 +3,7 @@
 import Link from 'next/link'
 import Image from 'next/image'
 import { motion } from 'framer-motion'
+import ReactMarkdown from 'react-markdown'
 import type { Project } from '@/lib/content/types'
 import { Label } from '@/components/ui/Label'
 
@@ -46,11 +47,19 @@ export function ProjectCard({ project, index }: ProjectCardProps) {
           ))}
         </div>
         
-        <h3 className="font-heading text-lg sm:text-xl font-semibold text-primary mb-2 group-hover:text-accent transition-colors">
+        <h3 className="font-heading text-lg sm:text-xl font-normal text-primary mb-2 group-hover:text-accent transition-colors">
           {project.title}
         </h3>
         
-        <p className="text-body text-xs sm:text-sm">{project.description}</p>
+        <div className="text-body text-xs sm:text-sm [&_strong]:font-semibold [&_strong]:text-primary">
+          <ReactMarkdown
+            components={{
+              p: ({ children }) => <span className="inline">{children}</span>,
+            }}
+          >
+            {project.description}
+          </ReactMarkdown>
+        </div>
       </Link>
     </motion.div>
   )

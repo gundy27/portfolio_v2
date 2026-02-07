@@ -21,7 +21,7 @@ export function Button({
   const baseStyles = 'font-label inline-flex items-center justify-center transition-colors rounded-md disabled:cursor-not-allowed'
   
   const variants = {
-    primary: 'bg-[var(--color-accent-dark)] text-white hover:text-gray-300 disabled:text-gray-500',
+    primary: 'bg-[var(--color-accent-dark)] text-white hover:bg-transparent hover:text-black disabled:text-gray-500 disabled:hover:bg-[var(--color-accent-dark)] disabled:hover:text-gray-500',
     secondary: 'bg-transparent text-accent hover:bg-accent/10',
     outline: 'border border-accent text-accent hover:bg-accent/10'
   }

@@ -1,4 +1,5 @@
 import Image from 'next/image'
+import ReactMarkdown from 'react-markdown'
 import { Label } from '@/components/ui/Label'
 import { cn } from '@/lib/utils/cn'
 
@@ -36,12 +37,23 @@ export function FeaturedWorkCard({
             <Label variant="accent">
               {label}
             </Label>
-            <h3 className="mt-2 font-heading text-xl sm:text-2xl font-semibold text-[var(--color-text-primary)]">
+            <h3 className="mt-2 font-heading text-xl sm:text-2xl font-normal text-[var(--color-text-primary)]">
               {title}
             </h3>
-            <p className="mt-2 mb-3 text-sm sm:text-base text-[var(--color-text-body)]">
-              {description}
-            </p>
+            <div
+              className="mt-2 mb-3 h-[3px] w-full shrink-0 rounded-sm"
+              style={{ backgroundColor: '#C46A2E' }}
+              aria-hidden="true"
+            />
+            <div className="mt-2 mb-3 text-sm sm:text-base text-[var(--color-text-body)] [&_strong]:font-semibold [&_strong]:text-[var(--color-text-primary)]">
+              <ReactMarkdown
+                components={{
+                  p: ({ children }) => <span className="inline">{children}</span>,
+                }}
+              >
+                {description}
+              </ReactMarkdown>
+            </div>
             <p className="text-small text-[var(--color-text-secondary)]/80">
               {skills.join(' | ')}
             </p>

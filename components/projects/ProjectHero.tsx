@@ -1,5 +1,6 @@
 import Image from 'next/image'
 import Link from 'next/link'
+import ReactMarkdown from 'react-markdown'
 import { SectionHeader } from '@/components/ui/SectionHeader'
 import { cn } from '@/lib/utils/cn'
 
@@ -60,7 +61,17 @@ export function ProjectHero({
           {/* On small screens, show media between title and description */}
           <div className="lg:hidden mb-3">{media}</div>
 
-          {description ? <p className="text-secondary text-lg mb-5">{description}</p> : null}
+          {description ? (
+            <div className="text-secondary text-lg mb-5 [&_strong]:font-semibold [&_strong]:text-primary">
+              <ReactMarkdown
+                components={{
+                  p: ({ children }) => <span className="inline">{children}</span>,
+                }}
+              >
+                {description}
+              </ReactMarkdown>
+            </div>
+          ) : null}
 
           {tags.length ? (
             <div className="flex flex-wrap gap-2">
