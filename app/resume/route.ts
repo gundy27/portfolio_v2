@@ -24,7 +24,7 @@ export async function GET(request: Request) {
     userAgent,
   })
 
-  const resumePath = path.join(process.cwd(), 'public', 'assets', 'resume.pdf')
+  const resumePath = path.join(process.cwd(), 'public', 'assets', 'gunderson_resume.pdf')
 
   try {
     const file = await fs.readFile(resumePath)
@@ -38,7 +38,7 @@ export async function GET(request: Request) {
     })
   } catch (err) {
     console.error('[audit]', { event: 'resume_download_failed', ts: new Date().toISOString(), resumePath, err })
-    return new NextResponse('Resume not found. Place it at public/assets/resume.pdf.', { status: 404 })
+    return new NextResponse('Resume not found. Place it at public/assets/gunderson_resume.pdf.', { status: 404 })
   }
 }
 
