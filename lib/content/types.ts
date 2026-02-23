@@ -51,7 +51,7 @@ export interface ProjectMetric {
   format?: string // e.g. "{}%", "${}M", "{} Weeks"
 }
 
-export type ProjectSectionType = 'two-column' | 'full-width' | 'highlight' | 'metrics'
+export type ProjectSectionType = 'two-column' | 'full-width' | 'highlight' | 'metrics' | 'chatbot'
 
 export interface ProjectSection {
   id: string
@@ -67,6 +67,12 @@ export interface ProjectSection {
   imageAlt?: string
   imagePosition?: 'left' | 'right'
   metrics?: ProjectMetric[]
+  /** Optional defaults for chatbot section. */
+  chatbot?: {
+    apiUrl?: string
+    title?: string
+    description?: string
+  }
 }
 
 export interface Endorsement {
