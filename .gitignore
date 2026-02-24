@@ -55,9 +55,9 @@ backend/.env
 backend/vector_db/
 backend/metadata.db
 backend/*.db
-api/vector_db/
-api/metadata.db
-api/*.db
+services/rag-api/vector_db/
+services/rag-api/metadata.db
+services/rag-api/*.db
 *.egg-info/
 .pytest_cache/
 

@@ -15,12 +15,12 @@ pydantic-settings = ">=2.0,<3.0"
 structlog = ">=23.2,<25.0"
 python-multipart = ">=0.0.6,<1.0"
 # Local libraries
-gundy-ai-extractors = {path = "../vendor/ai-utils/libs/extractors", develop = true}
-gundy-ai-chunker = {path = "../vendor/ai-utils/libs/chunker", develop = true}
-gundy-ai-embeddings = {path = "../vendor/ai-utils/libs/embeddings", extras = ["openai"], develop = true}
-gundy-ai-vectorstore = {path = "../vendor/ai-utils/libs/vectorstore", extras = ["chromadb"], develop = true}
-gundy-ai-metadata-store = {path = "../vendor/ai-utils/libs/metadata-store", extras = ["sqlite"], develop = true}
-gundy_ai-openai-wrapper = {path = "../vendor/ai-utils/libs/llm_wrappers/openai_wrapper", develop = true}
+gundy-ai-extractors = {path = "../../vendor/ai-utils/libs/extractors", develop = true}
+gundy-ai-chunker = {path = "../../vendor/ai-utils/libs/chunker", develop = true}
+gundy-ai-embeddings = {path = "../../vendor/ai-utils/libs/embeddings", extras = ["openai"], develop = true}
+gundy-ai-vectorstore = {path = "../../vendor/ai-utils/libs/vectorstore", extras = ["chromadb"], develop = true}
+gundy-ai-metadata-store = {path = "../../vendor/ai-utils/libs/metadata-store", extras = ["sqlite"], develop = true}
+gundy_ai-openai-wrapper = {path = "../../vendor/ai-utils/libs/llm_wrappers/openai_wrapper", develop = true}
 pyyaml = "^6.0.3"
 
 [tool.poetry.group.dev.dependencies]

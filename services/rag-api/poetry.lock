@@ -791,7 +791,7 @@ tiktoken = ">=0.5,<1.0"
 
 [package.source]
 type = "directory"
-url = "../vendor/ai-utils/libs/chunker"
+url = "../../vendor/ai-utils/libs/chunker"
 
 [[package]]
 name = "gundy-ai-embeddings"
@@ -814,7 +814,7 @@ openai = ["openai (>=1.0,<2.0)"]
 
 [package.source]
 type = "directory"
-url = "../vendor/ai-utils/libs/embeddings"
+url = "../../vendor/ai-utils/libs/embeddings"
 
 [[package]]
 name = "gundy-ai-extractors"
@@ -836,7 +836,7 @@ structlog = ">=23.2,<25.0"
 
 [package.source]
 type = "directory"
-url = "../vendor/ai-utils/libs/extractors"
+url = "../../vendor/ai-utils/libs/extractors"
 
 [[package]]
 name = "gundy-ai-metadata-store"
@@ -863,7 +863,7 @@ sqlite = ["aiosqlite (>=0.19,<1.0)"]
 
 [package.source]
 type = "directory"
-url = "../vendor/ai-utils/libs/metadata-store"
+url = "../../vendor/ai-utils/libs/metadata-store"
 
 [[package]]
 name = "gundy-ai-openai-wrapper"
@@ -885,7 +885,7 @@ typing-extensions = "^4.12.2"
 
 [package.source]
 type = "directory"
-url = "../vendor/ai-utils/libs/llm_wrappers/openai_wrapper"
+url = "../../vendor/ai-utils/libs/llm_wrappers/openai_wrapper"
 
 [[package]]
 name = "gundy-ai-vectorstore"
@@ -907,7 +907,7 @@ chromadb = ["chromadb (>=0.4,<1.0)"]
 
 [package.source]
 type = "directory"
-url = "../vendor/ai-utils/libs/vectorstore"
+url = "../../vendor/ai-utils/libs/vectorstore"
 
 [[package]]
 name = "h11"
@@ -3740,4 +3740,4 @@ type = ["pytest-mypy"]
 [metadata]
 lock-version = "2.1"
 python-versions = ">=3.11,<3.13"
-content-hash = "61b9ca56b42cd8bc46932a3001cdbcb6c86dd8e763a4ae9847e6c36a852866bf"
+content-hash = "156d4a68c1dc6c183df13a20daf4237fe9460ff4c6d5075a9b567f9eb448b85b"
