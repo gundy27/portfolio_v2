@@ -55,6 +55,9 @@ backend/.env
 backend/vector_db/
 backend/metadata.db
 backend/*.db
+api/vector_db/
+api/metadata.db
+api/*.db
 *.egg-info/
 .pytest_cache/
 
