@@ -1,0 +1,3 @@
+[submodule "vendor/ai-utils"]
+	path = vendor/ai-utils
+	url = https://github.com/gundy27/ai-utils.git
