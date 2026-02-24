@@ -1,0 +1,49 @@
+{
+  "id": "chatbot",
+  "label": "RAG CHATBOT",
+  "title": "Chat with my work",
+  "description": "An in-site RAG chatbot seeded with a structured knowledge base about Dan’s work history and projects. Responses include the specific source chunk used, and it refuses to invent details when the knowledge base doesn’t have the answer.",
+  "year": 2026,
+  "type": "personal",
+  "tags": ["RAG", "LLMs", "Next.js", "FastAPI", "Product"],
+  "featured": true,
+  "thumbnail": "/assets/projects/chatbot/chatbot-thumbnail.svg",
+  "company": "gundy.io",
+  "meta": {
+    "role": "Builder",
+    "company": "gundy.io",
+    "timeline": "2026",
+    "proudOf": "Making the portfolio interactive — you can ask questions and see grounded, cited answers",
+    "learned": "Operational details matter: logging, citations, and knowledge hygiene make or break trust"
+  },
+  "metrics": [
+    { "value": 1, "label": "CHAT EXPERIENCE", "format": "{} IN-SITE" },
+    { "value": 1, "label": "KNOWLEDGE BASE", "format": "{} STRUCTURED" },
+    { "value": 1, "label": "CITATIONS", "format": "{} PER ANSWER" },
+    { "value": 1, "label": "ADMIN VIEW", "format": "{} FOR MESSAGES" }
+  ],
+  "sections": [
+    {
+      "id": "context",
+      "type": "two-column",
+      "label": "CONTEXT",
+      "heading": "What this is",
+      "image": "/assets/projects/chatbot/chatbot-thumbnail.svg",
+      "imageAlt": "Chatbot thumbnail",
+      "imagePosition": "right",
+      "content": "This is a retrieval-augmented chatbot for gundy.io. It answers questions about my work history and projects using only a curated knowledge base.\n\nIf it can’t find relevant info, it will say so clearly rather than guessing.\n\nBelow is the live demo."
+    },
+    {
+      "id": "demo",
+      "type": "chatbot",
+      "label": "DEMO",
+      "heading": "Ask anything",
+      "content": "Try asking about specific projects (e.g. **Entitlements Management**, **Self-Serve Trial**, **STS Launch**) or about roles and areas like pricing & packaging.\n\n**Note**: This is a prototype. Messages are stored for quality improvements.",
+      "chatbot": {
+        "title": "Chat with Dan",
+        "description": "Ask about roles, projects, and outcomes. Answers are grounded in a knowledge base and include sources."
+      }
+    }
+  ]
+}
+

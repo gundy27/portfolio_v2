@@ -48,6 +48,12 @@ __pycache__/
 *$py.class
 *.so
 .Python
+api/venv/
+api/.venv/
+api/env/
+api/vector_db/
+api/metadata.db
+api/*.db
 backend/venv/
 backend/.venv/
 backend/env/

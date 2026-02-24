@@ -11,6 +11,7 @@ import { HighlightSection } from '@/components/ui/HighlightSection'
 import { BulletList } from '@/components/ui/BulletList'
 import { ChecklistItem } from '@/components/ui/ChecklistItem'
 import { MetricsRow } from '@/components/projects/MetricsRow'
+import { ChatWidget } from '@/components/chatbot/ChatWidget'
 
 function Markdown({ content, inverse }: { content: string; inverse?: boolean }) {
   const pClassName = inverse ? 'text-white leading-relaxed mb-4' : 'text-body leading-relaxed mb-4'
@@ -98,6 +99,22 @@ export function ProjectSection({ section }: { section: ProjectSectionType }) {
     return (
       <FullWidthSection width="wide">
         <MetricsRow metrics={section.metrics ?? []} />
+      </FullWidthSection>
+    )
+  }
+
+  if (section.type === 'chatbot') {
+    return (
+      <FullWidthSection width="wide">
+        <div className="space-y-6">
+          <SectionHeaderBlock section={section} />
+          {section.content ? <Markdown content={section.content} /> : null}
+          <ChatWidget
+            apiUrl={section.chatbot?.apiUrl}
+            title={section.chatbot?.title}
+            description={section.chatbot?.description}
+          />
+        </div>
       </FullWidthSection>
     )
   }

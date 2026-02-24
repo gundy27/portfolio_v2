@@ -27,6 +27,27 @@ npm run dev
 npm run build
 ```
 
+## Admin dashboard (chat logs)
+
+The site includes a simple admin UI at `/admin` that mirrors the FastAPI admin endpoints:
+
+- `GET /admin/sessions?user_id=...`
+- `GET /admin/sessions/{session_id}/messages`
+
+### Required environment variables (Next.js)
+
+Set these in your runtime environment (Vercel project env vars in production):
+
+- **`ADMIN_DASHBOARD_USERNAME`**: username for `/admin/login`
+- **`ADMIN_DASHBOARD_PASSWORD`**: password for `/admin/login`
+- **`ADMIN_SESSION_SECRET`**: random string used to sign the admin session cookie
+- **`RAG_API_URL`**: base URL of the FastAPI service (server-to-server)
+- **`RAG_ADMIN_API_KEY`**: value sent as `X-Admin-Key` to the FastAPI admin endpoints
+
+### FastAPI configuration
+
+In the API service env, set **`ADMIN_API_KEY`** to enable the `/admin/*` endpoints (see `api/env.example`).
+
 ## Deployment
 
 This project is deployed to Vercel at [gundy.io](https://gundy.io).
