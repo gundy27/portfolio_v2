@@ -46,7 +46,7 @@ Set these in your runtime environment (Vercel project env vars in production):
 
 ### FastAPI configuration
 
-In the API service env, set **`ADMIN_API_KEY`** to enable the `/admin/*` endpoints (see `api/env.example`).
+In the API service env, set **`ADMIN_API_KEY`** to enable the `/admin/*` endpoints (see `services/rag-api/env.example`).
 
 ## Deployment
 
