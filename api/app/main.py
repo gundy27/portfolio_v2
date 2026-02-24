@@ -14,6 +14,7 @@ from .config import settings
 from .models import (
     ChatRequest,
     ChatResponse,
+    ChatSettings,
     DocumentIngestResponse,
     HealthResponse,
     SearchRequest,
@@ -22,6 +23,7 @@ from .models import (
     SourceChunk,
 )
 from .pipeline import RAGPipeline
+from .settings_store import SettingsStore
 
 logger = structlog.get_logger(__name__)
 
@@ -45,6 +47,7 @@ app.add_middleware(
 
 # Global pipeline instance
 pipeline: RAGPipeline | None = None
+settings_store = SettingsStore(settings.metadata_db_url)
 
 
 def _assert_admin(x_admin_key: str | None) -> None:
@@ -492,6 +495,13 @@ async def chat_stream(request: ChatRequest):
     )
 
 
+@app.get("/settings/chat", response_model=ChatSettings)
+async def public_get_chat_settings() -> ChatSettings:
+    """Public, read-only chat settings (used by the website ChatWidget)."""
+    row = await settings_store.get_chat_settings()
+    return ChatSettings(**row.value)
+
+
 @app.get("/admin/sessions")
 async def admin_list_sessions(
     user_id: str = "gundy_io_public",
@@ -551,3 +561,24 @@ async def admin_list_messages(
             for m in messages
         ],
     }
+
+
+@app.get("/admin/settings/chat", response_model=ChatSettings)
+async def admin_get_chat_settings(
+    x_admin_key: str | None = Header(default=None, alias="X-Admin-Key"),
+) -> ChatSettings:
+    """Fetch chat settings (admin-only)."""
+    _assert_admin(x_admin_key)
+    row = await settings_store.get_chat_settings()
+    return ChatSettings(**row.value)
+
+
+@app.put("/admin/settings/chat", response_model=ChatSettings)
+async def admin_put_chat_settings(
+    body: ChatSettings,
+    x_admin_key: str | None = Header(default=None, alias="X-Admin-Key"),
+) -> ChatSettings:
+    """Update chat settings (admin-only)."""
+    _assert_admin(x_admin_key)
+    row = await settings_store.set_chat_settings(body.model_dump())
+    return ChatSettings(**row.value)

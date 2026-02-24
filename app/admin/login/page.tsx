@@ -61,7 +61,7 @@ export default async function AdminLoginPage({
       <div className="w-full max-w-md rounded-2xl border border-gray-200 bg-white shadow-sm overflow-hidden">
         <div className="px-6 py-5 border-b border-gray-200">
           <div className="font-heading text-xl font-semibold text-primary">Admin</div>
-          <p className="mt-1 text-sm text-body">Sign in to view chat logs.</p>
+          <p className="mt-1 text-sm text-body">Sign in to view admin dashboard.</p>
         </div>
 
         <form className="px-6 py-5 space-y-4" action={signIn}>

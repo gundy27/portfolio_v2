@@ -145,6 +145,19 @@ class ChatResponse(BaseModel):
     processing_time_ms: float = Field(description="Processing time in milliseconds")
 
 
+# Admin/UI Settings Models
+class ChatSettings(BaseModel):
+    """Global settings applied to chat requests by the UI."""
+
+    top_k: int = Field(
+        default=5, ge=1, le=20, description="Number of context chunks to retrieve"
+    )
+    model: str = Field(default="gpt-4o-mini", description="Default LLM model to use")
+    streaming: bool = Field(
+        default=True, description="Whether the UI should use streaming responses"
+    )
+
+
 # Streaming Chat Models
 class StreamEvent(BaseModel):
     """Base streaming event."""

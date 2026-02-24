@@ -24,6 +24,12 @@ type Message = {
   sources?: SourceChunk[]
 }
 
+type ChatSettings = {
+  top_k: number
+  model: string
+  streaming: boolean
+}
+
 function newId(prefix: string) {
   if (typeof crypto !== "undefined" && "randomUUID" in crypto) {
     return `${prefix}_${crypto.randomUUID()}`
@@ -47,9 +53,30 @@ export function ChatWidget({
   const [isSending, setIsSending] = React.useState(false)
   const [streamingText, setStreamingText] = React.useState("")
   const [streamingSources, setStreamingSources] = React.useState<SourceChunk[] | undefined>(undefined)
+  const [chatSettings, setChatSettings] = React.useState<ChatSettings | null>(null)
 
   // Single shared user_id so the knowledge base and message logs are queryable/admin-viewable.
   const userId = process.env.NEXT_PUBLIC_CHATBOT_USER_ID ?? "gundy_io_public"
+
+  React.useEffect(() => {
+    let cancelled = false
+    ;(async () => {
+      try {
+        const res = await fetch(`${baseUrl}/settings/chat`, { cache: "no-store" })
+        if (!res.ok) return
+        const data = (await res.json()) as Partial<ChatSettings>
+        if (cancelled) return
+        if (typeof data.top_k === "number" && typeof data.model === "string" && typeof data.streaming === "boolean") {
+          setChatSettings({ top_k: data.top_k, model: data.model, streaming: data.streaming })
+        }
+      } catch {
+        // ignore: fall back to defaults
+      }
+    })()
+    return () => {
+      cancelled = true
+    }
+  }, [baseUrl])
 
   const sendMessage = React.useCallback(
     async (text: string) => {
@@ -63,6 +90,58 @@ export function ChatWidget({
 
       setMessages((prev) => [...prev, { id: newId("msg"), role: "user", content: message }])
 
+      const effectiveTopK = chatSettings?.top_k ?? 5
+      const effectiveModel = chatSettings?.model ?? "gpt-4o-mini"
+      const effectiveStreaming = chatSettings?.streaming ?? true
+
+      if (!effectiveStreaming) {
+        const response = await fetch(`${baseUrl}/chat`, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            message,
+            session_id: sessionId,
+            user_id: userId,
+            top_k: effectiveTopK,
+            model: effectiveModel,
+            include_sources: true,
+          }),
+        })
+
+        if (!response.ok) {
+          const detail = await response.text().catch(() => "")
+          setMessages((prev) => [
+            ...prev,
+            {
+              id: newId("msg"),
+              role: "assistant",
+              content: `Sorry — the chatbot backend returned an error (${response.status}). ${detail}`.trim(),
+            },
+          ])
+          setIsSending(false)
+          return
+        }
+
+        const data = (await response.json()) as {
+          answer?: string
+          session_id?: string
+          sources?: SourceChunk[]
+        }
+
+        setSessionId(data.session_id)
+        setMessages((prev) => [
+          ...prev,
+          {
+            id: newId("msg"),
+            role: "assistant",
+            content: String(data.answer ?? "(No content returned.)"),
+            sources: Array.isArray(data.sources) ? data.sources : undefined,
+          },
+        ])
+        setIsSending(false)
+        return
+      }
+
       const response = await fetch(`${baseUrl}/chat/stream`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -70,8 +149,8 @@ export function ChatWidget({
           message,
           session_id: sessionId,
           user_id: userId,
-          top_k: 5,
-          model: "gpt-4o-mini",
+          top_k: effectiveTopK,
+          model: effectiveModel,
           include_sources: true,
         }),
       })
@@ -159,7 +238,7 @@ export function ChatWidget({
       setStreamingText("")
       setStreamingSources(undefined)
     },
-    [baseUrl, sessionId, streamingSources, streamingText, userId],
+    [baseUrl, chatSettings, sessionId, streamingSources, streamingText, userId],
   )
 
   const onSubmit: React.FormEventHandler = (e) => {
