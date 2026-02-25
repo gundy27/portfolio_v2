@@ -79,8 +79,29 @@ async def run(path: Path, user_id: str, dry_run: bool) -> None:
     raw = path.read_text(encoding="utf-8")
     sections = parse_sections(raw)
 
+    print(
+        "ingest_config:",
+        json.dumps(
+            {
+                "vector_db_path": settings.vector_db_path,
+                "collection_name": settings.collection_name,
+                "metadata_db_url": settings.metadata_db_url,
+                "embedding_model": settings.embedding_model,
+                "chunk_max_tokens": settings.chunk_max_tokens,
+                "chunk_overlap_tokens": settings.chunk_overlap_tokens,
+            },
+            ensure_ascii=False,
+        ),
+    )
+
     pipeline = RAGPipeline(
-        openai_api_key=settings.openai_api_key or os.getenv("OPENAI_API_KEY")
+        vector_db_path=settings.vector_db_path,
+        collection_name=settings.collection_name,
+        metadata_db_url=settings.metadata_db_url,
+        openai_api_key=settings.openai_api_key or os.getenv("OPENAI_API_KEY"),
+        embedding_model=settings.embedding_model,
+        chunk_max_tokens=settings.chunk_max_tokens,
+        chunk_overlap_tokens=settings.chunk_overlap_tokens,
     )
     await pipeline.metadata_store.initialize()
 
