@@ -52,7 +52,11 @@ export default async function AdminDashboardPage({
   const apiBase =
     getServerEnv('RAG_API_URL') ??
     getServerEnv('NEXT_PUBLIC_RAG_API_URL') ??
-    'http://localhost:8000'
+    ''
+
+  if (!apiBase) {
+    throw new Error('Missing RAG_API_URL (or NEXT_PUBLIC_RAG_API_URL) for admin dashboard.')
+  }
 
   const adminKey =
     getServerEnv('RAG_ADMIN_API_KEY') ??
@@ -101,10 +105,14 @@ export default async function AdminDashboardPage({
         <div className="px-5 py-4 border-b border-gray-200">
           <form action="/admin" method="get" className="flex gap-3 items-end">
             <div className="flex-1">
-              <label className="block text-xs font-semibold text-secondary uppercase tracking-wide">
+              <label
+                htmlFor="admin-user-id"
+                className="block text-xs font-semibold text-secondary uppercase tracking-wide"
+              >
                 user_id
               </label>
               <input
+                id="admin-user-id"
                 name="user_id"
                 defaultValue={userId}
                 className="mt-2 w-full rounded-xl border border-gray-300 bg-white px-3 py-2 text-sm text-primary placeholder:text-secondary focus:outline-none focus:ring-2 focus:ring-[var(--color-accent)]"

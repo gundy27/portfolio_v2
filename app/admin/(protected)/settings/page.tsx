@@ -17,12 +17,16 @@ function getApiConfig() {
   const apiBase =
     getServerEnv("RAG_API_URL") ??
     getServerEnv("NEXT_PUBLIC_RAG_API_URL") ??
-    "http://localhost:8000"
+    ""
 
   const adminKey =
     getServerEnv("RAG_ADMIN_API_KEY") ??
     getServerEnv("ADMIN_API_KEY") ??
     getServerEnv("NEXT_PUBLIC_ADMIN_API_KEY")
+
+  if (!apiBase) {
+    throw new Error("Missing RAG_API_URL (or NEXT_PUBLIC_RAG_API_URL) for admin settings.")
+  }
 
   return { apiBase, adminKey }
 }

@@ -39,7 +39,12 @@ class Settings(BaseSettings):
     )
 
     # CORS Settings
-    cors_origins: list[str] = ["http://localhost:3000", "http://localhost:8000"]
+    cors_origins: list[str] = [
+        "http://localhost:3000",
+        "http://localhost:8000",
+        "https://gundy.io",
+        "https://www.gundy.io",
+    ]
     cors_allow_credentials: bool = True
     cors_allow_methods: list[str] = ["*"]
     cors_allow_headers: list[str] = ["*"]

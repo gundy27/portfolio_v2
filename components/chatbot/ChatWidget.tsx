@@ -46,7 +46,8 @@ export function ChatWidget({
   title?: string
   description?: string
 }) {
-  const baseUrl = apiUrl ?? process.env.NEXT_PUBLIC_RAG_API_URL ?? "http://localhost:8000"
+  // Default to a same-origin proxy to avoid CORS and "localhost in prod" footguns.
+  const baseUrl = apiUrl ?? "/api/rag"
   const [messages, setMessages] = React.useState<Message[]>([])
   const [input, setInput] = React.useState("")
   const [sessionId, setSessionId] = React.useState<string | undefined>(undefined)
