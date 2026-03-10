@@ -3,10 +3,10 @@
 import json
 import time
 from datetime import datetime, timezone
-from typing import Any, Dict
+from typing import Any, Dict, Optional
 
 import structlog
-from fastapi import FastAPI, File, Form, Header, HTTPException, UploadFile
+from fastapi import FastAPI, File, Form, Header, HTTPException, Query, UploadFile
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import JSONResponse, StreamingResponse
 
@@ -76,11 +76,14 @@ async def _ensure_pipeline() -> RAGPipeline:
     pipeline = RAGPipeline(
         vector_db_path=settings.vector_db_path,
         collection_name=settings.collection_name,
+        podcasts_collection_name=settings.podcasts_collection_name,
         metadata_db_url=settings.metadata_db_url,
         openai_api_key=settings.openai_api_key or os.getenv("OPENAI_API_KEY"),
         embedding_model=settings.embedding_model,
         chunk_max_tokens=settings.chunk_max_tokens,
         chunk_overlap_tokens=settings.chunk_overlap_tokens,
+        podcasts_chunk_max_tokens=settings.podcasts_chunk_max_tokens,
+        podcasts_chunk_overlap_tokens=settings.podcasts_chunk_overlap_tokens,
     )
     await pipeline.metadata_store.initialize()
     logger.info("pipeline_lazy_init_complete")
@@ -204,12 +207,20 @@ async def health_check() -> HealthResponse:
 
 
 @app.get("/stats")
-async def get_stats() -> Dict[str, Any]:
+async def get_stats(corpus: Optional[str] = Query(default=None)) -> Dict[str, Any]:
     """Get pipeline statistics."""
     p = await _ensure_pipeline()
 
     try:
-        return p.get_stats()
+        stats = p.get_stats()
+        if corpus:
+            # convenience: allow /stats?corpus=podcasts to mirror single-corpus shape
+            corpus_key = corpus.strip().lower()
+            by = stats.get("vector_count_by_corpus", {})
+            if corpus_key in by:
+                stats = dict(stats)
+                stats["vector_count"] = by[corpus_key]
+        return stats
     except Exception as e:
         logger.error("get_stats_failed", error=str(e))
         raise HTTPException(status_code=500, detail=str(e)) from e
@@ -220,6 +231,8 @@ async def ingest_document(
     file: UploadFile = File(...),
     metadata: str = Form(default="{}"),
     user_id: str = Form(default="anonymous"),
+    corpus: str = Form(default="portfolio"),
+    x_admin_key: str | None = Header(default=None, alias="X-Admin-Key"),
 ) -> DocumentIngestResponse:
     """Ingest a document into the RAG system.
 
@@ -237,9 +250,17 @@ async def ingest_document(
     Returns:
         DocumentIngestResponse with processing results
     """
+    _assert_admin(x_admin_key)
     p = await _ensure_pipeline()
 
     try:
+        corpus_key = corpus.strip().lower()
+        if corpus_key not in ("portfolio", "podcasts"):
+            raise HTTPException(
+                status_code=400,
+                detail='Invalid corpus. Expected "portfolio" or "podcasts".',
+            )
+
         # Read file content
         content = await file.read()
 
@@ -260,6 +281,7 @@ async def ingest_document(
         result = await p.ingest_document(
             file.filename or "unknown",
             content_b64,
+            corpus=corpus_key,
             user_id=user_id,
             metadata=metadata_dict,
         )
@@ -294,6 +316,7 @@ async def search_documents(request: SearchRequest) -> SearchResponse:
         # Perform search
         results = p.search(
             query=request.query,
+            corpus=request.corpus,
             top_k=request.top_k,
             filter=request.filter,
             include_text=request.include_text,
@@ -387,7 +410,10 @@ async def delete_document(document_id: str) -> Dict[str, Any]:
 
         # Delete from vectorstore
         if chunk_ids:
-            p.vector_store.delete(chunk_ids)
+            # Chunks live in exactly one corpus collection, but we may not know
+            # which one here. Deleting from both is safe (missing IDs are OK).
+            for store in p.vector_stores.values():
+                store.delete(chunk_ids)
 
         return {
             "document_id": document_id,
@@ -419,6 +445,7 @@ async def chat(request: ChatRequest) -> ChatResponse:
         # Chat with pipeline
         result = await p.chat(
             message=request.message,
+            corpus=request.corpus,
             session_id=request.session_id,
             user_id=request.user_id,
             top_k=request.top_k,
@@ -472,6 +499,7 @@ async def chat_stream(request: ChatRequest):
         try:
             async for event in p.chat_stream(
                 message=request.message,
+                corpus=request.corpus,
                 session_id=request.session_id,
                 user_id=request.user_id,
                 top_k=request.top_k,

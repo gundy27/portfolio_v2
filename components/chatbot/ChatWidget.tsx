@@ -30,6 +30,8 @@ type ChatSettings = {
   streaming: boolean
 }
 
+type Corpus = "portfolio" | "podcasts"
+
 function newId(prefix: string) {
   if (typeof crypto !== "undefined" && "randomUUID" in crypto) {
     return `${prefix}_${crypto.randomUUID()}`
@@ -55,9 +57,35 @@ export function ChatWidget({
   const [streamingText, setStreamingText] = React.useState("")
   const [streamingSources, setStreamingSources] = React.useState<SourceChunk[] | undefined>(undefined)
   const [chatSettings, setChatSettings] = React.useState<ChatSettings | null>(null)
+  const [corpus, setCorpus] = React.useState<Corpus>("portfolio")
 
   // Single shared user_id so the knowledge base and message logs are queryable/admin-viewable.
   const userId = process.env.NEXT_PUBLIC_CHATBOT_USER_ID ?? "gundy_io_public"
+
+  React.useEffect(() => {
+    try {
+      const saved = window.localStorage.getItem("gundy_chat_corpus")
+      if (saved === "portfolio" || saved === "podcasts") setCorpus(saved)
+    } catch {
+      // ignore
+    }
+  }, [])
+
+  React.useEffect(() => {
+    try {
+      window.localStorage.setItem("gundy_chat_corpus", corpus)
+    } catch {
+      // ignore
+    }
+  }, [corpus])
+
+  const onChangeCorpus = React.useCallback((next: Corpus) => {
+    setCorpus(next)
+    setSessionId(undefined)
+    setMessages([])
+    setStreamingText("")
+    setStreamingSources(undefined)
+  }, [])
 
   React.useEffect(() => {
     let cancelled = false
@@ -101,6 +129,7 @@ export function ChatWidget({
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({
             message,
+            corpus,
             session_id: sessionId,
             user_id: userId,
             top_k: effectiveTopK,
@@ -148,6 +177,7 @@ export function ChatWidget({
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           message,
+          corpus,
           session_id: sessionId,
           user_id: userId,
           top_k: effectiveTopK,
@@ -239,7 +269,7 @@ export function ChatWidget({
       setStreamingText("")
       setStreamingSources(undefined)
     },
-    [baseUrl, chatSettings, sessionId, streamingSources, streamingText, userId],
+    [baseUrl, chatSettings, corpus, sessionId, streamingSources, streamingText, userId],
   )
 
   const onSubmit: React.FormEventHandler = (e) => {
@@ -252,6 +282,39 @@ export function ChatWidget({
       <header className="px-5 py-4 border-b border-gray-200">
         <div className="font-heading text-lg font-semibold text-primary">{title}</div>
         <p className="mt-1 text-sm text-body">{description}</p>
+        <div className="mt-3 flex flex-wrap items-center gap-3">
+          <div className="inline-flex rounded-xl border border-gray-200 bg-white p-1">
+            <button
+              type="button"
+              onClick={() => onChangeCorpus("portfolio")}
+              className={[
+                "px-3 py-1.5 text-xs font-semibold rounded-lg",
+                corpus === "portfolio"
+                  ? "bg-gray-900 text-white"
+                  : "text-secondary hover:text-primary",
+              ].join(" ")}
+            >
+              Portfolio
+            </button>
+            <button
+              type="button"
+              onClick={() => onChangeCorpus("podcasts")}
+              className={[
+                "px-3 py-1.5 text-xs font-semibold rounded-lg",
+                corpus === "podcasts"
+                  ? "bg-gray-900 text-white"
+                  : "text-secondary hover:text-primary",
+              ].join(" ")}
+            >
+              Podcasts
+            </button>
+          </div>
+          <p className="text-xs text-secondary">
+            {corpus === "podcasts"
+              ? "Searching Lenny’s Podcast transcripts."
+              : "Searching Dan’s portfolio knowledge base."}
+          </p>
+        </div>
         <p className="mt-2 text-xs text-secondary">
           Backend: <span className="font-mono">{baseUrl}</span>
         </p>
@@ -260,8 +323,17 @@ export function ChatWidget({
       <div className="px-5 py-4 space-y-4 max-h-[520px] overflow-y-auto">
         {messages.length === 0 ? (
           <div className="rounded-xl bg-gray-50 border border-gray-200 p-4 text-sm text-body">
-            Try: “What projects best show Dan’s pricing & packaging experience?” or “What did Dan do on Entitlements
-            Management?”
+            {corpus === "podcasts" ? (
+              <>
+                Try: “In the episode with Andrew Chen, what did he say about growth loops?” or “What frameworks did the
+                guest share for prioritization?”
+              </>
+            ) : (
+              <>
+                Try: “What projects best show Dan’s pricing & packaging experience?” or “What did Dan do on
+                Entitlements Management?”
+              </>
+            )}
           </div>
         ) : null}
 

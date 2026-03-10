@@ -230,11 +230,21 @@ Environment variables (see `env.example`):
 | `OPENAI_API_KEY`       | (required)               | OpenAI API key           |
 | `VECTOR_DB_PATH`       | `./vector_db`            | Vector database path     |
 | `COLLECTION_NAME`      | `documents`              | ChromaDB collection name |
+| `PODCASTS_COLLECTION_NAME` | `podcasts`           | ChromaDB collection for podcasts corpus |
 | `CHUNK_MAX_TOKENS`     | `512`                    | Maximum tokens per chunk |
 | `CHUNK_OVERLAP_TOKENS` | `50`                     | Overlap between chunks   |
+| `PODCASTS_CHUNK_MAX_TOKENS` | `1000`             | Podcasts max chunk tokens (tuned for long transcripts) |
+| `PODCASTS_CHUNK_OVERLAP_TOKENS` | `120`         | Podcasts overlap tokens |
 | `EMBEDDING_MODEL`      | `text-embedding-3-small` | OpenAI embedding model   |
 | `METADATA_DB_URL`      | `sqlite+aiosqlite:...`   | Metadata database URL    |
 | `DEFAULT_CHAT_MODEL`   | `gpt-4o-mini`            | Default LLM for chat     |
+
+## Render persistence (recommended)
+
+If deploying to Render with a persistent disk mounted at `/data`, set:
+
+- `VECTOR_DB_PATH=/data/vector_db`
+- `METADATA_DB_URL=sqlite+aiosqlite:////data/metadata.db`
 
 ## Testing
 

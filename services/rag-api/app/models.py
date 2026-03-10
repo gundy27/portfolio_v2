@@ -4,6 +4,7 @@ from typing import Any, Dict, List, Literal, Optional
 
 from pydantic import BaseModel, Field
 
+Corpus = Literal["portfolio", "podcasts"]
 
 # Document Ingestion Models
 class DocumentIngestRequest(BaseModel):
@@ -32,6 +33,10 @@ class SearchRequest(BaseModel):
     """Request to search documents."""
 
     query: str = Field(description="Search query")
+    corpus: Corpus = Field(
+        default="portfolio",
+        description='Which corpus to search: "portfolio" or "podcasts"',
+    )
     top_k: int = Field(
         default=5, ge=1, le=50, description="Number of results to return"
     )
@@ -101,6 +106,10 @@ class ChatRequest(BaseModel):
     """Request to chat with RAG."""
 
     message: str = Field(description="User message")
+    corpus: Corpus = Field(
+        default="portfolio",
+        description='Which corpus to use: "portfolio" or "podcasts"',
+    )
     session_id: Optional[str] = Field(
         default=None, description="Session ID for conversation history"
     )
