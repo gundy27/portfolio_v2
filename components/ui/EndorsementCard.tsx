@@ -3,13 +3,8 @@
 import Image from 'next/image'
 import type { Endorsement } from '@/lib/content/types'
 
-export function EndorsementCard({ endorsement }: { endorsement: Endorsement }) {
-  const pills = endorsement.pills ?? []
-  const maxPills = 4
-  const visiblePills = pills.slice(0, maxPills)
-  const remainingPills = Math.max(0, pills.length - visiblePills.length)
-
-  const LinkedInSquareIcon = ({ className }: { className?: string }) => (
+function LinkedInSquareIcon({ className }: { className?: string }) {
+  return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
       viewBox="0 0 48 48"
@@ -27,6 +22,13 @@ export function EndorsementCard({ endorsement }: { endorsement: Endorsement }) {
       />
     </svg>
   )
+}
+
+export function EndorsementCard({ endorsement }: { endorsement: Endorsement }) {
+  const pills = endorsement.pills ?? []
+  const maxPills = 4
+  const visiblePills = pills.slice(0, maxPills)
+  const remainingPills = Math.max(0, pills.length - visiblePills.length)
 
   return (
     <article
@@ -55,7 +57,7 @@ export function EndorsementCard({ endorsement }: { endorsement: Endorsement }) {
       </div>
 
       <p className="text-sm sm:text-base text-[var(--color-text-body)] leading-relaxed">
-        "{endorsement.quote}"
+        “{endorsement.quote}”
       </p>
 
       {pills.length || endorsement.linkedinUrl ? (

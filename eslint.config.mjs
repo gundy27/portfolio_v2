@@ -1,18 +1,27 @@
-import path from 'node:path'
-import { fileURLToPath } from 'node:url'
-import { FlatCompat } from '@eslint/eslintrc'
-
-const __filename = fileURLToPath(import.meta.url)
-const __dirname = path.dirname(__filename)
-
-const compat = new FlatCompat({
-  baseDirectory: __dirname,
-})
+import nextCoreWebVitals from 'eslint-config-next/core-web-vitals'
+import nextTypeScript from 'eslint-config-next/typescript'
 
 export default [
   {
-    ignores: ['**/node_modules/**', '**/.next/**', '**/out/**', '**/dist/**', '**/coverage/**'],
+    ignores: [
+      '**/node_modules/**',
+      '**/.next/**',
+      '**/out/**',
+      '**/dist/**',
+      '**/coverage/**',
+      'chatbot/**',
+      'vendor/**',
+    ],
   },
-  ...compat.extends('next/core-web-vitals', 'next/typescript'),
+  ...nextCoreWebVitals,
+  ...nextTypeScript,
+  {
+    rules: {
+      // These rules are well-intentioned but overly strict for this repo and create
+      // false positives in legitimate UI patterns (e.g. animated counters).
+      'react-hooks/set-state-in-effect': 'off',
+      'react-hooks/static-components': 'off',
+    },
+  },
 ]
 

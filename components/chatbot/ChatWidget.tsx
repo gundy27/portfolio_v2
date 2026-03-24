@@ -96,8 +96,6 @@ function newId(prefix: string) {
 
 export function ChatWidget({
   apiUrl,
-  title: _title = "Chat with my experience",
-  description: _description = "Ask about roles, projects, and the work behind them. I’ll cite the source chunk I used.",
 }: {
   apiUrl?: string
   title?: string
