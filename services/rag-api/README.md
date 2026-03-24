@@ -45,6 +45,29 @@ poetry run uvicorn app.main:app --reload --port 8000
 open http://localhost:8000/docs
 ```
 
+## Production notes (important)
+
+This service uses **local-disk persistence** by default:
+
+- ChromaDB persisted at `VECTOR_DB_PATH` (default `./vector_db`)
+- SQLite persisted at `METADATA_DB_URL` (default `sqlite+aiosqlite:///./metadata.db`)
+
+If you deploy the API with **multiple replicas/instances** without shared storage, each instance can have a different view of the corpus (and you’ll see intermittent “I don’t know” / missing-context behavior depending on which instance your request hits).
+
+Recommended production configuration:
+
+- **Run a single instance** *or* move to a shared/remote vector store + metadata DB.
+- If your platform supports it (e.g. Render), **mount a persistent disk** and set:
+
+```bash
+VECTOR_DB_PATH=/data/vector_db
+METADATA_DB_URL=sqlite+aiosqlite:////data/metadata.db
+```
+
+Debugging tip:
+
+- Call `GET /stats` repeatedly and compare `instance_id` + `vector_count`. If they vary across requests, you’re hitting multiple instances and/or non-shared state.
+
 ## API Endpoints
 
 ### Chat

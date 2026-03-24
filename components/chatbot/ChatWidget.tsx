@@ -4,7 +4,7 @@ import * as React from "react"
 import Image from "next/image"
 import ReactMarkdown from "react-markdown"
 import remarkGfm from "remark-gfm"
-import { ChevronDown } from "lucide-react"
+import { ArrowUp, ChevronDown } from "lucide-react"
 
 type SourceChunk = {
   chunk_id: string
@@ -148,7 +148,7 @@ export function ChatWidget({
 
       setMessages((prev) => [...prev, { id: newId("msg"), role: "user", content: message }])
 
-      const effectiveTopK = chatSettings?.top_k ?? 5
+      const effectiveTopK = chatSettings?.top_k ?? 12
       const effectiveModel = chatSettings?.model ?? "gpt-4o-mini"
       const effectiveStreaming = chatSettings?.streaming ?? true
 
@@ -397,21 +397,28 @@ export function ChatWidget({
         ) : null}
       </div>
 
-      <form onSubmit={onSubmit} className="mt-auto px-5 py-4 border-t border-gray-200 bg-white">
-        <div className="flex gap-3">
+      <form onSubmit={onSubmit} className="mt-auto px-4 sm:px-5 py-4 border-t border-gray-200 bg-white">
+        <div className="flex min-w-0 items-center gap-2 sm:gap-3">
           <input
             value={input}
             onChange={(e) => setInput(e.target.value)}
             placeholder="Ask a question about my work experience"
-            className="flex-1 rounded-xl border border-gray-300 bg-white px-4 py-3 text-sm text-primary placeholder:text-secondary focus:outline-none focus:ring-2 focus:ring-[var(--color-accent)]"
+            className="flex-1 min-w-0 rounded-xl border border-gray-300 bg-white px-4 py-3 text-sm text-primary placeholder:text-secondary focus:outline-none focus:ring-2 focus:ring-[var(--color-accent)]"
             disabled={isSending}
           />
           <button
             type="submit"
-            className="rounded-xl bg-[var(--color-accent)] px-4 py-3 text-sm font-semibold text-white disabled:opacity-50"
+            aria-label="Send message"
+            className={[
+              "inline-flex h-11 w-11 shrink-0 items-center justify-center rounded-full border border-[var(--color-accent)] text-[var(--color-accent)]",
+              "transition-colors hover:bg-[var(--color-section-tint)]",
+              "focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-accent)]",
+              "disabled:opacity-40 disabled:hover:bg-transparent",
+            ].join(" ")}
             disabled={isSending || !input.trim()}
           >
-            Send
+            <ArrowUp className="h-4 w-4" aria-hidden="true" />
+            <span className="sr-only">Send</span>
           </button>
         </div>
         <div className="mt-2 text-xs text-secondary">

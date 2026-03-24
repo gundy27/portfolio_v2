@@ -24,7 +24,7 @@ def _sqlite_path_from_url(url: str) -> str:
 
 
 DEFAULT_CHAT_SETTINGS: Dict[str, Any] = {
-    "top_k": 5,
+    "top_k": 12,
     "model": "gpt-4o-mini",
     "streaming": True,
 }

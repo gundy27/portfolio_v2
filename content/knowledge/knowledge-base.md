@@ -11,6 +11,24 @@ Chunking guidance:
 
 ---
 
+reference: "Work history overview: Companies and roles"
+image: ""
+tags: "work-history,overview,resume"
+
+---
+
+# Work History — Overview
+
+Companies Dan has worked at (most recent first):
+
+- DataRobot — Senior Product Manager (multiple roles across Platform, Single-Tenant SaaS launch, Growth & Monetization), 2021–2025
+- Slingshot — Product Manager, Public Sector, 2019–2021
+- United States Air Force — Officer, Developmental Engineer, 2013–2019
+
+If you want more detail, ask about a specific company (DataRobot, Slingshot, Air Force) or a specific role area (growth, pricing, platform/security, 0→1 launches).
+
+---
+
 reference: "Work history: DataRobot (Senior PM Growth, 2021–2025)"
 image: ""
 tags: "work-history,datarobot,growth,pricing,saas"

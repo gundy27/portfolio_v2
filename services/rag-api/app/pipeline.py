@@ -1,9 +1,11 @@
 """RAG pipeline integration."""
 
 import base64
+import re
 import os
 import tempfile
 import time
+from collections import defaultdict
 from pathlib import Path
 from typing import Any, AsyncGenerator, Dict, List, Optional
 
@@ -356,6 +358,143 @@ class RAGPipeline:
 
         return results
 
+    _BROAD_CAREER_PATTERNS: List[re.Pattern[str]] = [
+        re.compile(r"\bcompanies?\b", re.IGNORECASE),
+        re.compile(r"\bemployers?\b", re.IGNORECASE),
+        re.compile(r"\bwork\s+history\b", re.IGNORECASE),
+        re.compile(r"\bwhere\s+(did|has)\s+dan\s+work\b", re.IGNORECASE),
+        re.compile(r"\bworked\s+at\b", re.IGNORECASE),
+        re.compile(r"\broles?\b", re.IGNORECASE),
+        re.compile(r"\bpositions?\b", re.IGNORECASE),
+        re.compile(r"\bjob(s)?\b", re.IGNORECASE),
+        re.compile(r"\btitles?\b", re.IGNORECASE),
+        re.compile(r"\blast\s+position\b", re.IGNORECASE),
+        re.compile(r"\bmost\s+recent\b", re.IGNORECASE),
+        re.compile(r"\bresume\b", re.IGNORECASE),
+        re.compile(r"\bcareer\b", re.IGNORECASE),
+    ]
+
+    def _is_broad_career_query(self, message: str) -> bool:
+        msg = message.strip()
+        if not msg:
+            return False
+        return any(p.search(msg) for p in self._BROAD_CAREER_PATTERNS)
+
+    def _result_label(self, r: QueryResult) -> str:
+        return (
+            (r.metadata or {}).get("reference")
+            or (r.metadata or {}).get("document_name")
+            or (r.metadata or {}).get("document_id")
+            or r.id
+        )
+
+    def _work_history_signal(self, r: QueryResult) -> bool:
+        md = r.metadata or {}
+        ref = str(md.get("reference") or "")
+        tags = str(md.get("tags") or "")
+        if ref.startswith("Work history:"):
+            return True
+        if "work-history" in tags:
+            return True
+        return False
+
+    def _rerank_and_diversify(
+        self,
+        results: List[QueryResult],
+        limit: int,
+        *,
+        prefer_work_history: bool,
+        per_label_limit: int,
+    ) -> List[QueryResult]:
+        """De-duplicate and diversify results so one long section doesn't crowd out others."""
+
+        # De-dupe by chunk id, keeping the best score.
+        best_by_id: Dict[str, QueryResult] = {}
+        for r in results:
+            prev = best_by_id.get(r.id)
+            if prev is None or r.score > prev.score:
+                best_by_id[r.id] = r
+
+        unique = list(best_by_id.values())
+
+        # Boost work-history chunks for broad career queries so they appear in the context set.
+        def boosted_score(r: QueryResult) -> float:
+            score = float(r.score or 0.0)
+            if prefer_work_history and self._work_history_signal(r):
+                score += 0.20
+            return score
+
+        unique.sort(key=boosted_score, reverse=True)
+
+        # Diversify by label (reference/document) to reduce duplicates from multi-chunk sections.
+        selected: List[QueryResult] = []
+        counts: Dict[str, int] = defaultdict(int)
+        for r in unique:
+            if len(selected) >= limit:
+                break
+            label = self._result_label(r)
+            if counts[label] >= per_label_limit:
+                continue
+            counts[label] += 1
+            selected.append(r)
+
+        return selected
+
+    def _retrieve_context_chunks(
+        self,
+        *,
+        message: str,
+        corpus: Corpus,
+        user_id: str,
+        top_k: int,
+        search_filter: Dict[str, Any],
+    ) -> List[QueryResult]:
+        """Retrieve context with a small amount of query routing and diversity.
+
+        Broad career questions (companies/roles/positions) are prone to under-retrieval.
+        We overfetch + diversify, and if we still don't see any work-history signal,
+        we run a lightweight query expansion pass and merge.
+        """
+
+        is_broad_career = self._is_broad_career_query(message)
+
+        # Overfetch so we can diversify and still return `top_k`.
+        overfetch_k = min(max(top_k * (5 if is_broad_career else 3), 20), 60)
+        primary = self.search(
+            query=message,
+            corpus=corpus,
+            top_k=overfetch_k,
+            filter=search_filter,
+            include_text=True,
+        )
+
+        merged: Dict[str, QueryResult] = {r.id: r for r in primary}
+
+        if is_broad_career and not any(self._work_history_signal(r) for r in primary):
+            expanded_query = (
+                f"{message}\n\n"
+                "Focus: work history, employers/companies, roles/titles, timeline, most recent position."
+            )
+            secondary = self.search(
+                query=expanded_query,
+                corpus=corpus,
+                top_k=overfetch_k,
+                filter=search_filter,
+                include_text=True,
+            )
+            for r in secondary:
+                prev = merged.get(r.id)
+                if prev is None or r.score > prev.score:
+                    merged[r.id] = r
+
+        diversified = self._rerank_and_diversify(
+            list(merged.values()),
+            limit=top_k,
+            prefer_work_history=is_broad_career,
+            per_label_limit=1 if is_broad_career else 2,
+        )
+        return diversified
+
     def delete_document(self, document_id: str) -> int:
         """Delete all chunks for a document.
 
@@ -493,13 +632,18 @@ class RAGPipeline:
             session_id=session.id, role="user", content=message
         )
 
-        # Search for relevant context - filter by user_id for RBAC
-        search_results = self.search(
-            query=message,
+        # Search for relevant context - filter by user_id (+ corpus) for RBAC/scoping.
+        # Chroma's `where` syntax expects a single operator at the top level when
+        # combining clauses, so we use "$and" for multi-field filters.
+        search_filter: Dict[str, Any] = {"user_id": user_id}
+        if corpus:
+            search_filter = {"$and": [{"user_id": user_id}, {"corpus": corpus}]}
+        search_results = self._retrieve_context_chunks(
+            message=message,
             corpus=corpus,
+            user_id=user_id,
             top_k=top_k,
-            filter={"user_id": user_id},
-            include_text=True,
+            search_filter=search_filter,
         )
 
         # Build context from search results
@@ -534,7 +678,7 @@ class RAGPipeline:
         # Construct LLM prompt
         # Use custom system prompt if provided, otherwise use default
         system_message = system_prompt or (
-            "You are a helpful assistant. Answer questions based on the provided context. "
+            "You are a helpful AI assistant who is responding to questions about my work history and projects. Answer questions based on the provided context. "
             "If the context doesn't contain relevant information, say so clearly."
         )
 
@@ -644,13 +788,18 @@ class RAGPipeline:
             session_id=session.id, role="user", content=message
         )
 
-        # Search for relevant context - filter by user_id for RBAC
-        search_results = self.search(
-            query=message,
+        # Search for relevant context - filter by user_id (+ corpus) for RBAC/scoping.
+        # Chroma's `where` syntax expects a single operator at the top level when
+        # combining clauses, so we use "$and" for multi-field filters.
+        search_filter: Dict[str, Any] = {"user_id": user_id}
+        if corpus:
+            search_filter = {"$and": [{"user_id": user_id}, {"corpus": corpus}]}
+        search_results = self._retrieve_context_chunks(
+            message=message,
             corpus=corpus,
+            user_id=user_id,
             top_k=top_k,
-            filter={"user_id": user_id},
-            include_text=True,
+            search_filter=search_filter,
         )
 
         # Yield metadata first (session_id, sources)
@@ -700,8 +849,8 @@ class RAGPipeline:
 
         # Construct LLM prompt
         system_message = system_prompt or (
-            "You are a helpful assistant. Answer questions based on the provided context. "
-            "If the context doesn't contain relevant information, say so clearly."
+            "You are a helpful assistant. Answer questions based on the provided context about my work history as a product manager and projects I've worked on. "
+            "If the context doesn't contain relevant information, say so clearly and suggest that the user rephrase their question."
         )
 
         messages = [{"role": "system", "content": system_message}]

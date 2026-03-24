@@ -1,6 +1,8 @@
 """RAG API main application."""
 
 import json
+import os
+import socket
 import time
 from datetime import datetime, timezone
 from typing import Any, Dict, Optional
@@ -209,6 +211,22 @@ async def get_stats(corpus: Optional[str] = Query(default=None)) -> Dict[str, An
     p = await _ensure_pipeline()
 
     try:
+        def _redact_db_url(raw: str) -> str:
+            if not raw:
+                return ""
+            # Remove credentials if present: scheme://user:pass@host/path -> scheme://host/path
+            if "@" in raw and "://" in raw:
+                scheme, rest = raw.split("://", 1)
+                rest = rest.split("@", 1)[-1]
+                return f"{scheme}://{rest}"
+            return raw
+
+        instance_id = (
+            os.getenv("RENDER_INSTANCE_ID")
+            or os.getenv("HOSTNAME")
+            or socket.gethostname()
+        )
+
         stats = p.get_stats()
         if corpus:
             # convenience: allow /stats?corpus=podcasts to mirror single-corpus shape
@@ -217,6 +235,14 @@ async def get_stats(corpus: Optional[str] = Query(default=None)) -> Dict[str, An
             if corpus_key in by:
                 stats = dict(stats)
                 stats["vector_count"] = by[corpus_key]
+
+        # Add production-debugging metadata. Keep it safe (no secrets).
+        stats = dict(stats)
+        stats["instance_id"] = instance_id
+        stats["vector_db_path"] = settings.vector_db_path
+        stats["vector_db_path_is_absolute"] = os.path.isabs(settings.vector_db_path)
+        stats["metadata_db_url"] = _redact_db_url(settings.metadata_db_url)
+        stats["collection_name"] = settings.collection_name
         return stats
     except Exception as e:
         logger.error("get_stats_failed", error=str(e))
