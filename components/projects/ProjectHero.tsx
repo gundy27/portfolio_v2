@@ -9,7 +9,7 @@ export interface ProjectHeroProps {
   title: string
   description?: string
   tags?: string[]
-  image: string
+  image?: string
   imageAlt?: string
   externalUrl?: string
   className?: string
@@ -33,19 +33,23 @@ export function ProjectHero({
   externalUrl,
   className,
 }: ProjectHeroProps) {
-  const media = (
-    <div className="relative w-full overflow-hidden rounded-lg">
-      <Image
-        src={image}
-        alt={imageAlt ?? title}
-        width={1200}
-        height={900}
-        className="w-full h-auto"
-        sizes="(min-width: 1024px) 50vw, 100vw"
-        priority
-      />
-    </div>
-  )
+  // New element per call — reusing one `media` node in two parents breaks reconciliation
+  // and can leave the LCP image without eager loading on one breakpoint.
+  const renderMedia = () =>
+    image ? (
+      <div className="relative w-full overflow-hidden rounded-lg">
+        <Image
+          src={image}
+          alt={imageAlt ?? title}
+          width={1200}
+          height={900}
+          className="w-full h-auto"
+          sizes="(min-width: 1024px) 50vw, 100vw"
+          priority
+          loading="eager"
+        />
+      </div>
+    ) : null
 
   return (
     <section className={cn('pt-20 sm:pt-24 lg:pt-28', className)}>
@@ -59,7 +63,7 @@ export function ProjectHero({
           <SectionHeader label={label} heading={title} headingLevel="h1" />
 
           {/* On small screens, show media between title and description */}
-          <div className="lg:hidden mb-3">{media}</div>
+          {image ? <div className="lg:hidden mb-3">{renderMedia()}</div> : null}
 
           {description ? (
             <div className="text-secondary text-lg mb-5 [&_strong]:font-semibold [&_strong]:text-primary">
@@ -96,7 +100,7 @@ export function ProjectHero({
         </div>
 
         {/* On large screens, keep media in the right column */}
-        <div className="hidden lg:block">{media}</div>
+        {image ? <div className="hidden lg:block">{renderMedia()}</div> : null}
       </div>
     </section>
   )

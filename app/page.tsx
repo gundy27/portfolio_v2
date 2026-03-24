@@ -6,15 +6,11 @@ import { Strengths } from '@/components/home/Strengths'
 import { FeaturedWork } from '@/components/home/FeaturedWork'
 import { Approach } from '@/components/home/Approach'
 import { Testimonials } from '@/components/home/Testimonials'
-import { getEndorsements, getProjects } from '@/lib/content/loader.server'
+import { getEndorsements, getFeaturedProjects } from '@/lib/content/loader.server'
 
 export default async function HomePage() {
   const endorsements = getEndorsements()
-  const projects = getProjects()
-
-  const featuredWorkProjects = projects.filter((p) =>
-    p.id === 'self-serve-trial' || p.id === 'entitlements-management' || p.id === 'sts-launch'
-  )
+  const featuredWorkProjects = getFeaturedProjects()
   
   return (
     <div className="min-h-screen flex flex-col">

@@ -6,7 +6,7 @@
   "year": 2024,
   "type": "paid",
   "tags": ["Customer Discovery", "Cloud Infrastructure", "Compliance", "GTM Enablement"],
-  "featured": false,
+  "featured": true,
   "thumbnail": "/assets/projects/sts-launch/sts-castle-v3.png",
   "company": "DataRobot",
   "meta": {

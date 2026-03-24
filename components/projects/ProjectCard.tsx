@@ -27,6 +27,7 @@ export function ProjectCard({ project, index }: ProjectCardProps) {
             alt={project.title}
             fill
             className="object-cover group-hover:scale-105 transition-transform duration-300"
+            loading={index < 3 ? 'eager' : undefined}
           />
           {project.companyLogo && (
             <div className="absolute bottom-4 left-4 w-12 h-12 bg-white rounded p-2">

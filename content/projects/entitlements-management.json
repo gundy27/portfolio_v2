@@ -11,7 +11,7 @@
     "Lifecycle Management",
     "Experimentation"
   ],
-  "featured": false,
+  "featured": true,
   "thumbnail": "/assets/projects/entitlements-management/pricing-plans.png",
   "company": "DataRobot",
   "meta": {

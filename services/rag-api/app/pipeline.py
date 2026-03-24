@@ -1,12 +1,14 @@
 """RAG pipeline integration."""
 
 import base64
+import os
 import tempfile
 import time
 from pathlib import Path
 from typing import Any, AsyncGenerator, Dict, List, Optional
 
 import structlog
+from dotenv import load_dotenv
 from gundy_ai.chunker import TokenAwareChunker
 from gundy_ai.embeddings import OpenAIEmbeddingProvider
 from gundy_ai.extractors import ParserRegistry, PDFParser, TXTParser
@@ -85,6 +87,10 @@ class RAGPipeline:
             embedding_model=embedding_model,
         )
 
+        # Load environment variables (local dev) before initializing providers.
+        # This mirrors OpenAIClient behavior and ensures embeddings can read OPENAI_API_KEY.
+        load_dotenv(override=False)
+
         # Ensure the vector DB directory exists (important for containerized deploys
         # with a mounted persistent disk, e.g. Render at /data).
         try:
@@ -123,7 +129,8 @@ class RAGPipeline:
         # Initialize embedding provider
         try:
             self.embeddings = OpenAIEmbeddingProvider(
-                api_key=openai_api_key, model=embedding_model
+                api_key=openai_api_key or os.environ.get("OPENAI_API_KEY"),
+                model=embedding_model,
             )
         except ValueError as e:
             logger.warning(
@@ -142,8 +149,6 @@ class RAGPipeline:
         self.metadata_store = MetadataStore(metadata_db_url)
 
         # Initialize LLM client (set env var for OpenAIClient)
-        import os
-
         if openai_api_key:
             os.environ["OPENAI_API_KEY"] = openai_api_key
         try:

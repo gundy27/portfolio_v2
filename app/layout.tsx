@@ -64,7 +64,7 @@ export default function RootLayout({
   children: React.ReactNode
 }>) {
   return (
-    <html lang="en">
+    <html lang="en" data-scroll-behavior="smooth">
       <body className={`${spaceGrotesk.variable} ${poppins.variable} ${lexendExa.variable} font-body`}>
         {children}
         <Analytics />

@@ -10,6 +10,8 @@ export interface FeaturedWorkCardProps {
   skills: string[]
   image?: string
   imageAlt?: string
+  /** Use `eager` for above-the-fold thumbnails so Next/Image matches LCP. */
+  imageLoading?: 'eager' | 'lazy'
   className?: string
 }
 
@@ -20,6 +22,7 @@ export function FeaturedWorkCard({
   skills,
   image,
   imageAlt,
+  imageLoading,
   className,
 }: FeaturedWorkCardProps) {
   return (
@@ -76,6 +79,7 @@ export function FeaturedWorkCard({
                     fill
                     className="object-cover"
                     sizes="(min-width: 768px) 384px, 100vw"
+                    loading={imageLoading}
                   />
                 </div>
               </div>

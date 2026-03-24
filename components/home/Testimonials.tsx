@@ -11,7 +11,7 @@ type TestimonialsProps = {
   endorsements: readonly Endorsement[]
 }
 
-const AUTO_SCROLL_PX_PER_SECOND = 30
+const AUTO_SCROLL_PX_PER_SECOND = 36
 const DRAG_SPEED_MULTIPLIER = 2.5
 
 export function Testimonials({ endorsements }: TestimonialsProps) {

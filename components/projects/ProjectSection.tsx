@@ -107,13 +107,13 @@ export function ProjectSection({ section }: { section: ProjectSectionType }) {
     return (
       <FullWidthSection width="wide">
         <div className="space-y-6">
-          <SectionHeaderBlock section={section} />
-          {section.content ? <Markdown content={section.content} /> : null}
           <ChatWidget
             apiUrl={section.chatbot?.apiUrl}
             title={section.chatbot?.title}
             description={section.chatbot?.description}
           />
+          <SectionHeaderBlock section={section} />
+          {section.content ? <Markdown content={section.content} /> : null}
         </div>
       </FullWidthSection>
     )

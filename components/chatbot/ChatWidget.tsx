@@ -2,6 +2,9 @@
 
 import * as React from "react"
 import Image from "next/image"
+import ReactMarkdown from "react-markdown"
+import remarkGfm from "remark-gfm"
+import { ChevronDown } from "lucide-react"
 
 type SourceChunk = {
   chunk_id: string
@@ -30,6 +33,60 @@ type ChatSettings = {
   streaming: boolean
 }
 
+function MarkdownMessage({ content }: { content: string }) {
+  return (
+    <div className="space-y-3 [&_p]:leading-relaxed [&_p]:text-[var(--color-text-body)] [&_p]:text-sm [&_p]:break-words [&_a]:text-[var(--color-accent)] hover:[&_a]:underline">
+      <ReactMarkdown
+        remarkPlugins={[remarkGfm]}
+        components={{
+          p: ({ children }) => <p className="m-0">{children}</p>,
+          strong: ({ children }) => <strong className="font-semibold text-[var(--color-text-primary)]">{children}</strong>,
+          em: ({ children }) => <em className="italic">{children}</em>,
+          ul: ({ children }) => <ul className="list-disc list-outside pl-5 space-y-1">{children}</ul>,
+          ol: ({ children }) => <ol className="list-decimal list-outside pl-5 space-y-1">{children}</ol>,
+          li: ({ children }) => <li className="text-[var(--color-text-body)]">{children}</li>,
+          blockquote: ({ children }) => (
+            <blockquote className="border-l-2 border-gray-200 pl-3 text-[var(--color-text-secondary)]">{children}</blockquote>
+          ),
+          hr: () => <hr className="border-gray-200" />,
+          a: ({ children, ...props }) => (
+            <a {...props} className="text-[var(--color-accent)] underline-offset-2">
+              {children}
+            </a>
+          ),
+          code: ({ children, ...props }) =>
+            "inline" in props && props.inline ? (
+              <code className="rounded bg-gray-100 px-1 py-0.5 font-mono text-[0.85em] text-[var(--color-text-primary)]">
+                {children}
+              </code>
+            ) : (
+              <code className="font-mono text-xs text-gray-100">{children}</code>
+            ),
+          pre: ({ children }) => (
+            <pre className="overflow-x-auto rounded-lg bg-gray-900 p-3 leading-relaxed">{children}</pre>
+          ),
+          table: ({ children }) => (
+            <div className="overflow-x-auto rounded-lg border border-gray-200 bg-white">
+              <table className="w-full border-collapse text-sm">{children}</table>
+            </div>
+          ),
+          thead: ({ children }) => <thead className="bg-gray-50">{children}</thead>,
+          th: ({ children }) => (
+            <th className="border-b border-gray-200 px-3 py-2 text-left text-xs font-semibold text-[var(--color-text-primary)]">
+              {children}
+            </th>
+          ),
+          td: ({ children }) => (
+            <td className="border-b border-gray-100 px-3 py-2 align-top text-sm text-[var(--color-text-body)]">{children}</td>
+          ),
+        }}
+      >
+        {content}
+      </ReactMarkdown>
+    </div>
+  )
+}
+
 function newId(prefix: string) {
   if (typeof crypto !== "undefined" && "randomUUID" in crypto) {
     return `${prefix}_${crypto.randomUUID()}`
@@ -39,8 +96,8 @@ function newId(prefix: string) {
 
 export function ChatWidget({
   apiUrl,
-  title = "Chat with my experience",
-  description = "Ask about roles, projects, and the work behind them. I’ll cite the source chunk I used.",
+  title: _title = "Chat with my experience",
+  description: _description = "Ask about roles, projects, and the work behind them. I’ll cite the source chunk I used.",
 }: {
   apiUrl?: string
   title?: string
@@ -55,6 +112,7 @@ export function ChatWidget({
   const [streamingText, setStreamingText] = React.useState("")
   const [streamingSources, setStreamingSources] = React.useState<SourceChunk[] | undefined>(undefined)
   const [chatSettings, setChatSettings] = React.useState<ChatSettings | null>(null)
+  const [hasSubmitted, setHasSubmitted] = React.useState(false)
 
   // Single shared user_id so the knowledge base and message logs are queryable/admin-viewable.
   const userId = process.env.NEXT_PUBLIC_CHATBOT_USER_ID ?? "gundy_io_public"
@@ -84,6 +142,7 @@ export function ChatWidget({
       const message = text.trim()
       if (!message) return
 
+      setHasSubmitted(true)
       setIsSending(true)
       setInput("")
       setStreamingText("")
@@ -248,54 +307,69 @@ export function ChatWidget({
   }
 
   return (
-    <section className="rounded-2xl border border-gray-200 bg-white shadow-sm overflow-hidden">
-      <header className="px-5 py-4 border-b border-gray-200">
-        <div className="font-heading text-lg font-semibold text-primary">{title}</div>
-        <p className="mt-1 text-sm text-body">{description}</p>
-      </header>
-
-      <div className="px-5 py-4 space-y-4 max-h-[520px] overflow-y-auto">
-        {messages.length === 0 ? (
-          <div className="rounded-xl bg-gray-50 border border-gray-200 p-4 text-sm text-body">
-            Try: “What projects best show Dan&apos;s pricing &amp; packaging experience?” or “What did Dan do on
-            Entitlements Management?”
-          </div>
-        ) : null}
-
+    <section
+      className={[
+        "rounded-2xl border border-gray-200 bg-white shadow-sm overflow-hidden",
+        "flex flex-col",
+        hasSubmitted ? "h-[600px] max-h-[80vh]" : "min-h-[420px]",
+      ].join(" ")}
+    >
+      <div className="flex-1 min-h-0 px-5 py-4 space-y-4 overflow-y-auto">
         {messages.map((m) => (
           <div key={m.id} className={m.role === "user" ? "flex justify-end" : "flex justify-start"}>
             <div
               className={[
                 "max-w-[85%] rounded-2xl px-4 py-3 text-sm leading-relaxed",
                 m.role === "user"
-                  ? "bg-primary text-white"
+                  ? "bg-[var(--color-accent-dark)] text-white"
                   : "bg-gray-50 border border-gray-200 text-primary",
               ].join(" ")}
             >
-              <div className="whitespace-pre-wrap">{m.content}</div>
+              {m.role === "assistant" ? (
+                <MarkdownMessage content={m.content} />
+              ) : (
+                <div className="whitespace-pre-wrap break-words">{m.content}</div>
+              )}
               {m.role === "assistant" && m.sources?.length ? (
-                <div className="mt-3 pt-3 border-t border-gray-200">
-                  <div className="text-xs font-semibold text-secondary uppercase tracking-wide">
-                    Sources used
-                  </div>
-                  <ul className="mt-2 space-y-2">
-                    {m.sources.slice(0, 5).map((s, i) => (
-                      <li key={`${s.chunk_id}-${i}`} className="text-xs text-body">
-                        <div className="flex items-center justify-between gap-3">
-                          <div className="truncate">
-                            {s.reference ? (
-                              <span className="font-medium text-primary">{s.reference}</span>
-                            ) : (
-                              <span className="font-mono text-secondary">{s.chunk_id}</span>
-                            )}
+                <details className="mt-3 pt-3 border-t border-gray-200 group">
+                  <summary className="cursor-pointer list-none select-none text-xs font-semibold text-secondary uppercase tracking-wide focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-accent)] rounded">
+                    <div className="flex items-center justify-between gap-3">
+                      <span>Sources ({m.sources.length})</span>
+                      <span className="inline-flex items-center gap-2">
+                        <ChevronDown
+                          className="h-4 w-4 text-secondary transition-transform duration-200 group-open:rotate-180"
+                          aria-hidden="true"
+                        />
+                        <span className="sr-only">Toggle sources</span>
+                      </span>
+                    </div>
+                  </summary>
+                  <div className="mt-2 space-y-2">
+                    {m.sources.map((s, i) => (
+                      <details
+                        key={`${s.chunk_id}-${i}`}
+                        className="rounded-lg border border-gray-200 bg-white p-2"
+                      >
+                        <summary className="cursor-pointer list-none select-none focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-accent)] rounded">
+                          <div className="flex items-center justify-between gap-3">
+                            <div className="min-w-0">
+                              <div className="text-xs font-medium text-primary truncate">
+                                {s.reference ? s.reference : s.chunk_id}
+                              </div>
+                              <div className="text-[10px] text-secondary">
+                                Citation {i + 1} • Similarity {Math.round(s.score * 100)}%
+                              </div>
+                            </div>
+                            <div className="shrink-0 text-[10px] text-secondary">Show</div>
                           </div>
-                          <div className="shrink-0 text-secondary">{Math.round(s.score * 100)}%</div>
-                        </div>
+                        </summary>
+
                         {s.text ? (
-                          <div className="mt-1 text-secondary">
-                            {s.text.length > 240 ? `${s.text.slice(0, 240)}…` : s.text}
+                          <div className="mt-2 rounded-md bg-gray-50 border border-gray-200 p-2 text-xs text-[var(--color-text-body)] whitespace-pre-wrap break-words max-h-48 overflow-y-auto">
+                            {s.text}
                           </div>
                         ) : null}
+
                         {s.image ? (
                           <div className="mt-2 overflow-hidden rounded-lg border border-gray-200 bg-white">
                             <Image
@@ -307,10 +381,10 @@ export function ChatWidget({
                             />
                           </div>
                         ) : null}
-                      </li>
+                      </details>
                     ))}
-                  </ul>
-                </div>
+                  </div>
+                </details>
               ) : null}
             </div>
           </div>
@@ -319,18 +393,18 @@ export function ChatWidget({
         {isSending && streamingText ? (
           <div className="flex justify-start">
             <div className="max-w-[85%] rounded-2xl px-4 py-3 text-sm bg-gray-50 border border-gray-200 text-primary">
-              <div className="whitespace-pre-wrap">{streamingText}</div>
+              <MarkdownMessage content={streamingText} />
             </div>
           </div>
         ) : null}
       </div>
 
-      <form onSubmit={onSubmit} className="px-5 py-4 border-t border-gray-200 bg-white">
+      <form onSubmit={onSubmit} className="mt-auto px-5 py-4 border-t border-gray-200 bg-white">
         <div className="flex gap-3">
           <input
             value={input}
             onChange={(e) => setInput(e.target.value)}
-            placeholder="Ask a question…"
+            placeholder="Ask a question about my work experience"
             className="flex-1 rounded-xl border border-gray-300 bg-white px-4 py-3 text-sm text-primary placeholder:text-secondary focus:outline-none focus:ring-2 focus:ring-[var(--color-accent)]"
             disabled={isSending}
           />
@@ -343,7 +417,8 @@ export function ChatWidget({
           </button>
         </div>
         <div className="mt-2 text-xs text-secondary">
-          Tip: If the answer says it can’t find anything relevant, add more detail or seed the knowledge base.
+          Tip: If the answer says it can&apos;t find anything relevant, that means it&apos;s not in the knowledge
+          base. Try a different question or contact Dan directly.
         </div>
       </form>
     </section>

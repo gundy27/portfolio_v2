@@ -127,6 +127,7 @@ export function FeaturedWork({ projects }: { projects: Project[] }) {
                           skills={item.skills}
                           image={item.image}
                           imageAlt={item.imageAlt}
+                          imageLoading={idx < 2 ? 'eager' : undefined}
                         />
                       </Link>
                     </div>

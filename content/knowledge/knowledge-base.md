@@ -19,7 +19,7 @@ tags: "work-history,datarobot,growth,pricing,saas"
 
 # DataRobot — Growth & Monetization
 
-- Role: Senior Product Manager, Growth
+- Role: Senior Product Manager
 - Timeline: 2023–2025
 - Scope: Owned growth levers across trial, pricing, entitlements, onboarding, and integrations-as-distribution for an enterprise AI/ML platform
 
@@ -39,15 +39,15 @@ Notable projects:
 
 ---
 
-reference: "Work history: DataRobot (Senior PM Growth — STS Launch, 2021–2025)"
+reference: "Work history: DataRobot (Senior PM — STS Launch, 2023–2025)"
 image: ""
 tags: "work-history,datarobot,0-to-1,saas,deployment"
 
 ---
 
-# DataRobot — Single-Tenant SaaS Launch
+## DataRobot — Single-Tenant SaaS Launch
 
-- Role: Senior Product Manager, Growth
+- Role: Senior Product Manager
 - Timeline: 2023–2025
 - Scope: 0→1 launch of a new secure single-tenant SaaS deployment model
 
@@ -410,37 +410,6 @@ Suggested image: A screenshot showing the assistant answering a veterinary query
 
 ---
 
-reference: "Project: ChatGPT Micro-Cap Trading Experiment"
-image: "/assets/projects/micro-cap/performance-chart.png"
-tags: "project,ai,experiment,trading,side-project"
-
----
-
-# ChatGPT Micro-Cap Trading Experiment
-
-What it was:
-A 6-month live trading experiment where ChatGPT-4 autonomously manages a real-money micro-cap stock portfolio. Fully documented with research logs, performance tracking, and reproducible methodology. Designed to test whether LLMs can generate alpha in an underserved market segment.
-
-What I did:
-
-- Designed the experiment framework: weekly research cycles, daily portfolio tracking, systematic entry/exit criteria
-- Built trading script with automated stop-loss management and position tracking
-- Implemented performance analytics: CAPM analysis, Sharpe/Sortino ratios, max drawdown calculations
-- Created robust data pipeline with Yahoo Finance primary and Stooq fallback
-- Published complete transparency: chat logs, prompts, methodology, and template for replication
-
-Tech stack: Python, pandas, yFinance, OpenAI API, Matplotlib
-
-Impact:
-
-- 10,000+ shot records analyzed; portfolio outperforming S&P 500 benchmark during experiment period
-- Published reproducible template so others can run their own experiments
-- Demonstrates intellectual curiosity and willingness to test ideas with real stakes
-
-Suggested image: A performance chart showing portfolio returns vs. S&P 500 benchmark over time. Line chart with clean styling.
-
----
-
 reference: "Project: R10 Golf Shot Reviewer"
 image: ""
 tags: "project,analytics,sports,side-project"
@@ -573,41 +542,13 @@ What I do:
 
 ---
 
-reference: "Advisor Role: Vet Mentor Platform (Concept)"
-image: ""
-tags: "advisor,veterinary,marketplace,startup-concept"
-
----
-
-# Concept: Vet Mentor Platform
-
-What it is:
-A B2B SaaS marketplace concept connecting recent veterinary graduates (0–3 years) with experienced mentors for structured mentorship, in-clinic shadowing, and curriculum-based development. Currently in business planning stage.
-
-Key details:
-
-- B2B model: practices as primary buyers, mentees as secondary self-pay option
-- Revenue model: 20% platform fee on mentor day rates
-- Comprehensive business plan completed: personas, GTM strategy, unit economics, competitive analysis, pitch deck
-- Market: DFW/NC launch, founder-led GTM in Year 1
-
----
-
-reference: "FAQ: What Dan is looking for"
+reference: "FAQ: What Dan Enjoys"
 image: ""
 tags: "faq,job-search"
 
 ---
 
-# What I'm Looking For
-
-- Roles: Product Manager / Senior PM / Group PM with a growth or platform focus
-- Themes: Growth, experimentation, pricing & packaging, activation, PLG, AI/ML products
-- Industry: Open, but strong domain experience in enterprise SaaS, AI/ML platforms, and defense/space tech
-- Location: Hybrid in Southern California preferred
-- Culture: A team that values strong connections between colleagues and customers, fosters learning, and has a bias for action
-
-What I enjoy:
+# What I Enjoy:
 
 - Designing growth systems (trial funnels, pricing models, entitlements, onboarding)
 - Building 0→1 products from discovery through launch
@@ -775,7 +716,8 @@ Conflict navigation:
 Areas of growth (self-aware):
 
 - Tendency to take on too much — has learned to prioritize more ruthlessly
-- Earlier in career: analysis paralysis and not speaking up enough in large meetings
+- Earlier in career: analysis
+- Not speaking up enough in large meetings
 - Has consciously developed a stronger voice and more opinionated stance over time
 
 ---

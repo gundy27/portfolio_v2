@@ -1,11 +1,11 @@
 {
   "id": "chatbot",
   "label": "RAG CHATBOT",
-  "title": "Chat with my work",
-  "description": "An in-site RAG chatbot seeded with a structured knowledge base about Dan’s work history and projects. Responses include the specific source chunk used, and it refuses to invent details when the knowledge base doesn’t have the answer.",
+  "title": "Chat With My Work",
+  "description": "An in-site RAG chatbot grounded in a curated, structured knowledge base of my work history and projects. Each response cites the exact source chunk it was generated from. The system is designed to avoid speculation and will decline to answer when the knowledge base doesn’t support a claim. I built it to deepen my understanding of RAG architecture and the practical considerations of deploying it in a production setting. AMAIA (Ask My AI Anything!)",
   "year": 2026,
   "type": "personal",
-  "tags": ["RAG", "LLMs", "Next.js", "FastAPI", "Product"],
+  "tags": ["RAG", "Embeddings", "Evaluations", "Vector Search", "Guardrails"],
   "featured": true,
   "thumbnail": "/assets/projects/chatbot/chatbot-thumbnail.svg",
   "company": "gundy.io",
@@ -36,9 +36,6 @@
     {
       "id": "demo",
       "type": "chatbot",
-      "label": "DEMO",
-      "heading": "Ask anything",
-      "content": "Try asking about specific projects (e.g. **Entitlements Management**, **Self-Serve Trial**, **STS Launch**) or about roles and areas like pricing & packaging.\n\n**Note**: This is a prototype. Messages are stored for quality improvements.",
       "chatbot": {
         "title": "Chat with Dan",
         "description": "Ask about roles, projects, and outcomes. Answers are grounded in a knowledge base and include sources."
@@ -46,4 +43,3 @@
     }
   ]
 }
-

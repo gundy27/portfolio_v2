@@ -22,6 +22,8 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
     notFound()
   }
 
+  const isChatbotProject = slug === 'chatbot'
+
   const previousProject = getPreviousProject(slug)
   const nextProject = getNextProject(slug)
   const sections: ProjectSectionType[] =
@@ -30,6 +32,7 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
       : content
         ? [{ id: 'content', type: 'full-width', content }]
         : []
+  const visibleSections = isChatbotProject ? sections.filter((s) => s.id !== 'context') : sections
   
   return (
     <div className="min-h-screen flex flex-col">
@@ -47,23 +50,25 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
             externalUrl={project.url}
           />
 
-          <ProjectMeta
-            role={project.meta?.role}
-            company={project.meta?.company ?? project.company}
-            timeline={project.meta?.timeline ?? (project.year ? `${project.year}` : undefined)}
-            proudOf={project.meta?.proudOf}
-            learned={project.meta?.learned}
-          />
+          {!isChatbotProject ? (
+            <ProjectMeta
+              role={project.meta?.role}
+              company={project.meta?.company ?? project.company}
+              timeline={project.meta?.timeline ?? (project.year ? `${project.year}` : undefined)}
+              proudOf={project.meta?.proudOf}
+              learned={project.meta?.learned}
+            />
+          ) : null}
 
-          {project.metrics?.length ? (
+          {!isChatbotProject && project.metrics?.length ? (
             <section className="subsection-spacing">
               <MetricsRow metrics={project.metrics} />
             </section>
           ) : null}
 
-          {sections.length ? (
+          {visibleSections.length ? (
             <div className="pt-2">
-              {sections.map((section) => (
+              {visibleSections.map((section) => (
                 <ProjectSection key={section.id} section={section} />
               ))}
             </div>
