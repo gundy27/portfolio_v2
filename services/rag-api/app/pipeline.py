@@ -4,7 +4,7 @@ import base64
 import tempfile
 import time
 from pathlib import Path
-from typing import Any, AsyncGenerator, Dict, List, Literal, Optional
+from typing import Any, AsyncGenerator, Dict, List, Optional
 
 import structlog
 from gundy_ai.chunker import TokenAwareChunker
@@ -14,9 +14,9 @@ from gundy_ai.llm import OpenAIClient
 from gundy_ai.metadata_store import MetadataStore
 from gundy_ai.vectorstore import ChromaDBAdapter, QueryResult
 
-logger = structlog.get_logger(__name__)
+from app.models import Corpus
 
-Corpus = Literal["portfolio", "podcasts"]
+logger = structlog.get_logger(__name__)
 
 
 class _DisabledEmbeddingProvider:
@@ -61,14 +61,11 @@ class RAGPipeline:
         self,
         vector_db_path: str = "./vector_db",
         collection_name: str = "documents",
-        podcasts_collection_name: str = "podcasts",
         metadata_db_url: str = "sqlite+aiosqlite:///./metadata.db",
         openai_api_key: Optional[str] = None,
         embedding_model: str = "text-embedding-3-small",
         chunk_max_tokens: int = 512,
         chunk_overlap_tokens: int = 50,
-        podcasts_chunk_max_tokens: int = 1000,
-        podcasts_chunk_overlap_tokens: int = 120,
     ):
         """Initialize RAG pipeline.
 
@@ -85,7 +82,6 @@ class RAGPipeline:
             "rag_pipeline_init",
             vector_db_path=vector_db_path,
             collection=collection_name,
-            podcasts_collection=podcasts_collection_name,
             embedding_model=embedding_model,
         )
 
@@ -119,16 +115,10 @@ class RAGPipeline:
                 "docx_parser_unavailable", reason="python-docx not installed"
             )
 
-        # Initialize chunkers (allow corpus-specific tuning for podcasts)
-        self.chunkers: Dict[Corpus, TokenAwareChunker] = {
-            "portfolio": TokenAwareChunker(
-                max_tokens=chunk_max_tokens, overlap_tokens=chunk_overlap_tokens
-            ),
-            "podcasts": TokenAwareChunker(
-                max_tokens=podcasts_chunk_max_tokens,
-                overlap_tokens=podcasts_chunk_overlap_tokens,
-            ),
-        }
+        # Initialize chunker
+        self.chunker = TokenAwareChunker(
+            max_tokens=chunk_max_tokens, overlap_tokens=chunk_overlap_tokens
+        )
 
         # Initialize embedding provider
         try:
@@ -143,16 +133,10 @@ class RAGPipeline:
             )
             self.embeddings = _DisabledEmbeddingProvider(model_name=embedding_model)
 
-        # Initialize vector stores (separate collections per corpus)
-        self.vector_stores: Dict[Corpus, ChromaDBAdapter] = {
-            "portfolio": ChromaDBAdapter(
-                persist_directory=vector_db_path, collection_name=collection_name
-            ),
-            "podcasts": ChromaDBAdapter(
-                persist_directory=vector_db_path,
-                collection_name=podcasts_collection_name,
-            ),
-        }
+        # Initialize vector store
+        self.vector_store = ChromaDBAdapter(
+            persist_directory=vector_db_path, collection_name=collection_name
+        )
 
         # Initialize metadata store
         self.metadata_store = MetadataStore(metadata_db_url)
@@ -173,12 +157,6 @@ class RAGPipeline:
             self.llm = _DisabledLLMClient()
 
         logger.info("rag_pipeline_initialized")
-
-    def _get_vector_store(self, corpus: Corpus) -> ChromaDBAdapter:
-        return self.vector_stores[corpus]
-
-    def _get_chunker(self, corpus: Corpus) -> TokenAwareChunker:
-        return self.chunkers[corpus]
 
     async def ingest_document(
         self,
@@ -248,9 +226,8 @@ class RAGPipeline:
 
             # Step 2: Chunk the text
             all_chunks = []
-            chunker = self._get_chunker(corpus)
             for extracted in extracted_chunks:
-                chunks = chunker.chunk(extracted.text)
+                chunks = self.chunker.chunk(extracted.text)
                 all_chunks.extend(chunks)
 
             logger.info("chunking_complete", chunks=len(all_chunks))
@@ -268,7 +245,6 @@ class RAGPipeline:
 
             # Step 4: Store in vector database
             chunk_ids = [f"{document_id}_chunk_{i}" for i in range(len(all_chunks))]
-            source = "podcast" if corpus == "podcasts" else "portfolio"
             chunk_metadatas = [
                 {
                     "document_id": document_id,
@@ -277,13 +253,13 @@ class RAGPipeline:
                     "token_count": chunk.token_count,
                     "user_id": user_id,
                     "corpus": corpus,
-                    "source": source,
+                    "source": "portfolio",
                     **(metadata or {}),
                 }
                 for i, chunk in enumerate(all_chunks)
             ]
 
-            self._get_vector_store(corpus).upsert(
+            self.vector_store.upsert(
                 ids=chunk_ids,
                 embeddings=embedding_result.embeddings,
                 metadatas=chunk_metadatas,
@@ -300,7 +276,7 @@ class RAGPipeline:
                 status="completed",
                 file_size=len(file_bytes),
                 file_type=file_ext,
-                metadata={"corpus": corpus, "source": source, **(metadata or {})},
+                metadata={"corpus": corpus, "source": "portfolio", **(metadata or {})},
             )
 
             logger.info("metadata_store_complete", document_id=document_id)
@@ -358,7 +334,7 @@ class RAGPipeline:
         )
 
         # Search vector store
-        results = self._get_vector_store(corpus).query(
+        results = self.vector_store.query(
             query_embedding=query_embedding,
             top_k=top_k,
             filter=filter,
@@ -424,24 +400,16 @@ class RAGPipeline:
         """
         health = {}
 
-        # Check vector stores
-        vs_components: Dict[str, Any] = {}
-        any_vs_healthy = False
-        for corpus, store in self.vector_stores.items():
-            try:
-                vs_health = store.health_check()
-                vs_components[corpus] = {
-                    "healthy": vs_health["healthy"],
-                    "count": vs_health.get("count"),
-                    "latency_ms": vs_health.get("latency_ms"),
-                }
-                any_vs_healthy = any_vs_healthy or bool(vs_health.get("healthy"))
-            except Exception as e:
-                vs_components[corpus] = {"healthy": False, "error": str(e)}
-        health["vector_store"] = {
-            "healthy": any_vs_healthy,
-            "collections": vs_components,
-        }
+        # Check vector store
+        try:
+            vs_health = self.vector_store.health_check()
+            health["vector_store"] = {
+                "healthy": vs_health["healthy"],
+                "count": vs_health.get("count"),
+                "latency_ms": vs_health.get("latency_ms"),
+            }
+        except Exception as e:
+            health["vector_store"] = {"healthy": False, "error": str(e)}
 
         # Check embedding provider
         try:
@@ -464,14 +432,8 @@ class RAGPipeline:
         # Check chunker
         health["chunker"] = {
             "healthy": True,
-            "portfolio": {
-                "max_tokens": self.chunkers["portfolio"].max_tokens,
-                "overlap_tokens": self.chunkers["portfolio"].overlap_tokens,
-            },
-            "podcasts": {
-                "max_tokens": self.chunkers["podcasts"].max_tokens,
-                "overlap_tokens": self.chunkers["podcasts"].overlap_tokens,
-            },
+            "max_tokens": self.chunker.max_tokens,
+            "overlap_tokens": self.chunker.overlap_tokens,
         }
 
         # Overall status
@@ -800,36 +762,19 @@ class RAGPipeline:
         Returns:
             Dictionary with pipeline stats
         """
-        vector_counts: Dict[str, int] = {}
-        for corpus, store in self.vector_stores.items():
-            try:
-                vector_counts[corpus] = store.count()
-            except Exception as e:
-                logger.warning("vector_count_failed", corpus=corpus, error=str(e))
-                vector_counts[corpus] = 0
+        try:
+            vector_count = self.vector_store.count()
+        except Exception as e:
+            logger.warning("vector_count_failed", error=str(e))
+            vector_count = 0
 
         return {
-            # Backwards-compatible: portfolio count
-            "vector_count": vector_counts.get("portfolio", 0),
-            "vector_count_by_corpus": vector_counts,
-            "vector_count_total": sum(vector_counts.values()),
+            "vector_count": vector_count,
             "parsers_registered": len(self.parser_registry.list_parsers()),
             "supported_file_types": self.parser_registry.get_supported_extensions(),
-            "chunk_max_tokens": self.chunkers["portfolio"].max_tokens,
+            "chunk_max_tokens": self.chunker.max_tokens,
+            "chunk_overlap_tokens": self.chunker.overlap_tokens,
             "embedding_model": self.embeddings.model_name,
             "embedding_dimensions": self.embeddings.dimensions,
-            "collections": {
-                "portfolio": self.vector_stores["portfolio"].collection_name,
-                "podcasts": self.vector_stores["podcasts"].collection_name,
-            },
-            "chunking": {
-                "portfolio": {
-                    "max_tokens": self.chunkers["portfolio"].max_tokens,
-                    "overlap_tokens": self.chunkers["portfolio"].overlap_tokens,
-                },
-                "podcasts": {
-                    "max_tokens": self.chunkers["podcasts"].max_tokens,
-                    "overlap_tokens": self.chunkers["podcasts"].overlap_tokens,
-                },
-            },
+            "collection": self.vector_store.collection_name,
         }

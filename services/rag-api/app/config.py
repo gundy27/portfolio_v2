@@ -15,17 +15,10 @@ class Settings(BaseSettings):
 
     # Pipeline Settings
     vector_db_path: str = "./vector_db"
-    # Backwards-compatible default collection (portfolio corpus).
     collection_name: str = "documents"
-    # Separate collection for podcasts corpus.
-    podcasts_collection_name: str = "podcasts"
     metadata_db_url: str = "sqlite+aiosqlite:///./metadata.db"
     chunk_max_tokens: int = 512
     chunk_overlap_tokens: int = 50
-    # Tune chunking specifically for podcasts (defaults chosen for long transcripts).
-    # Override via PODCASTS_CHUNK_MAX_TOKENS / PODCASTS_CHUNK_OVERLAP_TOKENS.
-    podcasts_chunk_max_tokens: int = 1000
-    podcasts_chunk_overlap_tokens: int = 120
 
     # Embedding Settings
     # Optional so the app can import and basic endpoints/tests can run without a key.

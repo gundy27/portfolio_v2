@@ -76,14 +76,11 @@ async def _ensure_pipeline() -> RAGPipeline:
     pipeline = RAGPipeline(
         vector_db_path=settings.vector_db_path,
         collection_name=settings.collection_name,
-        podcasts_collection_name=settings.podcasts_collection_name,
         metadata_db_url=settings.metadata_db_url,
         openai_api_key=settings.openai_api_key or os.getenv("OPENAI_API_KEY"),
         embedding_model=settings.embedding_model,
         chunk_max_tokens=settings.chunk_max_tokens,
         chunk_overlap_tokens=settings.chunk_overlap_tokens,
-        podcasts_chunk_max_tokens=settings.podcasts_chunk_max_tokens,
-        podcasts_chunk_overlap_tokens=settings.podcasts_chunk_overlap_tokens,
     )
     await pipeline.metadata_store.initialize()
     logger.info("pipeline_lazy_init_complete")
