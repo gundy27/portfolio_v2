@@ -9,6 +9,7 @@ import { ProjectHero } from '@/components/projects/ProjectHero'
 import { ProjectMeta } from '@/components/projects/ProjectMeta'
 import { MetricsRow } from '@/components/projects/MetricsRow'
 import { ProjectSection } from '@/components/projects/ProjectSection'
+import { SectionHeader } from '@/components/ui/SectionHeader'
 
 interface ProjectPageProps {
   params: Promise<{ slug: string }>
@@ -32,23 +33,34 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
       : content
         ? [{ id: 'content', type: 'full-width', content }]
         : []
-  const visibleSections = isChatbotProject ? sections.filter((s) => s.id !== 'context') : sections
-  
+
   return (
     <div className="min-h-screen flex flex-col">
       <Header />
       
       <main className="flex-1">
         <div className="container-wide pb-16">
-          <ProjectHero
-            label={project.label ?? project.tags[0] ?? 'PROJECT'}
-            title={project.title}
-            description={project.description}
-            tags={project.tags}
-            image={project.thumbnail}
-            imageAlt={project.title}
-            externalUrl={project.url}
-          />
+          {isChatbotProject ? (
+            <section className="pt-20 sm:pt-24 lg:pt-28">
+              <SectionHeader
+                label={project.label ?? project.tags[0] ?? 'PROJECT'}
+                heading={project.title}
+                headingLevel="h1"
+              />
+            </section>
+          ) : null}
+
+          {!isChatbotProject ? (
+            <ProjectHero
+              label={project.label ?? project.tags[0] ?? 'PROJECT'}
+              title={project.title}
+              description={project.description}
+              tags={project.tags}
+              image={project.thumbnail}
+              imageAlt={project.title}
+              externalUrl={project.url}
+            />
+          ) : null}
 
           {!isChatbotProject ? (
             <ProjectMeta
@@ -66,9 +78,9 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
             </section>
           ) : null}
 
-          {visibleSections.length ? (
+          {sections.length ? (
             <div className="pt-2">
-              {visibleSections.map((section) => (
+              {sections.map((section) => (
                 <ProjectSection key={section.id} section={section} />
               ))}
             </div>

@@ -2,7 +2,7 @@
   "id": "chatbot",
   "label": "RAG CHATBOT",
   "title": "Chat With My Work",
-  "description": "An in-site RAG chatbot grounded in a curated, structured knowledge base of my work history and projects. Each response cites the exact source chunk it was generated from. The system is designed to avoid speculation and will decline to answer when the knowledge base doesn’t support a claim. I built it to deepen my understanding of RAG architecture and the practical considerations of deploying it in a production setting. AMAIA (Ask My AI Anything!)",
+  "description": "An in-site retrieval-augmented (RAG) chatbot grounded in a curated, structured knowledge base of my work history and projects. Each response cites the exact source chunk it was generated from. The system is designed to avoid speculation and will decline to answer when the knowledge base doesn’t support a claim. I built it to deepen my understanding of RAG architecture and the practical considerations of deploying it in a production setting. AMAIA (Ask My AI Anything!)",
   "year": 2026,
   "type": "personal",
   "tags": ["RAG", "Embeddings", "Evaluations", "Vector Search", "Guardrails"],
@@ -24,22 +24,42 @@
   ],
   "sections": [
     {
-      "id": "context",
-      "type": "two-column",
-      "label": "CONTEXT",
-      "heading": "What this is",
-      "image": "/assets/projects/chatbot/chatbot-thumbnail.svg",
-      "imageAlt": "Chatbot thumbnail",
-      "imagePosition": "right",
-      "content": "This is a retrieval-augmented chatbot for gundy.io. It answers questions about my work history and projects using only a curated knowledge base.\n\nIf it can’t find relevant info, it will say so clearly rather than guessing.\n\nBelow is the live demo."
-    },
-    {
       "id": "demo",
       "type": "chatbot",
       "chatbot": {
         "title": "Chat with Dan",
         "description": "Ask about roles, projects, and outcomes. Answers are grounded in a knowledge base and include sources."
       }
+    },
+    {
+      "id": "intro",
+      "type": "two-column",
+      "label": "INTRO",
+      "heading": "What you’re looking at",
+      "image": "/assets/projects/chatbot/chatbot-screenshot.png",
+      "imageAlt": "Chatbot interface screenshot",
+      "imagePosition": "right",
+      "content": "This is an in-site retrieval-augmented chatbot for my portfolio website.\n\nIt’s grounded in a curated, structured knowledge base of my work history and projects. Responses include citations to the exact source chunks used to generate the answer.\n\n**Placeholder:** After you try it, I’ll refine this section to explain the mental model, the constraints (what it will and won’t answer), and what I learned building it."
+    },
+    {
+      "id": "evolution",
+      "type": "two-column",
+      "label": "EVOLUTION",
+      "heading": "How it evolved",
+      "image": "/assets/projects/chatbot/chatbot-thumbnail.svg",
+      "imageAlt": "Chatbot concept thumbnail",
+      "imagePosition": "left",
+      "content": "**Placeholder:** A short narrative of the evolution goes here.\n\n- Started with a simple question-answer loop against a small set of documents.\n- Added chunking + embeddings so retrieval is reliable and explainable.\n- Introduced source citations so users can verify claims.\n- Layered in guardrails (decline when unsupported, avoid speculation).\n- Built an admin view to inspect sessions, prompts, and failure modes.\n\nI’ll tighten the language and add concrete examples once the final knowledge base is set."
+    },
+    {
+      "id": "evaluation",
+      "type": "two-column",
+      "label": "QUALITY",
+      "heading": "Evaluation, tests, and deployment",
+      "image": "/assets/projects/chatbot/chatbot-screenshot.png",
+      "imageAlt": "Chatbot response with citations",
+      "imagePosition": "right",
+      "content": "**Placeholder:** This section will cover how I evaluate the chatbot, what I test, and how I deploy it.\n\n**Evaluation approach**\n- Define a small benchmark set of representative questions.\n- Track citation quality (are sources relevant and sufficient?).\n- Measure refusal correctness (decline when the KB doesn’t support an answer).\n\n**Tests**\n- Unit tests for chunking + retrieval wiring.\n- Contract tests for the API (including SSE streaming).\n- Regression tests for previously-good answers.\n\n**Deployment**\n- CI checks + build validation.\n- Observability for latency, token/cost, and error rates.\n- A simple rollback story if a model/config change regresses quality."
     }
   ]
 }

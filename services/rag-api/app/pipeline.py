@@ -3,6 +3,7 @@
 import base64
 import re
 import os
+from app.config import settings as _settings
 import tempfile
 import time
 from collections import defaultdict
@@ -677,10 +678,7 @@ class RAGPipeline:
 
         # Construct LLM prompt
         # Use custom system prompt if provided, otherwise use default
-        system_message = system_prompt or (
-            "You are a helpful AI assistant who is responding to questions about my work history and projects. Answer questions based on the provided context. "
-            "If the context doesn't contain relevant information, say so clearly."
-        )
+        system_message = system_prompt or _settings.default_system_prompt
 
         messages = [{"role": "system", "content": system_message}]
 
@@ -848,10 +846,7 @@ class RAGPipeline:
             ]
 
         # Construct LLM prompt
-        system_message = system_prompt or (
-            "You are a helpful assistant. Answer questions based on the provided context about my work history as a product manager and projects I've worked on. "
-            "If the context doesn't contain relevant information, say so clearly and suggest that the user rephrase their question."
-        )
+        system_message = system_prompt or _settings.default_system_prompt
 
         messages = [{"role": "system", "content": system_message}]
         messages.extend(history_messages)

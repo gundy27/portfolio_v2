@@ -143,5 +143,15 @@ export function getPreviousProject(slug: string): Project | null {
 // Get featured projects (top 6)
 export function getFeaturedProjects(): Project[] {
   const projects = getProjects()
-  return projects.filter((p) => p.featured).slice(0, 6)
+  const featured = projects.filter((p) => p.featured)
+
+  // Homepage pinned ordering for featured cards.
+  const pinnedOrder: Project['id'][] = ['chatbot', 'self-serve-trial']
+  const pinned = pinnedOrder
+    .map((id) => featured.find((p) => p.id === id))
+    .filter((p): p is Project => Boolean(p))
+
+  const unpinned = featured.filter((p) => !pinnedOrder.includes(p.id))
+
+  return [...pinned, ...unpinned].slice(0, 6)
 }
