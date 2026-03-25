@@ -410,10 +410,10 @@ export function ChatWidget({
             type="submit"
             aria-label="Send message"
             className={[
-              "inline-flex h-11 w-11 shrink-0 items-center justify-center rounded-full border border-[var(--color-accent)] text-[var(--color-accent)]",
-              "transition-colors hover:bg-[var(--color-section-tint)]",
+              "inline-flex h-11 w-11 shrink-0 items-center justify-center rounded-full border border-[var(--color-accent-dark)] bg-[var(--color-accent-dark)] text-white",
+              "transition-colors hover:bg-[var(--color-accent)]",
               "focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-accent)]",
-              "disabled:opacity-40 disabled:hover:bg-transparent",
+              "disabled:cursor-not-allowed disabled:opacity-50 disabled:text-gray-500 disabled:hover:bg-[var(--color-accent-dark)]",
             ].join(" ")}
             disabled={isSending || !input.trim()}
           >

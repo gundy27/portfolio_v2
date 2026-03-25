@@ -36,30 +36,43 @@
       "type": "two-column",
       "label": "INTRO",
       "heading": "What you’re looking at",
-      "image": "/assets/projects/chatbot/chatbot-screenshot.png",
+      "image": "/assets/projects/chatbot/og-chatbot-cropped.gif",
       "imageAlt": "Chatbot interface screenshot",
       "imagePosition": "right",
-      "content": "This is an in-site retrieval-augmented chatbot for my portfolio website.\n\nIt’s grounded in a curated, structured knowledge base of my work history and projects. Responses include citations to the exact source chunks used to generate the answer.\n\n**Placeholder:** After you try it, I’ll refine this section to explain the mental model, the constraints (what it will and won’t answer), and what I learned building it."
+      "content": "This is an in-site retrieval-augmented chatbot for my portfolio website.\n\nIt’s grounded in a **curated, structured knowledge base of my work history and projects**. Responses include citations to the exact source chunks used to generate the answer.\n\nI started this project back in the Fall of 2025. I began by building a core library of AI utilities to reuse across a variety of applications.\n\nFrom there I wired up a FastAPI backend and a Next.js frontend. I explored the different ways to work with the OpenAI API. I had a very basic chatbot working in a couple of hours."
     },
     {
       "id": "evolution",
       "type": "two-column",
       "label": "EVOLUTION",
-      "heading": "How it evolved",
-      "image": "/assets/projects/chatbot/chatbot-thumbnail.svg",
+      "heading": "Starting small and building up",
+      "image": "/assets/projects/chatbot/chatbot-screenshot.png",
       "imageAlt": "Chatbot concept thumbnail",
       "imagePosition": "left",
-      "content": "**Placeholder:** A short narrative of the evolution goes here.\n\n- Started with a simple question-answer loop against a small set of documents.\n- Added chunking + embeddings so retrieval is reliable and explainable.\n- Introduced source citations so users can verify claims.\n- Layered in guardrails (decline when unsupported, avoid speculation).\n- Built an admin view to inspect sessions, prompts, and failure modes.\n\nI’ll tighten the language and add concrete examples once the final knowledge base is set."
+      "content": "What started as a simple chat interface quickly evolved into something far more ambitious. I built a RAG template from the ground up, giving users the ability to upload documents, kick off a full parsing pipeline, and configure everything from embedding models to chunk sizes and chunking strategies. This became the **foundation of my portfolio chatbot**.\n\nTo stress-test it, I loaded over 100MB of veterinary textbooks and queried it with a locally run open-source LLM. The cracks showed fast: tables broke the parsing pipeline, and as I layered improvements, the pipeline grew **brittle and unpredictable**. Cursor kept generating hacky patches instead of reusing existing code, pulling me into a loop of upload → error → patch → new error. I made the deliberate call to **revert and rebuild from scratch**.\n\nThat reset changed everything. I defined first-principles rules for working with Cursor, including incremental testing, clean interfaces, and scalable architecture, and stopped asking for massive systems in a single prompt. What emerged was a **disciplined, modular approach** that gave me real control over the pipeline and a much stronger foundation to build on."
     },
     {
       "id": "evaluation",
       "type": "two-column",
-      "label": "QUALITY",
-      "heading": "Evaluation, tests, and deployment",
-      "image": "/assets/projects/chatbot/chatbot-screenshot.png",
+      "label": "DEPLOYMENT",
+      "heading": "Getting to production",
+      "image": "/assets/projects/chatbot/chatbot-admin-screen.gif",
       "imageAlt": "Chatbot response with citations",
       "imagePosition": "right",
-      "content": "**Placeholder:** This section will cover how I evaluate the chatbot, what I test, and how I deploy it.\n\n**Evaluation approach**\n- Define a small benchmark set of representative questions.\n- Track citation quality (are sources relevant and sufficient?).\n- Measure refusal correctness (decline when the KB doesn’t support an answer).\n\n**Tests**\n- Unit tests for chunking + retrieval wiring.\n- Contract tests for the API (including SSE streaming).\n- Regression tests for previously-good answers.\n\n**Deployment**\n- CI checks + build validation.\n- Observability for latency, token/cost, and error rates.\n- A simple rollback story if a model/config change regresses quality."
+      "content": "With a stable pipeline in place, the next step was turning it into a **live, production-grade portfolio chatbot**. I used AI to synthesize context from my resume, interview notes, projects, and GitHub activity into a structured knowledge base, then ran it through my pipeline to parse, chunk, embed, and store it.\n\nFor deployment, I split the architecture across two platforms: the RAG API service on Render and the frontend on Vercel, using path-based rules to manage and trigger deployments independently. Once live, I used **Claude and Playwright to automate an evaluation loop** by generating sample questions, assessing response quality, and iteratively updating the system prompt to improve accuracy and relevance.\n\nFinally, I built out an **admin module** to give myself runtime control over the top k, model selection, and chat history review without touching the codebase. The result is a fully deployed, self-improving chatbot backed by my own data and infrastructure."
+    },
+    {
+      "id": "results",
+      "type": "highlight",
+      "label": "TAKEAWAYS",
+      "heading": "Lessons Learned",
+      "checklist": [
+        "Start small and iterate: big 'build everything' prompts are tempting but fragile. Small, modular steps with tests are far more reliable and compound over time.",
+        "Treat AI tools like junior collaborators, not magic. Some tools will happily overbuild, duplicate work, or drift from your architecture unless you enforce rules, reuse existing modules, and redirect as needed.",
+        "Stability and architecture matter. Reverting to a known-good commit and rebuilding with clear principles (versioning, clean interfaces, test coverage) is sometimes better than endlessly patching.",
+        "Design workflows for humans in the loop. Features like document previews and selectable chunking strategies acknowledge that users need control over ambiguous steps."
+      ],
+      "bottomLine": "AI accelerates the work when I build in small, testable slices, enforce clean interfaces, and keep humans in the loop so automation scales quality instead of chaos."
     }
   ]
 }
