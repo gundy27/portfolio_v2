@@ -42,6 +42,11 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
         <div className="container-wide pb-16">
           {isChatbotProject ? (
             <section className="pt-20 sm:pt-24 lg:pt-28">
+              <div className="mb-4">
+                <Link href="/" className="text-secondary hover:text-accent font-label text-xs">
+                  ← Back to Home
+                </Link>
+              </div>
               <SectionHeader
                 label={project.label ?? project.tags[0] ?? 'PROJECT'}
                 heading={project.title}
