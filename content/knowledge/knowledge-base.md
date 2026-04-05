@@ -11,6 +11,22 @@ Chunking guidance:
 
 ---
 
+reference: "About Me"
+image: ""
+tags: "background, info, history"
+
+---
+
+# About Me
+
+Name: Dan Gunderson
+
+- Lives In Southern California
+- Two Dogs and a Cat
+- Loves Golf, Surfing, Mountain Biking, Hiking, Photography
+
+---
+
 reference: "Work history overview: Companies and roles"
 image: ""
 tags: "work-history,overview,resume"
@@ -21,6 +37,7 @@ tags: "work-history,overview,resume"
 
 Companies Dan has worked at (most recent first):
 
+- Rebel Space - Product Advisor - Ran discovery efforts for new product line, built roadmap, and defined prototype requirements, 2025-2026
 - DataRobot — Senior Product Manager (multiple roles across Platform, Single-Tenant SaaS launch, Growth & Monetization), 2021–2025
 - Slingshot — Product Manager, Public Sector, 2019–2021
 - United States Air Force — Officer, Developmental Engineer, 2013–2019
@@ -95,7 +112,7 @@ tags: "work-history,datarobot,platform,security,infrastructure"
 
 ---
 
-# DataRobot — Platform Foundation
+## DataRobot — Platform Foundation
 
 - Role: Platform Product Manager, Cloud Infrastructure & Security
 - Timeline: 2021–2023
@@ -108,6 +125,8 @@ Key outcomes:
 - Shipped enterprise OAuth platform for LLM tools enabling governed access to internal knowledge repositories across 400+ enterprise customers
 - Plugged cross-tenant sharing vulnerability and paved the way for CMEK — that feature landed a seven-figure deal
 - Reduced feature flag inventory from 450+ to 250 flags; support tickets related to feature flags dropped from 6% to 3%
+- Led the evaluation and selection of an enterprise API Gateway to consolidate ingress across 12 routes; authored requirements, compared alternatives, and secured cross-functional buy-in.
+- Led a phased rollout of frozen runtime environments to ensure the prediction accuracy and uptime of production models for Fortune 100 and enterprise customers, achieving zero churn.
 
 Notable projects:
 
@@ -123,7 +142,7 @@ tags: "work-history,datarobot,process,discovery,jira"
 
 ---
 
-# DataRobot — Product Discovery Process
+## DataRobot — Product Discovery Process
 
 - Role: Senior Product Manager
 - Timeline: 2023–2024
@@ -457,29 +476,6 @@ tags: "project,audio,practice,side-project"
 
 ---
 
-# Mic Feedback
-
-What it was:
-A real-time microphone analysis web app for practicing vocal delivery. Provides live feedback on pitch, tempo, filler words, and audio levels — built to help with interview and presentation preparation.
-
-What I did:
-
-- Implemented real-time audio analysis using the Web Audio API
-- Built modular analysis panels: level meter, pitch detection, tempo tracking, and filler word identification
-- Created device selection for multiple microphone support
-
-Tech stack: React 18, TypeScript, Vite, Web Audio API
-
-Suggested image: Omit — experimental tool without polished visual.
-
----
-
-reference: "Project: Portfolio Website (gundy.io)"
-image: "/assets/projects/portfolio/site-screenshot.png"
-tags: "project,portfolio,frontend,design-system,side-project"
-
----
-
 # Portfolio Website — gundy.io
 
 What it was:
@@ -571,7 +567,6 @@ tags: "faq,job-search"
 - Designing growth systems (trial funnels, pricing models, entitlements, onboarding)
 - Building 0→1 products from discovery through launch
 - Working at the intersection of product, engineering, and business
-- Getting hands-on with prototyping and AI dev tools (Cursor, Claude Code, Bolt, Lovable)
 - Turning ambiguous problems into simple, intuitive experiences
 
 ---
@@ -583,11 +578,6 @@ tags: "faq,differentiation"
 ---
 
 # What Makes Dan Different
-
-Builder who ships, not just a slide-deck PM:
-
-- Builds production-grade side projects using AI dev tools (Cursor, Claude Code) — RAG pipelines, multi-agent systems, analytics platforms, full-stack web apps
-- This isn't hobby coding. Dan uses these tools to prototype faster, validate ideas, and deeply understand what engineers are building
 
 Growth PM with platform depth:
 
@@ -687,25 +677,13 @@ tags: "faq,strengths,personality"
 
 # Dan's Strengths — CliftonStrengths Profile
 
-Top 10 themes (in order):
+In a recent CliftonStrengths assessment, these are my top results, in order.
 
 1. Relator — Builds deep, genuine relationships; prefers working with people he knows and trusts
 2. Futuristic — Energized by what the future could be; inspires others with a compelling vision
 3. Significance — Driven to make meaningful impact and be recognized for contribution
 4. Focus — Prioritizes ruthlessly; can set a direction and follow through without distraction
 5. Discipline — Creates structure, routine, and order to manage complexity
-6. Activator — Bias for action; wants to start doing, not just planning
-7. Competition — Measures progress against the best; driven to win
-8. Strategic — Spots patterns and plays out alternatives quickly to find the best path forward
-9. Consistency — Values fairness and clear, repeatable processes
-10. Context — Looks backward to understand the present; learns from history and precedent
-
-How these show up in Dan's work:
-
-- Relator + Focus: Builds deep trust with eng teams and customers, then channels that into a focused roadmap
-- Futuristic + Activator: Envisions the end state (e.g., STS product line, entitlements platform) and moves fast to start building
-- Strategic + Discipline: Navigates ambiguity by spotting the best path, then structures execution with milestones and accountability
-- Competition + Significance: Sets audacious goals (100% provisioning automation, 3X trial conversion) and holds himself to them
 
 ---
 
@@ -734,24 +712,26 @@ Conflict navigation:
 Areas of growth (self-aware):
 
 - Tendency to take on too much — has learned to prioritize more ruthlessly
-- Earlier in career: analysis
+- Earlier in career: analysis paralysis
 - Not speaking up enough in large meetings
 - Has consciously developed a stronger voice and more opinionated stance over time
 
 ---
 
-reference: "FAQ: Dan's side project philosophy"
+reference: "Philosophy"
 image: ""
 tags: "faq,building,philosophy"
 
 ---
 
-# Why Dan Builds Side Projects
+# Builder Mentality
 
-Dan doesn't build side projects as a hobby — he builds them to sharpen his PM instincts and stay hands-on with the technology he manages.
+Dan doesn't build side projects as a hobby, he builds them to sharpen his PM instincts and stay hands-on with the technology he manages.
 
 Philosophy:
 
+- Be adaptable, evolve or die
+- Dan likes to work visually. Building a prototype for a flow allows him to get hands on and put himself in the perspective of the user faster. It also makes it easier to collaborate with others
 - "The best PMs understand what they're asking engineers to build." Dan prototypes with AI dev tools (Cursor, Claude Code) to develop deep intuition for feasibility, scope, and tradeoffs
 - Every side project solves a real problem: the vet dashboard replaced manual reporting, the resume writer automates his own job search, the RAG chatbot demonstrates his skills to portfolio visitors
 - Building in public creates artifacts that prove capability far better than interview stories alone
@@ -760,4 +740,26 @@ What this means for employers:
 
 - Dan can prototype and validate ideas faster than most PMs — he doesn't need to wait for eng capacity to test a concept
 - He brings firsthand experience with LLM systems (RAG, agents, embeddings, eval) to product conversations
-- He understands the developer experience because he lives it — from environment setup to deployment friction
+- He understands the developer experience because he lives it, from environment setup to deployment friction
+
+---
+
+reference: "What is Dan looking for"
+image: ""
+tags: "B2C, Growth, AI-enabled PM"
+
+---
+
+# What I'm looking for
+
+Fundamentally, I love to work with small groups of talented people to solve hard problems.
+
+I am always open to making connections and learning about opportunities.
+
+Specifically I am interested in:
+
+- B2C roles
+- Growth roles
+- Small teams
+- AI-native teams
+- Companies in productivity, health & wellness, outdoor, healthcare, defense industries

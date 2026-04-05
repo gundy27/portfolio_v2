@@ -111,9 +111,39 @@ export function ChatWidget({
   const [streamingSources, setStreamingSources] = React.useState<SourceChunk[] | undefined>(undefined)
   const [chatSettings, setChatSettings] = React.useState<ChatSettings | null>(null)
   const [hasSubmitted, setHasSubmitted] = React.useState(false)
+  const [apiStatus, setApiStatus] = React.useState<"unknown" | "ok" | "degraded" | "unhealthy">("unknown")
+  const scrollContainerRef = React.useRef<HTMLDivElement>(null)
+
+  // biome-ignore lint/correctness/useExhaustiveDependencies: intentional scroll trigger
+  React.useEffect(() => {
+    const el = scrollContainerRef.current
+    if (el) el.scrollTop = el.scrollHeight
+  }, [messages, streamingText])
 
   // Single shared user_id so the knowledge base and message logs are queryable/admin-viewable.
   const userId = process.env.NEXT_PUBLIC_CHATBOT_USER_ID ?? "gundy_io_public"
+
+  React.useEffect(() => {
+    let cancelled = false
+    const poll = async () => {
+      try {
+        const res = await fetch(`${baseUrl}/health`, { cache: "no-store" })
+        if (cancelled) return
+        if (!res.ok) { setApiStatus("unhealthy"); return }
+        const data = (await res.json()) as { status?: string }
+        if (cancelled) return
+        const s = data.status
+        if (s === "ok" || s === "healthy") setApiStatus("ok")
+        else if (s === "degraded") setApiStatus("degraded")
+        else setApiStatus("unhealthy")
+      } catch {
+        if (!cancelled) setApiStatus("unhealthy")
+      }
+    }
+    void poll()
+    const id = setInterval(poll, 30_000)
+    return () => { cancelled = true; clearInterval(id) }
+  }, [baseUrl])
 
   React.useEffect(() => {
     let cancelled = false
@@ -312,7 +342,19 @@ export function ChatWidget({
         hasSubmitted ? "h-[600px] max-h-[80vh]" : "min-h-[420px]",
       ].join(" ")}
     >
-      <div className="flex-1 min-h-0 px-5 py-4 space-y-4 overflow-y-auto">
+      <div ref={scrollContainerRef} className="flex-1 min-h-0 px-5 py-4 space-y-4 overflow-y-auto">
+        <div className="sticky top-0 z-10 flex items-center gap-1.5 text-[10px] text-gray-400 pointer-events-none select-none">
+          <span
+            className={`inline-block h-1.5 w-1.5 rounded-full ${
+              apiStatus === "ok"
+                ? "bg-green-500"
+                : apiStatus === "degraded"
+                  ? "bg-yellow-500"
+                  : "bg-red-500"
+            }`}
+          />
+          API Service
+        </div>
         {messages.map((m) => (
           <div key={m.id} className={m.role === "user" ? "flex justify-end" : "flex justify-start"}>
             <div
@@ -332,7 +374,7 @@ export function ChatWidget({
                 <details className="mt-3 pt-3 border-t border-gray-200 group">
                   <summary className="cursor-pointer list-none select-none text-xs font-semibold text-secondary uppercase tracking-wide focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-accent)] rounded">
                     <div className="flex items-center justify-between gap-3">
-                      <span>Sources ({m.sources.length})</span>
+                      <span>Sources ({Math.min(m.sources.length, 3)})</span>
                       <span className="inline-flex items-center gap-2">
                         <ChevronDown
                           className="h-4 w-4 text-secondary transition-transform duration-200 group-open:rotate-180"
@@ -343,7 +385,7 @@ export function ChatWidget({
                     </div>
                   </summary>
                   <div className="mt-2 space-y-2">
-                    {m.sources.map((s, i) => (
+                    {m.sources.slice(0, 3).map((s, i) => (
                       <details
                         key={`${s.chunk_id}-${i}`}
                         className="rounded-lg border border-gray-200 bg-white p-2"
@@ -395,6 +437,7 @@ export function ChatWidget({
             </div>
           </div>
         ) : null}
+
       </div>
 
       <form onSubmit={onSubmit} className="mt-auto px-4 sm:px-5 py-4 border-t border-gray-200 bg-white">
@@ -422,8 +465,16 @@ export function ChatWidget({
           </button>
         </div>
         <div className="mt-2 text-xs text-secondary">
-          Tip: If the answer says it can&apos;t find anything relevant, that means it&apos;s not in the knowledge
-          base. Try a different question or contact Dan directly.
+          Tip: Start with high level questions first and drill down from there. If the answer says it can&apos;t find anything relevant, it is not in the knowledge base. Try a different question or ask me directly{" "}
+          <a
+            href="https://mail.google.com/mail/?view=cm&fs=1&to=dan@gundy.io&su=Intro"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="underline text-[var(--color-accent)] hover:text-[var(--color-accent-dark)]"
+          >
+            here
+          </a>
+          .
         </div>
       </form>
     </section>
