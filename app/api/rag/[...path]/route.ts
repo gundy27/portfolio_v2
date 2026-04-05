@@ -61,6 +61,10 @@ async function proxy(request: Request, ctx: { params: Promise<{ path?: string[] 
 
   const resHeaders = new Headers(upstreamRes.headers)
   for (const h of HOP_BY_HOP_RESPONSE_HEADERS) resHeaders.delete(h)
+  // Node's fetch auto-decompresses the body, so the raw bytes no longer match
+  // the original content-encoding. Drop it to avoid ERR_CONTENT_DECODING_FAILED.
+  resHeaders.delete("content-encoding")
+  resHeaders.delete("content-length")
   // Safer default for APIs + SSE.
   if (!resHeaders.has("cache-control")) resHeaders.set("cache-control", "no-store")
 
