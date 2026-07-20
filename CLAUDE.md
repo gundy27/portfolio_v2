@@ -89,4 +89,4 @@ The root `tsconfig.json` uses path alias `@/*` → root. The `chatbot/` and `ven
 ## Deployment
 
 - **Frontend**: Vercel (auto-deploys from `main` branch at gundy.io)
-- **RAG API**: Docker-ready, designed for Render with a persistent disk mounted at `/data`
+- **RAG API**: Docker-ready. Runs on Google Cloud Run (scale-to-zero, $0/month), with `GCS_DATA_BUCKET` set so `app/gcs_sync.py` syncs `/data` (vector store + metadata db) to a GCS bucket, since Cloud Run has no persistent disk — see `services/rag-api/README.md`

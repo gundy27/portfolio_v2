@@ -1,0 +1,35 @@
+# Used by `gcloud builds submit` when building the rag-api image from the repo
+# root. Explicit on purpose (rather than relying on gcloud's .gitignore-based
+# default), since that default is git-aware and can silently drop the actual
+# contents of the vendor/ai-utils git submodule, which this build needs.
+
+node_modules
+chatbot/node_modules
+.next
+chatbot/.next
+.git
+.env
+.env.local
+.env*.local
+*.tsbuildinfo
+playwright-report
+test-results
+.npm-cache
+
+# Local-only RAG data; runtime restores this from GCS instead (see app/gcs_sync.py).
+services/rag-api/vector_db/
+services/rag-api/metadata.db
+services/rag-api/*.db
+services/rag-api/.pytest_cache
+
+**/__pycache__
+**/*.pyc
+
+# Unrelated top-level app source not needed to build the rag-api image.
+# (leading slash anchors these to the repo root so they don't also match
+# services/rag-api/app/)
+/app/
+/components/
+/content/
+/public/
+/lib/

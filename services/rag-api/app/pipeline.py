@@ -95,7 +95,7 @@ class RAGPipeline:
         load_dotenv(override=False)
 
         # Ensure the vector DB directory exists (important for containerized deploys
-        # with a mounted persistent disk, e.g. Render at /data).
+        # using /data as scratch space, e.g. Cloud Run).
         try:
             persist_dir = Path(vector_db_path)
             if persist_dir.exists() and not persist_dir.is_dir():

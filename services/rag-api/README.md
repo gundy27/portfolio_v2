@@ -57,7 +57,7 @@ If you deploy the API with **multiple replicas/instances** without shared storag
 Recommended production configuration:
 
 - **Run a single instance** *or* move to a shared/remote vector store + metadata DB.
-- If your platform supports it (e.g. Render), **mount a persistent disk** and set:
+- If your platform supports it, **mount a persistent disk** and set:
 
 ```bash
 VECTOR_DB_PATH=/data/vector_db
@@ -262,12 +262,19 @@ Environment variables (see `env.example`):
 | `METADATA_DB_URL`      | `sqlite+aiosqlite:...`   | Metadata database URL    |
 | `DEFAULT_CHAT_MODEL`   | `gpt-4o-mini`            | Default LLM for chat     |
 
-## Render persistence (recommended)
+## Google Cloud Run persistence
 
-If deploying to Render with a persistent disk mounted at `/data`, set:
+Cloud Run has no persistent disk and wipes local storage on every cold start (the
+whole point of scaling to zero for a $0/month deploy). To survive that, set:
 
 - `VECTOR_DB_PATH=/data/vector_db`
 - `METADATA_DB_URL=sqlite+aiosqlite:////data/metadata.db`
+- `GCS_DATA_BUCKET=<your-bucket-name>`
+
+With `GCS_DATA_BUCKET` set, `app/gcs_sync.py` downloads `vector_db/` and
+`metadata.db` from that bucket on startup, then syncs changes back every
+`GCS_SYNC_INTERVAL_SECONDS` (default 60) and immediately after ingest/delete.
+Leave `GCS_DATA_BUCKET` unset for local dev — sync becomes a no-op.
 
 ## Testing
 
@@ -289,9 +296,11 @@ poetry run pytest tests/test_api.py::test_ingest_and_search
 # Run with auto-reload
 poetry run uvicorn app.main:app --reload --host 0.0.0.0 --port 8000
 
-# Run in Docker
-docker build -t rag-api .
-docker run -p 8000:8000 -e OPENAI_API_KEY="your-key" rag-api
+# Run in Docker (build context must be the repo root — the gundy-ai-*
+# dependencies are path deps into vendor/ai-utils, a sibling of this directory)
+cd ../..
+docker build -f services/rag-api/Dockerfile -t rag-api .
+docker run -p 8000:8000 -e PORT=8000 -e OPENAI_API_KEY="your-key" rag-api
 ```
 
 ## Production Deployment

@@ -68,3 +68,4 @@ services/rag-api/*.db
 .pytest_cache/
 
 node_modules
+.env*

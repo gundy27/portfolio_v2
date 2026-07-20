@@ -1,0 +1,34 @@
+# Used when building the rag-api image from the repo root:
+#   docker build -f services/rag-api/Dockerfile -t rag-api .
+# Only vendor/ai-utils and services/rag-api are actually needed for that build.
+
+node_modules
+chatbot/node_modules
+.next
+chatbot/.next
+.git
+.env
+.env.local
+.env*.local
+*.tsbuildinfo
+playwright-report
+test-results
+.npm-cache
+
+# Local-only RAG data; runtime restores this from GCS instead (see app/gcs_sync.py).
+services/rag-api/vector_db/
+services/rag-api/metadata.db
+services/rag-api/*.db
+services/rag-api/.pytest_cache
+
+**/__pycache__
+**/*.pyc
+
+# Unrelated top-level app source not needed to build the rag-api image.
+# (leading slash anchors these to the repo root so they don't also match
+# services/rag-api/app/)
+/app/
+/components/
+/content/
+/public/
+/lib/

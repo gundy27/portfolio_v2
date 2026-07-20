@@ -1,5 +1,6 @@
 """RAG API main application."""
 
+import asyncio
 import json
 import os
 import socket
@@ -12,6 +13,7 @@ from fastapi import FastAPI, File, Form, Header, HTTPException, Query, UploadFil
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import JSONResponse, StreamingResponse
 
+from . import gcs_sync
 from .config import settings
 from .models import (
     ChatRequest,
@@ -28,6 +30,12 @@ from .pipeline import RAGPipeline
 from .settings_store import SettingsStore
 
 logger = structlog.get_logger(__name__)
+
+METADATA_DB_PATH = gcs_sync.metadata_db_path_from_url(settings.metadata_db_url)
+
+# Restore vector_db/ and metadata.db from GCS (if GCS_DATA_BUCKET is set) before
+# anything below reads them. Must run before SettingsStore opens metadata.db.
+gcs_sync.sync_down(settings.vector_db_path, METADATA_DB_PATH)
 
 # Initialize FastAPI app
 app = FastAPI(
@@ -50,6 +58,26 @@ app.add_middleware(
 # Global pipeline instance
 pipeline: RAGPipeline | None = None
 settings_store = SettingsStore(settings.metadata_db_url)
+_gcs_sync_task: "asyncio.Task | None" = None
+_background_tasks: set = set()
+
+
+async def _sync_up_now() -> None:
+    """Run the (blocking) GCS upload off the event loop."""
+    await asyncio.to_thread(gcs_sync.sync_up, settings.vector_db_path, METADATA_DB_PATH)
+
+
+def _sync_up_in_background() -> None:
+    """Fire-and-forget sync_up that survives GC (asyncio only holds a weak ref)."""
+    task = asyncio.create_task(_sync_up_now())
+    _background_tasks.add(task)
+    task.add_done_callback(_background_tasks.discard)
+
+
+async def _periodic_gcs_sync() -> None:
+    while True:
+        await asyncio.sleep(gcs_sync.SYNC_INTERVAL_SECONDS)
+        await _sync_up_now()
 
 
 def _assert_admin(x_admin_key: str | None) -> None:
@@ -97,6 +125,10 @@ async def startup_event():
     try:
         await _ensure_pipeline()
 
+        global _gcs_sync_task
+        if gcs_sync.BUCKET:
+            _gcs_sync_task = asyncio.create_task(_periodic_gcs_sync())
+
         logger.info("api_startup_complete")
     except Exception as e:
         logger.error("api_startup_failed", error=str(e))
@@ -107,6 +139,12 @@ async def startup_event():
 async def shutdown_event():
     """Cleanup on shutdown."""
     logger.info("api_shutdown")
+
+    if _gcs_sync_task is not None:
+        _gcs_sync_task.cancel()
+
+    # Best-effort final flush so state isn't lost between now and the next cold start.
+    await _sync_up_now()
 
 
 # Middleware for request logging
@@ -221,11 +259,7 @@ async def get_stats(corpus: Optional[str] = Query(default=None)) -> Dict[str, An
                 return f"{scheme}://{rest}"
             return raw
 
-        instance_id = (
-            os.getenv("RENDER_INSTANCE_ID")
-            or os.getenv("HOSTNAME")
-            or socket.gethostname()
-        )
+        instance_id = os.getenv("HOSTNAME") or socket.gethostname()
 
         stats = p.get_stats()
         if corpus:
@@ -309,7 +343,9 @@ async def ingest_document(
             metadata=metadata_dict,
         )
 
-        return DocumentIngestResponse(**result)
+        response = DocumentIngestResponse(**result)
+        _sync_up_in_background()
+        return response
 
     except ValueError as e:
         logger.warning("ingest_validation_error", error=str(e))
@@ -438,6 +474,7 @@ async def delete_document(document_id: str) -> Dict[str, Any]:
             for store in p.vector_stores.values():
                 store.delete(chunk_ids)
 
+        _sync_up_in_background()
         return {
             "document_id": document_id,
             "chunks_deleted": len(chunk_ids),
