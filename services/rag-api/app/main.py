@@ -452,7 +452,10 @@ async def list_documents(
 
 
 @app.delete("/documents/{document_id}")
-async def delete_document(document_id: str) -> Dict[str, Any]:
+async def delete_document(
+    document_id: str,
+    x_admin_key: str | None = Header(default=None, alias="X-Admin-Key"),
+) -> Dict[str, Any]:
     """Delete a document and all its chunks.
 
     Args:
@@ -461,6 +464,7 @@ async def delete_document(document_id: str) -> Dict[str, Any]:
     Returns:
         Deletion status
     """
+    _assert_admin(x_admin_key)
     p = await _ensure_pipeline()
 
     try:
@@ -469,10 +473,7 @@ async def delete_document(document_id: str) -> Dict[str, Any]:
 
         # Delete from vectorstore
         if chunk_ids:
-            # Chunks live in exactly one corpus collection, but we may not know
-            # which one here. Deleting from both is safe (missing IDs are OK).
-            for store in p.vector_stores.values():
-                store.delete(chunk_ids)
+            p.vector_store.delete(chunk_ids)
 
         _sync_up_in_background()
         return {
