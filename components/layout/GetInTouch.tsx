@@ -110,7 +110,7 @@ export function GetInTouch() {
             headingClassName="text-3xl sm:text-4xl lg:text-5xl"
           />
           <p className="text-body text-lg text-primary max-w-lg">
-          I’m currently open to senior product or growth roles, and I take on a small number of consulting engagements where I can have meaningful impact.
+          Open to part-time engagements.
           </p>
           
           {/* Action Items */}

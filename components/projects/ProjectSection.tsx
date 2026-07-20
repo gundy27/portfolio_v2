@@ -107,6 +107,7 @@ export function ProjectSection({ section }: { section: ProjectSectionType }) {
     return (
       <FullWidthSection width="wide">
         <div className="space-y-6">
+          <p className="text-xs text-secondary">Last Updated: July 20, 2026</p>
           <ChatWidget
             apiUrl={section.chatbot?.apiUrl}
             title={section.chatbot?.title}

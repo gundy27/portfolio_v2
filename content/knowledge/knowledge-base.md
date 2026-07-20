@@ -1,7 +1,7 @@
 <!--
 Dan Gunderson — RAG Knowledge Base
 Source documents: Resume, Interview Prep, CliftonStrengths Report, Mnookin Writeup, Project Repos
-Last updated: 2026-02-23
+Last updated: 2026-07-20
 
 Chunking guidance:
 - Each section delimited by "---" is one chunk
@@ -37,12 +37,34 @@ tags: "work-history,overview,resume"
 
 Companies Dan has worked at (most recent first):
 
-- Rebel Space - Product Advisor - Ran discovery efforts for new product line, built roadmap, and defined prototype requirements, 2025-2026
+- Sandboxx Inc. — Product Manager, Waypoints — Leading product development for an AI-powered career development app for active duty service members, Apr 2026–Present
+- Rebel Space — Product Advisor (Contract) — Shaped product requirements and GTM strategy for a diffusion-based synthetic data platform, Oct 2025–Apr 2026
 - DataRobot — Senior Product Manager (multiple roles across Platform, Single-Tenant SaaS launch, Growth & Monetization), 2021–2025
 - Slingshot — Product Manager, Public Sector, 2019–2021
 - United States Air Force — Officer, Developmental Engineer, 2013–2019
 
-If you want more detail, ask about a specific company (DataRobot, Slingshot, Air Force) or a specific role area (growth, pricing, platform/security, 0→1 launches).
+If you want more detail, ask about a specific company (Sandboxx, Rebel Space, DataRobot, Slingshot, Air Force) or a specific role area (growth, pricing, platform/security, 0→1 launches).
+
+---
+
+reference: "Work history: Sandboxx Inc. (Product Manager, Waypoints, 2026–Present)"
+image: ""
+tags: "work-history,sandboxx,waypoints,ai,current,military"
+
+---
+
+# Sandboxx Inc. — Product Manager, Waypoints
+
+- Role: Product Manager, Waypoints
+- Timeline: Apr 2026–Present
+- Scope: AI-powered career development application for active duty service members
+
+What I'm doing:
+
+- Leading product development for Waypoints
+- Architecting core product features including promotion eligibility calculators, fitness assessment scoring, and an ingestion pipeline for automated military content distribution
+
+This is Dan's current full-time role.
 
 ---
 
@@ -63,7 +85,7 @@ Key outcomes:
 - Drove 3X increase in trial-to-paid conversions by redesigning the signup, provisioning, and activation funnel
 - Trial grew to 2,500+ MAU and became a valuable lead-gen pipeline; accounts with 3+ users were 5X more likely to convert
 - Designed entitlements management framework that mitigated $500K+ in annual revenue leakage and enabled reverse-trial capability for premium feature exploration
-- Created natural upsell moments through entitlements that drove 3% expansion in ARPU
+- Created natural upsell moments through entitlements that drove 3% expansion in ARPU, while reducing feature-access support tickets by 50%
 
 Notable projects:
 
@@ -123,7 +145,8 @@ Key outcomes:
 - Obtained C-suite approval to overhaul enterprise data security policies across 19K+ users, aligning engineering, sales, data science, and support leaders
 - Delivered secure credential-sharing system that resolved key customer security objections, onboarded 200+ users, and evolved into a core platform feature supporting a dozen credential types
 - Shipped enterprise OAuth platform for LLM tools enabling governed access to internal knowledge repositories across 400+ enterprise customers
-- Plugged cross-tenant sharing vulnerability and paved the way for CMEK — that feature landed a seven-figure deal
+- Plugged cross-tenant sharing vulnerability and paved the way for CMEK — cited as the deciding factor in a $700K customer win
+- Led zero-downtime migration off a fragile homegrown identity service to a scalable auth platform, eliminating recurring production incidents that impacted enterprise login reliability
 - Reduced feature flag inventory from 450+ to 250 flags; support tickets related to feature flags dropped from 6% to 3%
 - Led the evaluation and selection of an enterprise API Gateway to consolidate ingress across 12 routes; authored requirements, compared alternatives, and secured cross-functional buy-in.
 - Led a phased rollout of frozen runtime environments to ensure the prediction accuracy and uptime of production models for Fortune 100 and enterprise customers, achieving zero churn.
@@ -358,7 +381,7 @@ Suggested image: Dashboard screenshot showing growth metrics visualizations (fun
 
 ---
 
-reference: "Project: Vet Clinic Dashboard (North Hills Animal Hospital)"
+reference: "Project: Vet Clinic Dashboard"
 image: "/assets/projects/vet-dashboard/dashboard-screenshot.png"
 tags: "project,analytics,etl,data,veterinary,advisor,side-project"
 
@@ -367,7 +390,7 @@ tags: "project,analytics,etl,data,veterinary,advisor,side-project"
 # Vet Clinic Dashboard
 
 What it was:
-A BI dashboard for a veterinary practice (North Hills Animal Hospital, where Dan is a limited partner) that replaced manual reporting with automated ETL, config-driven metrics, and interactive visualizations. Processes EzyVet practice management exports into actionable KPIs.
+A BI dashboard for a veterinary practice that replaced manual reporting with automated ETL, config-driven metrics, and interactive visualizations. Processes EzyVet practice management exports into actionable KPIs.
 
 What I did:
 
@@ -403,7 +426,7 @@ tags: "project,automation,n8n,veterinary,advisor,side-project"
 # Vet Lead Engine
 
 What it was:
-An automated lead generation and management system for veterinary practices using n8n workflow automation, PostgreSQL, and Gmail OAuth integration. Designed to capture, qualify, and nurture prospective pet-owner leads for North Hills Animal Hospital.
+An automated lead generation and management system for veterinary practices using n8n workflow automation, PostgreSQL, and Gmail OAuth integration. Designed to capture, qualify, and nurture prospective pet-owner leads for a veterinary practice.
 
 What I did:
 
@@ -499,41 +522,23 @@ Suggested image: A hero screenshot of the gundy.io landing page. Clean, modern, 
 
 ---
 
-reference: "Advisor Role: North Hills Animal Hospital"
+reference: "Advisor Role: Rebel Space (completed, Oct 2025–Apr 2026)"
 image: ""
-tags: "advisor,veterinary,growth,analytics"
-
----
-
-# Advisor: North Hills Animal Hospital — Limited Partner
-
-What it is:
-Dan is a limited partner at North Hills Animal Hospital where he leads digital acquisition and retention initiatives to drive patient growth and recurring revenue.
-
-What I do:
-
-- Built the BI dashboard that replaced manual reporting (see Vet Clinic Dashboard project)
-- Built automated lead generation engine using n8n and Gmail integration
-- Lead digital marketing strategy and patient acquisition analytics
-- Apply growth PM skills (funnel analysis, retention metrics, CAC optimization) to a brick-and-mortar business
-
----
-
-reference: "Advisor Role: Rebel Space"
-image: ""
-tags: "advisor,startup,gtm"
+tags: "advisor,startup,gtm,completed"
 
 ---
 
 # Advisor: Rebel Space
 
-What it is:
-Shaping product and GTM strategy for a synthetic time-series data generation tool.
+What it was:
+A contract Product Advisor engagement (Oct 2025–Apr 2026) shaping product requirements and GTM strategy for a diffusion-based synthetic data platform that orchestrates distributed ML training jobs across MLflow, model registry state, and multi-stage generation pipelines.
 
-What I do:
+What I did:
 
 - Led 10+ discovery calls to validate product hypotheses and identify highest-value use cases
-- Helping define positioning, ICP, and go-to-market motion
+- Defined positioning, ICP, and go-to-market motion
+
+This engagement concluded when Dan started at Sandboxx Inc.
 
 ---
 
